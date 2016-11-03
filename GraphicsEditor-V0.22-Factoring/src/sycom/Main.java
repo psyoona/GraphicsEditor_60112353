@@ -8,5 +8,6 @@ public class Main {
 		MainFrame mainFrame = new MainFrame();
 		mainFrame.initialize();
 		mainFrame.setVisible(true);
+		System.out.println("Commit Test");
 	}
 }
