@@ -8,18 +8,18 @@ import javax.swing.ImageIcon;
 import javax.swing.JRadioButton;
 import javax.swing.JToolBar;
 
-import constants.Constants.EToolBarButton;
+import constants.GConstants.EToolBarButton;
 
-public class ToolBar extends JToolBar {
+public class GToolBar extends JToolBar {
 	private static final long serialVersionUID = 1L;
 	
 	// association	
-	private DrawingPanel drawingPanel;
-	public void setDrawingPanel(DrawingPanel drawingPanel) {
+	private GDrawingPanel drawingPanel;
+	public void setDrawingPanel(GDrawingPanel drawingPanel) {
 		this.drawingPanel = drawingPanel;
 	}
 	
-	public ToolBar() {
+	public GToolBar() {
 		ButtonGroup buttonGroup = new ButtonGroup();
 		ActionHandler actionHandler = new ActionHandler();
 		
@@ -35,11 +35,19 @@ public class ToolBar extends JToolBar {
 		}
 	}
 	
+	public void initialize() {
+		JRadioButton button = (JRadioButton) this.getComponentAtIndex(EToolBarButton.rectangle.ordinal());
+		button.doClick();
+	}
+	
 	public class ActionHandler implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			drawingPanel.setESelectedTool(
-			EToolBarButton.valueOf(e.getActionCommand()));
+//			drawingPanel.setESelectedTool(
+//			EToolBarButton.valueOf(e.getActionCommand()));
+			
+			drawingPanel.setSelectedShape(
+					EToolBarButton.valueOf(e.getActionCommand()).getShape());
 			
 		}
 	}

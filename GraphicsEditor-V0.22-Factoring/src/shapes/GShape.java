@@ -2,14 +2,38 @@ package shapes;
 
 import java.awt.Graphics2D;
 
-import constants.Constants;
+import constants.GConstants.EDrawingType;
 
 abstract public class GShape {
-	protected int x, y, w, h;
+	private EDrawingType eDrawingType;
+	protected int x, y, width, height;
+	protected int startX, startY, finX, finY;
 	protected int[] xArray, yArray;
 	protected String name;
 	
-	abstract public String getName();
+	abstract public void initDrawing(int x, int y, Graphics2D g2D);
+	abstract public void keepDrawing(int x, int y, Graphics2D g2D);
+	abstract public void finishDrawing(int x, int y, Graphics2D g2D);
+	abstract public void draw(Graphics2D g2d);
+
+	public EDrawingType geteDrawingType() {	return eDrawingType;}
+	
+	public GShape(EDrawingType eDrawingType){
+		this.eDrawingType = eDrawingType;
+	}
+	
+	public GShape clone() {
+		try {
+			return this.getClass().newInstance();
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public String getName() {
+		return name;
+	}
 
 	public void setName(String name) {
 		this.name = name;
@@ -31,20 +55,20 @@ abstract public class GShape {
 		this.y = y;
 	}
 
-	public int getW() {
-		return w;
+	public int getWidth() {
+		return width;
 	}
 
-	public void setW(int w) {
-		this.w = w;
+	public void setWidth(int width) {
+		this.width = width;
 	}
 
-	public int getH() {
-		return h;
+	public int getHeight() {
+		return height;
 	}
 
-	public void setH(int h) {
-		this.h = h;
+	public void setHeight(int height) {
+		this.height = height;
 	}
 
 	public void setLocation(int x, int y) {
@@ -53,9 +77,9 @@ abstract public class GShape {
 
 	}
 
-	public void setDimension(int w, int h) {
-		this.w = w;
-		this.h = h;
+	public void setDimension(int width, int height) {
+		this.width = width;
+		this.height = height;
 	}
 	
 
@@ -73,36 +97,5 @@ abstract public class GShape {
 
 	public void setxArray(int[] xArray) {
 		this.xArray = xArray;
-	}
-	
-	// 그리는 과정을 보여줄 메소드
-	public void draw(Graphics2D g2D, int startX, int startY, int width, int height) {
-		// TODO Auto-generated method stub
-		GShape figure;
-		try {
-			if(this.getName().equals(Constants.RECTANGLE)){
-				figure = new GRectangle();
-				figure.draw(g2D, startX, startY, width, height);
-			}else if(this.getName().equals(Constants.ELLIPSE)){
-				figure = new GEllipse();
-				figure.draw(g2D, startX, startY, width, height);
-			}else if(this.getName().equals(Constants.LINE)){
-				figure = new GLine();
-				figure.draw(g2D, startX, startY, width, height);
-			}else if(this.getName().equals(Constants.POLYGON)){
-				figure = new GPolygon();
-				figure.draw(g2D, startX, startY, width, height);
-			}else{
-				
-			}
-			
-		}catch(NullPointerException Ne){
-			System.out.println("Null Pointer Exception");
-		}catch(StackOverflowError se){
-			System.out.println("Stack over Flow");
-		}catch(Exception e){
-			System.out.println("Exception e");
-		}
-		
 	}
 }

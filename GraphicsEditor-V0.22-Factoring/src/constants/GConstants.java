@@ -1,6 +1,12 @@
 package constants;
 
-public class Constants {
+import shapes.GEllipse;
+import shapes.GLine;
+import shapes.GPolygon;
+import shapes.GRectangle;
+import shapes.GShape;
+
+public class GConstants {
 	//JFrame Attributes
 	public final static String MAINFRAME_TITLE = "Graphics Editor";
 	public final static String FILEMENU_TITLE = "File";
@@ -34,6 +40,10 @@ public class Constants {
 		public int getValue(){ return this.value; }
 		// 클래스의 형태 끝
 		
+	}
+	
+	public static enum EDrawingType {
+		TP, NP;
 	}
 	
 	public static enum EFileMenuItem {
@@ -84,25 +94,24 @@ public class Constants {
 	}
 	
 	public static enum EToolBarButton{
-		rectangle("rsc/rectangle.jpg", "rsc/rectangleSLT.jpg", RECTANGLE),
-		ellipse("rsc/ellipse.jpg", "rsc/ellipseSLT.jpg", ELLIPSE),
-		line("rsc/line.jpg", "rsc/lineSLT.jpg", LINE),
-		polygon("rsc/polygon.jpg", "rsc/polygonSLT.jpg", POLYGON);
+		rectangle("rsc/rectangle.jpg", "rsc/rectangleSLT.jpg", RECTANGLE, new GRectangle()),
+		ellipse("rsc/ellipse.jpg", "rsc/ellipseSLT.jpg", ELLIPSE, new GEllipse()),
+		line("rsc/line.jpg", "rsc/lineSLT.jpg", LINE, new GLine()),
+		polygon("rsc/polygon.jpg", "rsc/polygonSLT.jpg", POLYGON, new GPolygon());
 		
 		private String iconName;
 		private String selectedIconName;
+		private GShape shape;
 		
-		private EToolBarButton(String iconName, String selectedIconName, String name){
+		private EToolBarButton(String iconName, String selectedIconName, 
+				String name, GShape shape){
 			this.iconName = iconName;
 			this.selectedIconName = selectedIconName;
+			this.shape = shape;
 		}
 		
-		public String getIconName(){
-			return this.iconName;
-		}
-		
-		public String getSelectedIconNames(){
-			return this.selectedIconName;
-		}
+		public String getIconName(){ return this.iconName; }
+		public String getSelectedIconNames(){ return this.selectedIconName; }
+		public GShape getShape() { return this.shape; }
 	}
 }

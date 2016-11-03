@@ -1,13 +1,12 @@
 package sycom;
 
-import frame.MainFrame;
+import frame.GMainFrame;
 
-public class Main {
+public class GMain {
 	public static void main(String[] args){
 		// object name & body created & bound
-		MainFrame mainFrame = new MainFrame();
+		GMainFrame mainFrame = new GMainFrame();
 		mainFrame.initialize();
 		mainFrame.setVisible(true);
-		System.out.println("Commit Test");
 	}
 }
