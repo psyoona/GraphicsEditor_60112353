@@ -17,8 +17,6 @@ public class Constants {
 	public final static String LINE = "Line";
 	public final static String POLYGON = "Polygon";
 	
-	// 방법2 : Enumalation Type
-	// 과제 : 스캐너를 해봐라?
 	public static enum EMainFrame{
 		X(100),
 		Y(100),
