@@ -3,6 +3,9 @@ package shapes;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 import java.io.Serializable;
+import java.util.Vector;
+
+import javax.swing.JPanel;
 
 import constants.GConstants.EDrawingType;
 import sycom.GSwap;
@@ -60,5 +63,23 @@ public class GLine extends GShape implements Serializable{
 	@Override
 	public void finishDrawing(int x, int y, Graphics2D g2d) {
 		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void init(Vector<GShape> shapeVector, JPanel panel) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void changePointShape(int x, int y, Graphics2D g2D) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void clickShape(int x, int y, Graphics2D g2d) {
+		// TODO Auto-generated method stub
+		
 	}
 }

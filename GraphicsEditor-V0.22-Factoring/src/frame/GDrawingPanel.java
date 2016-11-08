@@ -14,24 +14,19 @@ import javax.swing.event.MouseInputListener;
 
 import constants.GConstants.EDrawingType;
 import constants.GConstants.EMainFrame;
-import constants.GConstants.EToolBarButton;
-import shapes.GEllipse;
-import shapes.GLine;
-import shapes.GPolygon;
-import shapes.GRectangle;
 import shapes.GShape;
 import sycom.GSwap;
 
 public class GDrawingPanel extends JPanel {
 	private enum EState {
-		idleTP, idleNP, drawingTP, drawingNP
+		idleTP, idleNP, drawingTP, drawingNP, move
 	};
 
 	// attributes
 	private static final long serialVersionUID = 1L;
 
 	// working variables
-	private Vector<GShape> shapeVector;
+	private Vector<GShape> shapeVector = new Vector<GShape>();;
 
 	// working Objects;
 	private GShape currentShape;
@@ -48,7 +43,7 @@ public class GDrawingPanel extends JPanel {
 	Cursor normalCursor;
 
 	public GDrawingPanel() {
-		shapeVector = new Vector<GShape>();
+		//shapeVector = new Vector<GShape>();
 		hourglassCursor = new Cursor(Cursor.MOVE_CURSOR);
 		normalCursor = new Cursor(Cursor.DEFAULT_CURSOR);
  
@@ -69,9 +64,14 @@ public class GDrawingPanel extends JPanel {
 
 	public void setSelectedShape(GShape selectedShape) {
 		this.selectedShape = selectedShape;
+		System.out.println(this.selectedShape.geteDrawingType());
 		switch (this.selectedShape.geteDrawingType()) {
-			case TP: eState = EState.idleTP; break;
-			case NP: eState = EState.idleNP; break;
+			case TP: eState = EState.idleTP;
+			break;
+			case NP: eState = EState.idleNP;
+			break;
+			case CHOICE: eState = EState.move; 
+			break;
 		}
 	}
 
@@ -79,26 +79,6 @@ public class GDrawingPanel extends JPanel {
 	public void paint(Graphics g) {
 		for (GShape shape : this.shapeVector) {
 			shape.draw((Graphics2D) g);
-		}
-	}
-
-	public void setESelectedTool(EToolBarButton eToolBarButton) {
-
-		switch (eToolBarButton) {
-		case rectangle:
-			this.currentShape = new GRectangle();
-			break;
-		case ellipse:
-			this.currentShape = new GEllipse();
-			break;
-		case line:
-			this.currentShape = new GLine();
-			break;
-		case polygon:
-			this.currentShape = new GPolygon();
-			break;
-		default:
-			break;
 		}
 	}
 
@@ -125,12 +105,22 @@ public class GDrawingPanel extends JPanel {
 	}
 
 	private void changePointShape(int x, int y) {
-		for (GShape shape : this.shapeVector) {
-			if (shape.contains(x, y)) {
-				setCursor(hourglassCursor);
-			} else {
-				setCursor(normalCursor);
-			}
+		try{
+			g2D = (Graphics2D) getGraphics();
+			this.selectedShape.init(shapeVector, panel);
+			this.selectedShape.changePointShape(x, y, g2D);
+		}catch(NullPointerException ne){
+			
+		}
+	}
+	
+	private void clickShape(int x, int y){
+		try{
+			g2D = (Graphics2D) getGraphics();
+			this.selectedShape.init(shapeVector, panel);
+			this.selectedShape.clickShape(x, y, g2D);
+		}catch(NullPointerException ne){
+			
 		}
 	}
 
@@ -165,6 +155,8 @@ public class GDrawingPanel extends JPanel {
 			if (eState == EState.idleTP) {
 				initDrawing(e.getX(), e.getY());
 				eState = EState.drawingTP;
+			}else if(eState == EState.move){
+				clickShape(e.getX(), e.getY());
 			}
 		}
 
@@ -180,7 +172,7 @@ public class GDrawingPanel extends JPanel {
 		public void mouseMoved(MouseEvent e) {
 			if (eState == EState.drawingNP) {
 				//keepDrawing(e.getX(), e.getY());
-			} else if (eState == EState.idleTP) {
+			} else if (eState == EState.move) {
 				changePointShape(e.getX(), e.getY());
 			}
 		}

@@ -1,5 +1,6 @@
 package constants;
 
+import shapes.GCross;
 import shapes.GEllipse;
 import shapes.GLine;
 import shapes.GPolygon;
@@ -18,13 +19,6 @@ public class GConstants {
 	public final static String EDIT_DEL = "Delete";
 	public final static String EDIT_UNDO = "UnDo";
 	
-	public final static String RECTANGLE = "Rectangle";
-	public final static String ELLIPSE = "Ellipse";
-	public final static String LINE = "Line";
-	public final static String POLYGON = "Polygon";
-	
-	// 방법2 : Enumalation Type
-	// 과제 : 스캐너를 해봐라?
 	public static enum EMainFrame{
 		X(100),
 		Y(100),
@@ -43,7 +37,7 @@ public class GConstants {
 	}
 	
 	public static enum EDrawingType {
-		TP, NP;
+		TP, NP, CHOICE;
 	}
 	
 	public static enum EFileMenuItem {
@@ -94,17 +88,18 @@ public class GConstants {
 	}
 	
 	public static enum EToolBarButton{
-		rectangle("rsc/rectangle.jpg", "rsc/rectangleSLT.jpg", RECTANGLE, new GRectangle()),
-		ellipse("rsc/ellipse.jpg", "rsc/ellipseSLT.jpg", ELLIPSE, new GEllipse()),
-		line("rsc/line.jpg", "rsc/lineSLT.jpg", LINE, new GLine()),
-		polygon("rsc/polygon.jpg", "rsc/polygonSLT.jpg", POLYGON, new GPolygon());
+		rectangle("rsc/rectangle.jpg", "rsc/rectangleSLT.jpg", new GRectangle()),
+		ellipse("rsc/ellipse.jpg", "rsc/ellipseSLT.jpg", new GEllipse()),
+		line("rsc/line.jpg", "rsc/lineSLT.jpg", new GLine()),
+		polygon("rsc/polygon.jpg", "rsc/polygonSLT.jpg", new GPolygon()),
+		cross("rsc/cross.jpg", "rsc/crossSLT.jpg", new GCross());
 		
 		private String iconName;
 		private String selectedIconName;
 		private GShape shape;
 		
 		private EToolBarButton(String iconName, String selectedIconName, 
-				String name, GShape shape){
+				GShape shape){
 			this.iconName = iconName;
 			this.selectedIconName = selectedIconName;
 			this.shape = shape;

@@ -3,6 +3,9 @@ package shapes;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.io.Serializable;
+import java.util.Vector;
+
+import javax.swing.JPanel;
 
 import constants.GConstants.EDrawingType;
 import sycom.GSwap;
@@ -11,7 +14,6 @@ public class GEllipse extends GShape implements Serializable{
 	private static final long serialVersionUID = 1L;
 	GSwap swap;
 	Ellipse2D.Double ellipse;
-	
 	
 	public GEllipse(){
 		super(EDrawingType.TP);
@@ -48,7 +50,7 @@ public class GEllipse extends GShape implements Serializable{
 	
 	public void draw(Graphics2D g2D){
 		changeDraw(g2D);
-		this.getAnchors().draw(g2D, this.ellipse.getBounds());
+		this.getAnchors().draw(g2D, this.shape.getBounds());
 	}
 
 	@Override
@@ -71,6 +73,24 @@ public class GEllipse extends GShape implements Serializable{
 	@Override
 	public void finishDrawing(int x, int y, Graphics2D g2d) {
 		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void changePointShape(int x, int y, Graphics2D g2D) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void init(Vector<GShape> shapeVector, JPanel panel) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void clickShape(int x, int y, Graphics2D g2d) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 

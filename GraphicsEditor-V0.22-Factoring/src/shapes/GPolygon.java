@@ -3,20 +3,23 @@ package shapes;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.io.Serializable;
+import java.util.Vector;
 
-import constants.GConstants;
+import javax.swing.JPanel;
+
 import constants.GConstants.EDrawingType;
 
 public class GPolygon extends GShape implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	private Polygon polygon = new Polygon();
+	private Polygon polygon;
 	
 	int prevX, prevY, nextX, nextY;
 
 	public GPolygon(){
 		super(EDrawingType.NP);
-		this.setName(GConstants.POLYGON);
+		this.polygon = new Polygon();
+		this.shape = this.polygon;
 	}
 
 	@Override
@@ -63,5 +66,23 @@ public class GPolygon extends GShape implements Serializable{
 	public void draw(Graphics2D g2D) {
 		// TODO Auto-generated method stub
 		g2D.drawPolygon(polygon);
+	}
+
+	@Override
+	public void init(Vector<GShape> shapeVector, JPanel panel) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void changePointShape(int x, int y, Graphics2D g2D) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void clickShape(int x, int y, Graphics2D g2d) {
+		// TODO Auto-generated method stub
+		
 	}
 }

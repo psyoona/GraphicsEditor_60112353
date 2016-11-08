@@ -11,6 +11,7 @@ public class GAnchors extends Vector<Ellipse2D.Double>{
 	public final static int ANCHORHEIGHT = 8;
 	
 	enum EAnchors {NN, NE, NW, SS, SW, SE, EE, WW, RR};
+	
 	public GAnchors() {
 		for (int i=0; i<EAnchors.values().length; i++) {			
 			this.add(new Ellipse2D.Double(0, 0, ANCHORWIDTH, ANCHORHEIGHT));
@@ -66,8 +67,10 @@ public class GAnchors extends Vector<Ellipse2D.Double>{
 			System.out.println("Array Index Out of Exception");
 		}
 	}
+	
 	public void draw(Graphics2D g2D, Rectangle boundRectangle) {
 		this.computeCoordinates(boundRectangle);
+		System.out.println("???");
 		for (int i=0; i<EAnchors.values().length; i++) {
 			g2D.draw(this.get(i));
 		}

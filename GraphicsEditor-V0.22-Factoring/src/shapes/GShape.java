@@ -2,6 +2,9 @@ package shapes;
 
 import java.awt.Graphics2D;
 import java.awt.Shape;
+import java.util.Vector;
+
+import javax.swing.JPanel;
 
 import constants.GConstants.EDrawingType;
 
@@ -25,10 +28,15 @@ abstract public class GShape {
 		this.anchors = new GAnchors();
 	}
 	
+	
 	abstract public void initDrawing(int x, int y, Graphics2D g2D);
 	abstract public void keepDrawing(int x, int y, Graphics2D g2D);
-	abstract public void finishDrawing(int x, int y, Graphics2D g2D);
+	abstract public void finishDrawing(int x, int y, Graphics2D g2D);	
 	abstract public void draw(Graphics2D g2d);
+	
+	abstract public void init(Vector<GShape> shapeVector, JPanel panel);
+	abstract public void changePointShape(int x, int y, Graphics2D g2D);
+	abstract public void clickShape(int x, int y, Graphics2D g2D);
 	
 	public GShape clone() {
 		try {
