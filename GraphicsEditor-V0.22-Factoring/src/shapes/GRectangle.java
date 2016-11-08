@@ -1,85 +1,81 @@
 package shapes;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.io.Serializable;
 
-import constants.GConstants;
 import constants.GConstants.EDrawingType;
 import sycom.GSwap;
 
 public class GRectangle extends GShape implements Serializable{
 	private static final long serialVersionUID = 1L;
+	
+	private Rectangle rectangle;
 	GSwap swap;
 
 	public GRectangle(){
 		super(EDrawingType.TP);
-		this.setName(GConstants.RECTANGLE);
+		this.rectangle = new Rectangle(0, 0, 0, 0);
+		this.shape = this.rectangle;
 		swap = new GSwap();
+	}
+	
+	private void changeDraw(Graphics2D g2D){
+		swap.x2 = this.rectangle.width + this.rectangle.x;
+		swap.y2 = this.rectangle.height + this.rectangle.y;
+		
+		if (this.rectangle.width < 0 && this.rectangle.height < 0) {
+			rectangle.x = rectangle.width + swap.x1;
+			rectangle.y = rectangle.height + swap.y1;
+			this.rectangle.width = Math.abs(this.rectangle.width);
+			this.rectangle.height = Math.abs(this.rectangle.height);
+			g2D.draw(this.rectangle);
+
+		} else if (this.rectangle.height < 0) {
+			rectangle.y = rectangle.height + swap.y1;
+			this.rectangle.height = Math.abs(this.rectangle.height);
+			g2D.draw(this.rectangle);
+			
+		} else if (this.rectangle.width < 0) {			
+			rectangle.x = rectangle.width + swap.x1;
+			this.rectangle.width = Math.abs(this.rectangle.width);
+			g2D.draw(this.rectangle);
+
+		} else {
+			g2D.draw(this.rectangle);
+		}
 	}
 	
 	public void draw(Graphics2D g2D){
 		/*
 		 * startX : ½ÃÀÛ xÁÂÇ¥, startY : ½ÃÀÛ yÁÂÇ¥
 		 */
-		
-		swap.x1 = startX;
-		swap.x2 = width + startX;
-		swap.y1 = startY;
-		swap.y2 = height + startY;
-				
-		if (width <= 0 && height <= 0) {
-			GSwap.swapX(swap);
-			GSwap.swapY(swap);
-			
-			width = swap.x2 - swap.x1;
-			height = swap.y2 - swap.y1;
-
-			g2D.drawRect(swap.x1, swap.y1, width, height);
-
-		} else if (height <= 0) {
-			GSwap.swapY(swap);
-			height = swap.y2 - swap.y1;
-			g2D.drawRect(startX, swap.y1, width, height);
-
-		} else if (width <= 0) {
-			GSwap.swapX(swap);
-			width = swap.x2 - swap.x1;
-			g2D.drawRect(swap.x1, startY, width, height);
-
-		} else {
-			g2D.drawRect(startX, startY, width, height);
-		}
+		changeDraw(g2D);
+		this.getAnchors().draw(g2D, this.rectangle.getBounds());
 	}
 
 
 	@Override
 	public void initDrawing(int x, int y, Graphics2D g2D) {
 		// TODO Auto-generated method stub
-		startX = x;
-		startY = y;
-		finX = x;
-		finY = y;
+		this.rectangle.setLocation(x, y);
+		swap.x1 = x;
+		swap.y1 = y;
+
 	}
 
 	@Override
 	public void keepDrawing(int x, int y, Graphics2D g2D) {
 		// TODO Auto-generated method stub
-		this.width = finX - startX;
-		this.height = finY - startY;
 		this.draw(g2D);
-		this.width = x - startX;
-		this.height = y - startY;
+		this.rectangle.width = x - this.swap.x1;
+		this.rectangle.height = y - this.swap.y1;
 		this.draw(g2D);
-		finX = x;
-		finY = y;
 	}
 
 
 	@Override
 	public void finishDrawing(int x, int y, Graphics2D g2D) {
 		// TODO Auto-generated method stub
-		setWidth(x - startX);
-		setHeight(y - startY);
 	}
-	
 }
