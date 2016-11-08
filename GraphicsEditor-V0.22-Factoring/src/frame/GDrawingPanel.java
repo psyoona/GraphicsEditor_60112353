@@ -1,6 +1,7 @@
 package frame;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -8,7 +9,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.util.Vector;
 
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 
@@ -23,8 +23,8 @@ import shapes.GShape;
 import sycom.GSwap;
 
 public class GDrawingPanel extends JPanel {
-	private static enum EState {
-		idle, drawing
+	private enum EState {
+		idleTP, idleNP, drawingTP, drawingNP
 	};
 
 	// attributes
@@ -32,7 +32,7 @@ public class GDrawingPanel extends JPanel {
 
 	// working variables
 	private Vector<GShape> shapeVector = new Vector<GShape>();
-	
+
 	// working Objects;
 	private GShape currentShape;
 
@@ -43,9 +43,14 @@ public class GDrawingPanel extends JPanel {
 	public GSwap swap;
 	Graphics2D g2D;
 	JPanel panel;
+	
+	Cursor hourglassCursor;
+	Cursor normalCursor;
 
 	public GDrawingPanel() {
-		eState = EState.idle;
+		hourglassCursor = new Cursor(Cursor.MOVE_CURSOR);
+		normalCursor = new Cursor(Cursor.DEFAULT_CURSOR);
+ 
 		swap = new GSwap();
 
 		panel = new JPanel();
@@ -55,25 +60,29 @@ public class GDrawingPanel extends JPanel {
 
 		MouseEventHandler mouseEventHandler = new MouseEventHandler();
 
-		this.add(mouseEventHandler);
+		// this.add(mouseEventHandler);
 		this.addMouseListener(mouseEventHandler);
 		// 마우스가 움직이는 것을 보여주기 위한 부분
 		this.addMouseMotionListener(mouseEventHandler);
 	}
-	
-	public void setSelectedShape(GShape selectedShape){
-		this.selectedShape =  selectedShape;
-	}
-	
-	// 최소화 이후 도형 복원
-	public void paint(Graphics g) {
-		for (GShape shape: this.shapeVector) {
-			shape.draw((Graphics2D)g);
+
+	public void setSelectedShape(GShape selectedShape) {
+		this.selectedShape = selectedShape;
+		switch (this.selectedShape.geteDrawingType()) {
+			case TP: eState = EState.idleTP; break;
+			case NP: eState = EState.idleNP; break;
 		}
 	}
-	
+
+	// 최소화 이후 도형 복원
+	public void paint(Graphics g) {
+		for (GShape shape : this.shapeVector) {
+			shape.draw((Graphics2D) g);
+		}
+	}
+
 	public void setESelectedTool(EToolBarButton eToolBarButton) {
-		
+
 		switch (eToolBarButton) {
 		case rectangle:
 			this.currentShape = new GRectangle();
@@ -91,7 +100,7 @@ public class GDrawingPanel extends JPanel {
 			break;
 		}
 	}
-	
+
 	private void initDrawing(int x, int y) {
 		this.currentShape = this.selectedShape.clone();
 		g2D = (Graphics2D) getGraphics();
@@ -114,94 +123,80 @@ public class GDrawingPanel extends JPanel {
 		this.shapeVector.add(this.currentShape);
 	}
 
-	class MouseEventHandler extends JComponent implements MouseInputListener, MouseMotionListener {
+	private void changePointShape(int x, int y) {
+		for (GShape shape : this.shapeVector) {
+			if (shape.contains(x, y)) {
+				setCursor(hourglassCursor);
+			} else {
+				setCursor(normalCursor);
+			}
+		}
+	}
 
-		private static final long serialVersionUID = 1L;
-
+	class MouseEventHandler implements MouseInputListener, MouseMotionListener {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			if (selectedShape.geteDrawingType() == EDrawingType.NP) {
-				if(eState == EState.idle){
-					eState = EState.drawing;
-					initDrawing(e.getX(), e.getY());
-				}else if(eState == EState.drawing){
-					keepDrawing(e.getX(), e.getY());
-				}
+			if (e.getClickCount() == 1) {
+				mouse1Clicked(e);
+			} else if (e.getClickCount() == 2) {
+				mouse2Clicked(e);
+			}
+		}
 
-				if (e.getClickCount() == 2) {
-					// 더블클릭 한 경우, 폴리곤 완성
-					finishDrawing(e.getX(), e.getY());
-					eState = EState.idle;
-				}
-				
-			// 선택된 도형이 NP타입이 아닌 경우
-			} else {
-				if (eState == EState.idle) {
-					eState = EState.drawing;
-					initDrawing(e.getX(), e.getY());
-				} else if (eState == EState.drawing) {
-					// 최종 그림을 완성하는 부분
-					finishDrawing(e.getX(), e.getY());
-					eState = EState.idle;
-				}
+		private void mouse1Clicked(MouseEvent e) {
+			if (eState == EState.idleNP) {
+				initDrawing(e.getX(), e.getY());
+				eState = EState.drawingNP;
+			} else if (eState == EState.drawingNP) {
+				keepDrawing(e.getX(), e.getY());
+			}
+		}
+
+		private void mouse2Clicked(MouseEvent e) {
+			if (eState == EState.drawingNP) {
+				finishDrawing(e.getX(), e.getY());
+				eState = EState.idleNP;
 			}
 		}
 
 		@Override
 		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
+			if (eState == EState.idleTP) {
+				initDrawing(e.getX(), e.getY());
+				eState = EState.drawingTP;
+			}
 		}
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-		}
-
-		@Override
-		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stub
-		}
-
-		@Override
-		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-		}
-
-		@Override
-		public void mouseDragged(MouseEvent e) {
-			// TODO Auto-generated method stub
-			if (selectedShape.geteDrawingType() == EDrawingType.NP) {
-				
-			// 선택된 도형이 NP타입이 아닌 경우
-			} else {
-				if (eState == EState.idle) {
-					initDrawing(e.getX(), e.getY());
-					eState = EState.drawing;
-				} else if (eState == EState.drawing) {
-					keepDrawing(e.getX(), e.getY());
-//					System.out.println("mouse dragged");
-				}
-
+			if (eState == EState.drawingTP) {
+				finishDrawing(e.getX(), e.getY());
+				eState = EState.idleTP;
 			}
 		}
 
 		@Override
 		public void mouseMoved(MouseEvent e) {
-			// TODO Auto-generated method stub
-			if (selectedShape.geteDrawingType() == EDrawingType.NP) {
-				
-			// 선택된 도형이 NP타입이 아닌 경우
-			} else {
-				if (eState == EState.drawing) {
-//					System.out.println("mouse moved");
-					keepDrawing(e.getX(), e.getY());
-				}
+			if (eState == EState.drawingNP) {
+				//keepDrawing(e.getX(), e.getY());
+			} else if (eState == EState.idleTP) {
+				changePointShape(e.getX(), e.getY());
 			}
 		}
-	}
 
-	public void initialize() {
-		// TODO Auto-generated method stub
-		
+		@Override
+		public void mouseDragged(MouseEvent e) {
+			if (eState == EState.drawingTP) {
+				keepDrawing(e.getX(), e.getY());
+			}
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent arg0) {
+		}
+
+		@Override
+		public void mouseExited(MouseEvent arg0) {
+		}
 	}
 }

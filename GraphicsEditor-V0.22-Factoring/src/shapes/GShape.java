@@ -1,26 +1,34 @@
 package shapes;
 
 import java.awt.Graphics2D;
+import java.awt.Shape;
 
 import constants.GConstants.EDrawingType;
 
 abstract public class GShape {
+	protected Shape shape;
+	
 	private EDrawingType eDrawingType;
+	public EDrawingType geteDrawingType() {	return eDrawingType;}
+	
+	private GAnchors anchors;	
+	public GAnchors getAnchors() { return anchors; }
+	public void setAnchors(GAnchors anchors) { this.anchors = anchors; }
+	
 	protected int x, y, width, height;
 	protected int startX, startY, finX, finY;
 	protected int[] xArray, yArray;
 	protected String name;
 	
+	public GShape(EDrawingType eDrawingType){
+		this.eDrawingType = eDrawingType;
+		this.anchors = new GAnchors();
+	}
+	
 	abstract public void initDrawing(int x, int y, Graphics2D g2D);
 	abstract public void keepDrawing(int x, int y, Graphics2D g2D);
 	abstract public void finishDrawing(int x, int y, Graphics2D g2D);
 	abstract public void draw(Graphics2D g2d);
-
-	public EDrawingType geteDrawingType() {	return eDrawingType;}
-	
-	public GShape(EDrawingType eDrawingType){
-		this.eDrawingType = eDrawingType;
-	}
 	
 	public GShape clone() {
 		try {
@@ -29,6 +37,10 @@ abstract public class GShape {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public boolean contains(int x, int y) {		
+		return shape.contains(x, y);
 	}
 	
 	public String getName() {
