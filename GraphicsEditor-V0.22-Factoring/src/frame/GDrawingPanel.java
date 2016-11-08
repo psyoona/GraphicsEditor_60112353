@@ -64,7 +64,6 @@ public class GDrawingPanel extends JPanel {
 
 	public void setSelectedShape(GShape selectedShape) {
 		this.selectedShape = selectedShape;
-		System.out.println(this.selectedShape.geteDrawingType());
 		switch (this.selectedShape.geteDrawingType()) {
 			case TP: eState = EState.idleTP;
 			break;
@@ -117,7 +116,7 @@ public class GDrawingPanel extends JPanel {
 	private void clickShape(int x, int y){
 		try{
 			g2D = (Graphics2D) getGraphics();
-			this.selectedShape.init(shapeVector, panel);
+			g2D.setXORMode(getBackground());
 			this.selectedShape.clickShape(x, y, g2D);
 		}catch(NullPointerException ne){
 			

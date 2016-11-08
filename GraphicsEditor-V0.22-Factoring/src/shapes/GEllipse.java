@@ -22,6 +22,8 @@ public class GEllipse extends GShape implements Serializable{
 		this.shape = this.ellipse;
 	}
 	
+	
+	
 	private void changeDraw(Graphics2D g2D){
 		swap.x2 = (int)(this.ellipse.width + this.ellipse.x);
 		swap.y2 = (int)(this.ellipse.height + this.ellipse.y);
@@ -50,8 +52,10 @@ public class GEllipse extends GShape implements Serializable{
 	
 	public void draw(Graphics2D g2D){
 		changeDraw(g2D);
-		this.getAnchors().draw(g2D, this.shape.getBounds());
+//		this.getAnchors().draw(g2D, this.shape.getBounds());
 	}
+	
+	
 
 	@Override
 	public void initDrawing(int x, int y, Graphics2D g2D) {
@@ -88,9 +92,9 @@ public class GEllipse extends GShape implements Serializable{
 	}
 
 	@Override
-	public void clickShape(int x, int y, Graphics2D g2d) {
+	public void clickShape(int x, int y, Graphics2D g2D) {
 		// TODO Auto-generated method stub
-		
+		this.getAnchors().draw(g2D, this.shape.getBounds());
 	}
 }
 

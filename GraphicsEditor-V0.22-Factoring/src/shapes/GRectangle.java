@@ -95,8 +95,8 @@ public class GRectangle extends GShape implements Serializable{
 	}
 
 	@Override
-	public void clickShape(int x, int y, Graphics2D g2d) {
+	public void clickShape(int x, int y, Graphics2D g2D) {
 		// TODO Auto-generated method stub
-		
+		this.getAnchors().draw(g2D, this.shape.getBounds());
 	}
 }

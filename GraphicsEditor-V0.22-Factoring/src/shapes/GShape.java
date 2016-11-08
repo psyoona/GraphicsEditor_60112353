@@ -10,20 +10,22 @@ import constants.GConstants.EDrawingType;
 
 abstract public class GShape {
 	protected Shape shape;
+	protected boolean clickmode;
 	
 	private EDrawingType eDrawingType;
 	public EDrawingType geteDrawingType() {	return eDrawingType;}
-	
-	private GAnchors anchors;	
-	public GAnchors getAnchors() { return anchors; }
-	public void setAnchors(GAnchors anchors) { this.anchors = anchors; }
 	
 	protected int x, y, width, height;
 	protected int startX, startY, finX, finY;
 	protected int[] xArray, yArray;
 	protected String name;
 	
+	private GAnchors anchors;	
+	public GAnchors getAnchors() { return anchors; }
+	public void setAnchors(GAnchors anchors) { this.anchors = anchors; }
+	
 	public GShape(EDrawingType eDrawingType){
+		this.clickmode = false;
 		this.eDrawingType = eDrawingType;
 		this.anchors = new GAnchors();
 	}

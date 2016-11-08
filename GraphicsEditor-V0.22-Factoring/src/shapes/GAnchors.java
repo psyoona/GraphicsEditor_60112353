@@ -14,7 +14,7 @@ public class GAnchors extends Vector<Ellipse2D.Double>{
 	
 	public GAnchors() {
 		for (int i=0; i<EAnchors.values().length; i++) {			
-			this.add(new Ellipse2D.Double(0, 0, ANCHORWIDTH, ANCHORHEIGHT));
+			this.add(new Ellipse2D.Double(10, 10, ANCHORWIDTH, ANCHORHEIGHT));
 		}
 	}
 	
@@ -70,7 +70,6 @@ public class GAnchors extends Vector<Ellipse2D.Double>{
 	
 	public void draw(Graphics2D g2D, Rectangle boundRectangle) {
 		this.computeCoordinates(boundRectangle);
-		System.out.println("???");
 		for (int i=0; i<EAnchors.values().length; i++) {
 			g2D.draw(this.get(i));
 		}
