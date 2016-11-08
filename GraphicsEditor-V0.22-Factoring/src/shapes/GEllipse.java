@@ -1,87 +1,76 @@
 package shapes;
 
 import java.awt.Graphics2D;
+import java.awt.geom.Ellipse2D;
 import java.io.Serializable;
 
-import constants.GConstants;
 import constants.GConstants.EDrawingType;
 import sycom.GSwap;
 
 public class GEllipse extends GShape implements Serializable{
 	private static final long serialVersionUID = 1L;
 	GSwap swap;
+	Ellipse2D.Double ellipse;
+	
 	
 	public GEllipse(){
 		super(EDrawingType.TP);
-		this.setName(GConstants.ELLIPSE);
 		swap = new GSwap();
+		ellipse = new Ellipse2D.Double(0, 0, 0, 0);
+		this.shape = this.ellipse;
+	}
+	
+	private void changeDraw(Graphics2D g2D){
+		swap.x2 = (int)(this.ellipse.width + this.ellipse.x);
+		swap.y2 = (int)(this.ellipse.height + this.ellipse.y);
+		
+		if (this.ellipse.width < 0 && this.ellipse.height < 0) {
+			ellipse.x = ellipse.width + swap.x1;
+			ellipse.y = ellipse.height + swap.y1;
+			this.ellipse.width = Math.abs(this.ellipse.width);
+			this.ellipse.height = Math.abs(this.ellipse.height);
+			g2D.draw(this.ellipse);
+
+		} else if (this.ellipse.height < 0) {
+			ellipse.y = ellipse.height + swap.y1;
+			this.ellipse.height = Math.abs(this.ellipse.height);
+			g2D.draw(this.ellipse);
+			
+		} else if (this.ellipse.width < 0) {			
+			ellipse.x = ellipse.width + swap.x1;
+			this.ellipse.width = Math.abs(this.ellipse.width);
+			g2D.draw(this.ellipse);
+
+		} else {
+			g2D.draw(this.ellipse);
+		}
 	}
 	
 	public void draw(Graphics2D g2D){
-		int x2 = width + startX;
-		int y2 = height + startY;
-		
-		if (width <= 0 && height <= 0) {
-			swap.x1 = startX;
-			swap.x2 = x2;
-			swap.y1 = startY;
-			swap.y2 = y2;
-
-			GSwap.swapX(swap);
-			GSwap.swapY(swap);
-
-			width = swap.x2 - swap.x1;
-			height = swap.y2 - swap.y1;
-
-			g2D.drawOval(swap.x1, swap.y1, width, height);
-
-		} else if (height <= 0) {
-
-			swap.y1 = startY;
-			swap.y2 = y2;
-			GSwap.swapY(swap);
-			height = swap.y2 - swap.y1;
-			g2D.drawOval(startX, swap.y1, width, height);
-
-		} else if (width <= 0) {
-			swap.x1 = startX;
-			swap.x2 = x2;
-			GSwap.swapX(swap);
-			width = swap.x2 - swap.x1;
-			g2D.drawOval(swap.x1, startY, width, height);
-
-		} else {
-			g2D.drawOval(startX, startY, width, height);
-		}
+		changeDraw(g2D);
+		this.getAnchors().draw(g2D, this.ellipse.getBounds());
 	}
 
 	@Override
 	public void initDrawing(int x, int y, Graphics2D g2D) {
 		// TODO Auto-generated method stub
-		startX = x;
-		startY = y;
-		finX = x;
-		finY = y;
+		this.ellipse.setFrame(x, y, 0, 0);
+		swap.x1 = x;
+		swap.y1 = y;
 	}
 
 	@Override
 	public void keepDrawing(int x, int y, Graphics2D g2D) {
 		// TODO Auto-generated method stub
-		this.width = finX - startX;
-		this.height = finY - startY;
 		this.draw(g2D);
-		this.width = x - startX;
-		this.height = y - startY;
+		this.ellipse.width = x - this.swap.x1;
+		this.ellipse.height = y - this.swap.y1;
 		this.draw(g2D);
-		finX = x;
-		finY = y;
 	}
 
 	@Override
 	public void finishDrawing(int x, int y, Graphics2D g2d) {
 		// TODO Auto-generated method stub
-//		setWidth(x - startX);
-//		setHeight(y - startY);
 	}
 }
 

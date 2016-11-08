@@ -23,6 +23,11 @@ public class GPolygon extends GShape implements Serializable{
 	public void initDrawing(int x, int y, Graphics2D g2D) {
 		// TODO Auto-generated method stub
 		polygon.addPoint(x, y);
+		// 초기 좌표 2개
+		startX = x;
+		startY = y;
+		
+		// 폴리 라인을 그리기 위한 prev x, y 좌표
 		prevX = x;
 		prevY = y;
 	}
@@ -36,6 +41,16 @@ public class GPolygon extends GShape implements Serializable{
 		polygon.addPoint(x, y);
 		prevX = nextX;
 		prevY = nextY;
+		
+		// 초기좌표와 같은 점이 클릭되었는지 체크
+		checkFinish(x, y, g2D);
+	}
+	
+	private void checkFinish(int x, int y, Graphics2D g2D){
+		// 초기좌표와 같은 점이 클릭되었는지 체크
+		if(x == startX && y == startY){
+			finishDrawing(x, y, g2D);
+		}
 	}
 
 	@Override
@@ -48,6 +63,5 @@ public class GPolygon extends GShape implements Serializable{
 	public void draw(Graphics2D g2D) {
 		// TODO Auto-generated method stub
 		g2D.drawPolygon(polygon);
-		
 	}
 }
