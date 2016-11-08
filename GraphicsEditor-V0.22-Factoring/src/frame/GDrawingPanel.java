@@ -31,7 +31,7 @@ public class GDrawingPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	// working variables
-	private Vector<GShape> shapeVector = new Vector<GShape>();
+	private Vector<GShape> shapeVector;
 
 	// working Objects;
 	private GShape currentShape;
@@ -48,6 +48,7 @@ public class GDrawingPanel extends JPanel {
 	Cursor normalCursor;
 
 	public GDrawingPanel() {
+		shapeVector = new Vector<GShape>();
 		hourglassCursor = new Cursor(Cursor.MOVE_CURSOR);
 		normalCursor = new Cursor(Cursor.DEFAULT_CURSOR);
  
@@ -192,7 +193,8 @@ public class GDrawingPanel extends JPanel {
 		}
 
 		@Override
-		public void mouseEntered(MouseEvent arg0) {
+		public void mouseEntered(MouseEvent e) {
+			
 		}
 
 		@Override

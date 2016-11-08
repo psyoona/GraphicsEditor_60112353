@@ -16,49 +16,54 @@ public class GAnchors extends Vector<Ellipse2D.Double>{
 			this.add(new Ellipse2D.Double(0, 0, ANCHORWIDTH, ANCHORHEIGHT));
 		}
 	}
+	
 	private void computeCoordinates(Rectangle r) {
-		for (int i=0; i<EAnchors.values().length; i++) {			
-			switch (EAnchors.values()[i]) {
-			case NN:
-				this.get(i).x = r.x+r.width/2-ANCHORWIDTH/2;
-				this.get(i).y = r.y-ANCHORHEIGHT/2;
-				break;
-			case NE:
-				this.get(i).x = r.x+r.width-ANCHORWIDTH/2;
-				this.get(i).y = r.y-ANCHORHEIGHT/2;
-				break;
-			case NW:
-				this.get(i).x = r.x-ANCHORWIDTH/2;
-				this.get(i).y = r.y-ANCHORHEIGHT/2;
-				break;
-			case SS:
-				this.get(i).x = r.x+r.width/2-ANCHORWIDTH/2;
-				this.get(i).y = r.y+r.height-ANCHORHEIGHT/2;
-				break;
-			case SW:
-				this.get(i).x = r.x-ANCHORWIDTH/2;
-				this.get(i).y = r.y+r.height-ANCHORHEIGHT/2;
-				break;
-			case SE:
-				this.get(i).x = r.x+r.width-ANCHORWIDTH/2;
-				this.get(i).y = r.y+r.height-ANCHORHEIGHT/2;
-				break;
-			case EE:
-				this.get(i).x = r.x+r.width-ANCHORWIDTH/2;
-				this.get(i).y = r.y+r.height/2-ANCHORHEIGHT/2;
-				break;
-			case WW:
-				this.get(i).x = r.x-ANCHORWIDTH/2;
-				this.get(i).y = r.y+r.height/2-ANCHORHEIGHT/2;
-				break;
-//			case RR:
-////				this.get(i).x = r.x+r.width/2-ANCHORWIDTH/2;
-////				this.get(i).y = r.y-ANCHORHEIGHT/2;
-//				break;
-				
-			default:
-				break;
+		try{
+			for (int i=0; i<EAnchors.values().length; i++) {			
+				switch (EAnchors.values()[i]) {
+				case NN:
+					this.get(i).x = r.x+r.width/2-ANCHORWIDTH/2;
+					this.get(i).y = r.y-ANCHORHEIGHT/2;
+					break;
+				case NE:
+					this.get(i).x = r.x+r.width-ANCHORWIDTH/2;
+					this.get(i).y = r.y-ANCHORHEIGHT/2;
+					break;
+				case NW:
+					this.get(i).x = r.x-ANCHORWIDTH/2;
+					this.get(i).y = r.y-ANCHORHEIGHT/2;
+					break;
+				case SS:
+					this.get(i).x = r.x+r.width/2-ANCHORWIDTH/2;
+					this.get(i).y = r.y+r.height-ANCHORHEIGHT/2;
+					break;
+				case SW:
+					this.get(i).x = r.x-ANCHORWIDTH/2;
+					this.get(i).y = r.y+r.height-ANCHORHEIGHT/2;
+					break;
+				case SE:
+					this.get(i).x = r.x+r.width-ANCHORWIDTH/2;
+					this.get(i).y = r.y+r.height-ANCHORHEIGHT/2;
+					break;
+				case EE:
+					this.get(i).x = r.x+r.width-ANCHORWIDTH/2;
+					this.get(i).y = r.y+r.height/2-ANCHORHEIGHT/2;
+					break;
+				case WW:
+					this.get(i).x = r.x-ANCHORWIDTH/2;
+					this.get(i).y = r.y+r.height/2-ANCHORHEIGHT/2;
+					break;
+				case RR:
+					this.get(i).x = r.x+r.width/2-ANCHORWIDTH/2;
+					this.get(i).y = r.y+r.height/2-ANCHORHEIGHT/2;
+					break;
+					
+				default:
+					break;
+				}
 			}
+		}catch(ArrayIndexOutOfBoundsException arrayIndexOutOfException){
+			System.out.println("Array Index Out of Exception");
 		}
 	}
 	public void draw(Graphics2D g2D, Rectangle boundRectangle) {
