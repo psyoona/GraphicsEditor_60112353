@@ -13,6 +13,7 @@ import sycom.GSwap;
 public class GLine extends GShape implements Serializable{
 	private static final long serialVersionUID = 1L;
 	Line2D line;
+	
 	GSwap swap;
 	
 	private int x2, y2;
@@ -78,8 +79,8 @@ public class GLine extends GShape implements Serializable{
 	}
 
 	@Override
-	public void clickShape(int x, int y, Graphics2D g2d) {
+	public void clickShape(int x, int y, Graphics2D g2D) {
 		// TODO Auto-generated method stub
-		
+		this.getAnchors().draw(g2D, this.shape.getBounds());
 	}
 }

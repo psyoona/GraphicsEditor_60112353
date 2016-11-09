@@ -54,9 +54,10 @@ public class GRectangle extends GShape implements Serializable{
 		 * startX : ½ÃÀÛ xÁÂÇ¥, startY : ½ÃÀÛ yÁÂÇ¥
 		 */
 		changeDraw(g2D);
-		
+		if(this.clickmode == true){
+			clickShape(0, 0, g2D);
+		}
 	}
-
 
 	@Override
 	public void initDrawing(int x, int y, Graphics2D g2D) {

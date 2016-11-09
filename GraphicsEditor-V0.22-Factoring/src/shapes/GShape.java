@@ -49,7 +49,7 @@ abstract public class GShape {
 		return null;
 	}
 	
-	public boolean contains(int x, int y) {		
+	public boolean contains(int x, int y) {
 		return shape.contains(x, y);
 	}
 	
