@@ -70,17 +70,15 @@ public class GCross extends GShape {
 				if(shape.clickmode == false){
 					shape.clickShape(x, y, g2D);
 					shape.clickmode = true;
+					//break;
 				}
-				break;
+				//break;
 			} else {
 				if(shape.clickmode == true){
 					shape.clickShape(x, y, g2D);
 					shape.clickmode = false;
 				}
-				
 			}
 		}
-
 	}
-
 }
