@@ -103,11 +103,11 @@ public class GDrawingPanel extends JPanel {
 		this.shapeVector.add(this.currentShape);
 	}
 
-	private void changePointShape(int x, int y) {
+	private void changeCursor(int x, int y) {
 		try{
 			g2D = (Graphics2D) getGraphics();
 			this.selectedShape.init(shapeVector, panel);
-			this.selectedShape.changePointShape(x, y, g2D);
+			this.selectedShape.changeCursor(x, y, g2D);
 		}catch(NullPointerException ne){
 			
 		}
@@ -172,7 +172,7 @@ public class GDrawingPanel extends JPanel {
 			if (eState == EState.drawingNP) {
 				//keepDrawing(e.getX(), e.getY());
 			} else if (eState == EState.move) {
-				changePointShape(e.getX(), e.getY());
+				changeCursor(e.getX(), e.getY());
 			}
 		}
 

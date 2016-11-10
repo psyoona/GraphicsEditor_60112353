@@ -75,7 +75,7 @@ public class GPolygon extends GShape implements Serializable{
 	}
 
 	@Override
-	public void changePointShape(int x, int y, Graphics2D g2D) {
+	public void changeCursor(int x, int y, Graphics2D g2D) {
 		// TODO Auto-generated method stub
 		
 	}

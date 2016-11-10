@@ -6,6 +6,7 @@ import java.util.Vector;
 
 import javax.swing.JPanel;
 
+import constants.GConstants;
 import constants.GConstants.EDrawingType;
 
 public class GCross extends GShape {
@@ -27,27 +28,34 @@ public class GCross extends GShape {
 		this.panel = panel;
 	}
 
-	public void changePointShape(int x, int y, Graphics2D g2D) {
+	public void changeCursor(int x, int y, Graphics2D g2D) {
 		for (GShape shape : this.shapeVector) {
-			if (shape.contains(x, y)) {
-				panel.setCursor(hourglassCursor);
-				break;
-			} else {
-				panel.setCursor(normalCursor);
+			GConstants.EAnchors eAnchor = shape.contains(x, y);
+			switch(eAnchor){
+			case NN:
+				panel.setCursor(new Cursor(Cursor.N_RESIZE_CURSOR));
+				return;
+			case NE:
+				return;
 			}
+			
+//			if (shape.contains(x, y)) {
+//				panel.setCursor(hourglassCursor);
+//				return ;
+//			} else {
+//				panel.setCursor(normalCursor);
+//			}
 		}
 	}
 
 	@Override
 	public void initDrawing(int x, int y, Graphics2D g2d) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void keepDrawing(int x, int y, Graphics2D g2d) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -63,20 +71,20 @@ public class GCross extends GShape {
 	@Override
 	public void clickShape(int x, int y, Graphics2D g2D) {
 		// TODO Auto-generated method stub
-		for (GShape shape : this.shapeVector) {
-			if (shape.contains(x, y)) {
-				if(shape.bSelected == false){
-					shape.clickShape(x, y, g2D);
-					shape.bSelected = true;
-					//break;
-				}
-				//break;
-			} else {
-				if(shape.bSelected == true){
-					shape.clickShape(x, y, g2D);
-					shape.bSelected = false;
-				}
-			}
-		}
+//		for (GShape shape : this.shapeVector) {
+//			if (shape.contains(x, y)) {
+//				if(shape.bSelected == false){
+//					shape.clickShape(x, y, g2D);
+//					shape.bSelected = true;
+//					//break;
+//				}
+//				//break;
+//			} else {
+//				if(shape.bSelected == true){
+//					shape.clickShape(x, y, g2D);
+//					shape.bSelected = false;
+//				}
+//			}
+//		}
 	}
 }

@@ -19,11 +19,13 @@ public class GConstants {
 	public final static String EDIT_DEL = "Delete";
 	public final static String EDIT_UNDO = "UnDo";
 	
+	public enum EAnchors {NN, NE, NW, SS, SW, SE, EE, WW, RR, MM};
+	
 	public static enum EMainFrame{
 		X(100),
 		Y(100),
-		W(400),
-		H(600);
+		W(600),
+		H(700);
 		
 		// 클래스의 형태
 		private int value;
