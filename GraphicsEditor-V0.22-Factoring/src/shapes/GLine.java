@@ -21,7 +21,7 @@ public class GLine extends GShape implements Serializable{
 	public GLine(){
 		super(EDrawingType.TP);
 		line = new Line2D.Double();
-		this.shape = this.line;
+		setShape(this.line);
 		swap = new GSwap();
 	}
 		
@@ -81,6 +81,6 @@ public class GLine extends GShape implements Serializable{
 	@Override
 	public void clickShape(int x, int y, Graphics2D g2D) {
 		// TODO Auto-generated method stub
-		this.getAnchors().draw(g2D, this.shape.getBounds());
+		this.getAnchors().draw(g2D, getShape().getBounds());
 	}
 }

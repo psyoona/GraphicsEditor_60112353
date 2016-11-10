@@ -53,13 +53,11 @@ public class GCross extends GShape {
 	@Override
 	public void finishDrawing(int x, int y, Graphics2D g2d) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void draw(Graphics2D g2d) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -67,16 +65,16 @@ public class GCross extends GShape {
 		// TODO Auto-generated method stub
 		for (GShape shape : this.shapeVector) {
 			if (shape.contains(x, y)) {
-				if(shape.clickmode == false){
+				if(shape.bSelected == false){
 					shape.clickShape(x, y, g2D);
-					shape.clickmode = true;
+					shape.bSelected = true;
 					//break;
 				}
 				//break;
 			} else {
-				if(shape.clickmode == true){
+				if(shape.bSelected == true){
 					shape.clickShape(x, y, g2D);
-					shape.clickmode = false;
+					shape.bSelected = false;
 				}
 			}
 		}

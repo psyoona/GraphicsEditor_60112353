@@ -1,5 +1,6 @@
 package shapes;
 
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.io.Serializable;
@@ -19,7 +20,7 @@ public class GRectangle extends GShape implements Serializable{
 	public GRectangle(){
 		super(EDrawingType.TP);
 		this.rectangle = new Rectangle(0, 0, 0, 0);
-		this.shape = this.rectangle;
+		this.setShape(this.rectangle);
 		swap = new GSwap();
 	}
 	
@@ -32,21 +33,18 @@ public class GRectangle extends GShape implements Serializable{
 			rectangle.y = rectangle.height + swap.y1;
 			this.rectangle.width = Math.abs(this.rectangle.width);
 			this.rectangle.height = Math.abs(this.rectangle.height);
-			g2D.draw(this.rectangle);
 
 		} else if (this.rectangle.height < 0) {
 			rectangle.y = rectangle.height + swap.y1;
 			this.rectangle.height = Math.abs(this.rectangle.height);
-			g2D.draw(this.rectangle);
 			
 		} else if (this.rectangle.width < 0) {			
 			rectangle.x = rectangle.width + swap.x1;
 			this.rectangle.width = Math.abs(this.rectangle.width);
-			g2D.draw(this.rectangle);
-
-		} else {
-			g2D.draw(this.rectangle);
 		}
+		
+		// draw
+		g2D.draw(this.rectangle);
 	}
 	
 	public void draw(Graphics2D g2D){
@@ -54,7 +52,7 @@ public class GRectangle extends GShape implements Serializable{
 		 * startX : ½ÃÀÛ xÁÂÇ¥, startY : ½ÃÀÛ yÁÂÇ¥
 		 */
 		changeDraw(g2D);
-		if(this.clickmode == true){
+		if(this.bSelected == true){
 			clickShape(0, 0, g2D);
 		}
 	}
@@ -65,15 +63,18 @@ public class GRectangle extends GShape implements Serializable{
 		this.rectangle.setLocation(x, y);
 		swap.x1 = x;
 		swap.y1 = y;
+		this.draw(g2D);
 
 	}
 
 	@Override
 	public void keepDrawing(int x, int y, Graphics2D g2D) {
-		// TODO Auto-generated method stub
+		// erase Shape
 		this.draw(g2D);
-		this.rectangle.width = x - this.swap.x1;
-		this.rectangle.height = y - this.swap.y1;
+		this.rectangle.setSize(new Dimension
+				(x - this.swap.x1, y - this.swap.y1));
+		
+		// redraw Shape
 		this.draw(g2D);
 	}
 
@@ -98,6 +99,6 @@ public class GRectangle extends GShape implements Serializable{
 	@Override
 	public void clickShape(int x, int y, Graphics2D g2D) {
 		// TODO Auto-generated method stub
-		this.getAnchors().draw(g2D, this.shape.getBounds());
+		this.getAnchors().draw(g2D, this.getShape().getBounds());
 	}
 }

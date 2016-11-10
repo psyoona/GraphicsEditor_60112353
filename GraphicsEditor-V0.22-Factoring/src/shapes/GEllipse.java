@@ -19,7 +19,7 @@ public class GEllipse extends GShape implements Serializable{
 		super(EDrawingType.TP);
 		swap = new GSwap();
 		ellipse = new Ellipse2D.Double(0, 0, 0, 0);
-		this.shape = this.ellipse;
+		setShape(this.ellipse);
 	}
 	
 	
@@ -94,7 +94,7 @@ public class GEllipse extends GShape implements Serializable{
 	@Override
 	public void clickShape(int x, int y, Graphics2D g2D) {
 		// TODO Auto-generated method stub
-		this.getAnchors().draw(g2D, this.shape.getBounds());
+		this.getAnchors().draw(g2D, getShape().getBounds());
 	}
 }
 

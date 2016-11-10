@@ -19,7 +19,7 @@ public class GPolygon extends GShape implements Serializable{
 	public GPolygon(){
 		super(EDrawingType.NP);
 		this.polygon = new Polygon();
-		this.shape = this.polygon;
+		setShape(this.polygon);
 	}
 
 	@Override
@@ -83,6 +83,6 @@ public class GPolygon extends GShape implements Serializable{
 	@Override
 	public void clickShape(int x, int y, Graphics2D g2D) {
 		// TODO Auto-generated method stub
-		this.getAnchors().draw(g2D, this.shape.getBounds());
+		this.getAnchors().draw(g2D, getShape().getBounds());
 	}
 }
