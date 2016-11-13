@@ -67,6 +67,7 @@ public class GLine extends GShape implements Serializable{
 		int boxX = x - GConstants.LINE_BOX_SIZE / 2;
 		int boxY = y - GConstants.LINE_BOX_SIZE / 2;
 		
+		
 		int width = GConstants.LINE_BOX_SIZE;
 		int height = GConstants.LINE_BOX_SIZE;
 		
