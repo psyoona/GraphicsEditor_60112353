@@ -19,6 +19,9 @@ public class GConstants {
 	public final static String EDIT_DEL = "Delete";
 	public final static String EDIT_UNDO = "UnDo";
 	
+	// Line size
+	public static final int LINE_BOX_SIZE = 2;
+	
 	public static enum EMainFrame{
 		X(100),
 		Y(100),

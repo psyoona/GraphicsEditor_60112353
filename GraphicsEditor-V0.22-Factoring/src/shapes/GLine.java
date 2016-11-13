@@ -7,11 +7,13 @@ import java.util.Vector;
 
 import javax.swing.JPanel;
 
+import constants.GConstants;
 import constants.GConstants.EDrawingType;
 import sycom.GSwap;
 
 public class GLine extends GShape implements Serializable{
 	private static final long serialVersionUID = 1L;
+	
 	Line2D line;
 	
 	GSwap swap;
@@ -60,10 +62,24 @@ public class GLine extends GShape implements Serializable{
 		this.line.setLine(swap.x1, swap.y1, x, y);
 		this.draw(g2D);
 	}
+	
+	public boolean contains(int x, int y){
+		int boxX = x - GConstants.LINE_BOX_SIZE / 2;
+		int boxY = y - GConstants.LINE_BOX_SIZE / 2;
+		
+		int width = GConstants.LINE_BOX_SIZE;
+		int height = GConstants.LINE_BOX_SIZE;
+		
+		if(line.intersects(boxX, boxY, width, height)){
+			return true;
+		}
+		return false;
+	}
 
 	@Override
-	public void finishDrawing(int x, int y, Graphics2D g2d) {
+	public void finishDrawing(int x, int y, Graphics2D g2D) {
 		// TODO Auto-generated method stub
+		this.getAnchors().draw(g2D, getShape().getBounds());
 	}
 
 	@Override

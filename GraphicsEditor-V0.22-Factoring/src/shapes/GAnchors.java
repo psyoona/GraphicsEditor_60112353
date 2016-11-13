@@ -56,7 +56,7 @@ public class GAnchors extends Vector<Ellipse2D.Double>{
 					break;
 				case RR:
 					this.get(i).x = r.x+r.width/2-ANCHORWIDTH/2;
-					this.get(i).y = r.y+r.height/2-ANCHORHEIGHT/2;
+					this.get(i).y = r.y-r.height/2-ANCHORHEIGHT/2;
 					break;
 					
 				default:
