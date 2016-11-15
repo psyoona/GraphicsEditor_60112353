@@ -44,6 +44,7 @@ abstract public class GShape {
 		return null;
 	}
 	
+	
 	public EAnchors contains(int x, int y, Graphics2D g2D) {
 		if(shape.contains(x, y)){
 			for (int i=0; i<EAnchors.values().length-1; i++) {
