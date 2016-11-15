@@ -20,7 +20,9 @@ public class GConstants {
 	public final static String EDIT_UNDO = "UnDo";
 	
 	// Line size
-	public static final int LINE_BOX_SIZE = 2;
+	public static final int LINE_BOX_SIZE = 4;
+	
+	public enum EAnchors {NN, NE, NW, SS, SW, SE, EE, WW, RR, MM};
 	
 	public static enum EMainFrame{
 		X(100),

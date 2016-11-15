@@ -59,24 +59,47 @@ public class GCross extends GShape {
 	public void draw(Graphics2D g2d) {
 		// TODO Auto-generated method stub
 	}
+	
+	public void delPoint(int x, int y, Graphics2D g2D){
+		// bSelected가 true이면 모두 false로 바꾼다.
+		for(GShape shape : this.shapeVector){
+			if(shape.bSelected == true){
+				shape.clickShape(x, y, g2D);
+				shape.bSelected = false;
+			}
+		}
+	}
+	
+	public void activatePoint(int x, int y, Graphics2D g2D){
+		for(GShape shape : this.shapeVector){
+			if(shape.contains(x, y)){
+				shape.clickShape(x, y, g2D);
+				shape.bSelected = true;
+				break;
+			}
+		}
+	}
 
 	@Override
 	public void clickShape(int x, int y, Graphics2D g2D) {
 		// TODO Auto-generated method stub
-		for (GShape shape : this.shapeVector) {
-			if (shape.contains(x, y)) {
-				if(shape.bSelected == false){
-					shape.clickShape(x, y, g2D);
-					shape.bSelected = true;
-					//break;
-				}
-				//break;
-			} else {
-				if(shape.bSelected == true){
-					shape.clickShape(x, y, g2D);
-					shape.bSelected = false;
-				}
-			}
-		}
+		delPoint(x, y, g2D);
+		activatePoint(x, y, g2D);
+		
+//		for (GShape shape : this.shapeVector) {
+//			if (shape.contains(x, y)) {
+//				if(shape.bSelected == false){
+//					shape.clickShape(x, y, g2D);
+//					shape.bSelected = true;
+//					//break;
+//				}
+//				//break;
+//			} else {
+//				if(shape.bSelected == true){
+//					shape.clickShape(x, y, g2D);
+//					shape.bSelected = false;
+//				}
+//			}
+//		}
 	}
 }

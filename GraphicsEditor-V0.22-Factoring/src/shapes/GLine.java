@@ -67,7 +67,6 @@ public class GLine extends GShape implements Serializable{
 		int boxX = x - GConstants.LINE_BOX_SIZE / 2;
 		int boxY = y - GConstants.LINE_BOX_SIZE / 2;
 		
-		
 		int width = GConstants.LINE_BOX_SIZE;
 		int height = GConstants.LINE_BOX_SIZE;
 		
@@ -81,6 +80,7 @@ public class GLine extends GShape implements Serializable{
 	public void finishDrawing(int x, int y, Graphics2D g2D) {
 		// TODO Auto-generated method stub
 		this.getAnchors().draw(g2D, getShape().getBounds());
+		bSelected = true;
 	}
 
 	@Override

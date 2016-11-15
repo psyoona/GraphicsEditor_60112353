@@ -78,6 +78,7 @@ public class GEllipse extends GShape implements Serializable{
 	public void finishDrawing(int x, int y, Graphics2D g2D) {
 		// TODO Auto-generated method stub
 		this.getAnchors().draw(g2D, getShape().getBounds());
+		bSelected = true;
 	}
 
 	@Override

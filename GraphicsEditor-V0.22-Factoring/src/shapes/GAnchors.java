@@ -5,12 +5,14 @@ import java.awt.Rectangle;
 import java.awt.geom.Ellipse2D;
 import java.util.Vector;
 
+import constants.GConstants.EAnchors;
+
 public class GAnchors extends Vector<Ellipse2D.Double>{
 	private static final long serialVersionUID = 1L;
 	public final static int ANCHORWIDTH = 8;
 	public final static int ANCHORHEIGHT = 8;
 	
-	enum EAnchors {NN, NE, NW, SS, SW, SE, EE, WW, RR};
+	
 	
 	public GAnchors() {
 		for (int i=0; i<EAnchors.values().length; i++) {			
@@ -20,7 +22,7 @@ public class GAnchors extends Vector<Ellipse2D.Double>{
 	
 	private void computeCoordinates(Rectangle r) {
 		try{
-			for (int i=0; i<EAnchors.values().length; i++) {			
+			for (int i=0; i<EAnchors.values().length-1; i++) {			
 				switch (EAnchors.values()[i]) {
 				case NN:
 					this.get(i).x = r.x+r.width/2-ANCHORWIDTH/2;
