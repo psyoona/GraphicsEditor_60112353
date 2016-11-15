@@ -39,6 +39,8 @@ public class GDrawingPanel extends JPanel {
 	Graphics2D g2D;
 	JPanel panel;
 	
+
+	
 	Cursor hourglassCursor;
 	Cursor normalCursor;
 
@@ -52,7 +54,10 @@ public class GDrawingPanel extends JPanel {
 		panel = new JPanel();
 		panel.setBackground(Color.WHITE);
 		panel.setPreferredSize(new Dimension(EMainFrame.W.getValue(), EMainFrame.H.getValue()));
+		
 		this.add(panel);
+		// repaint error ¹æÁö
+		this.setOpaque(true);
 
 		MouseEventHandler mouseEventHandler = new MouseEventHandler();
 
@@ -103,7 +108,7 @@ public class GDrawingPanel extends JPanel {
 		this.shapeVector.add(this.currentShape);
 	}
 
-	private void changeCursor(int x, int y) {
+	private void changePointShape(int x, int y) {
 		try{
 			g2D = (Graphics2D) getGraphics();
 			this.selectedShape.init(shapeVector, panel);
@@ -172,7 +177,7 @@ public class GDrawingPanel extends JPanel {
 			if (eState == EState.drawingNP) {
 				//keepDrawing(e.getX(), e.getY());
 			} else if (eState == EState.move) {
-				changeCursor(e.getX(), e.getY());
+				changePointShape(e.getX(), e.getY());
 			}
 		}
 

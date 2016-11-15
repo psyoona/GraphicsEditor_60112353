@@ -8,6 +8,7 @@ import java.util.Vector;
 import javax.swing.JPanel;
 
 import constants.GConstants;
+import constants.GConstants.EAnchors;
 import constants.GConstants.EDrawingType;
 
 abstract public class GShape {
@@ -43,17 +44,24 @@ abstract public class GShape {
 		return null;
 	}
 	
-	public GConstants.EAnchors contains(int x, int y) {
-		if(this.bSelected){
-			GConstants.EAnchors eAnchor = this.anchors.contains(x,y);
-			if(eAnchor != null){
-				return eAnchor;
-			}
-		}
-		if(this.shape.contains(x,y)){
-			return GConstants.EAnchors.MM;
-		}
+	
+	public EAnchors contains(int x, int y, Graphics2D g2D) {
+		for (int i=0; i<EAnchors.values().length-1; i++) {
+			if(anchors.get(i).x-10 <= x && anchors.get(i).x+10 >= x &&
+					anchors.get(i).y-10 <= y && anchors.get(i).y+10 >= y){
+				GConstants.EAnchors eAnchor = EAnchors.values()[i];
+				return eAnchor; 
+			} // if end
+		} // for end
 		return null;
+	}
+	
+	public boolean contains(int x, int y) {
+		return shape.contains(x, y);
+	}
+	
+	public Rectangle getBounds(){
+		return this.shape.getBounds();
 	}
 	
 	abstract public void initDrawing(int x, int y, Graphics2D g2D);

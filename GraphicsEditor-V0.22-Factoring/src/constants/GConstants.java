@@ -21,11 +21,14 @@ public class GConstants {
 	
 	public enum EAnchors {NN, NE, NW, SS, SW, SE, EE, WW, RR, MM};
 	
+	// Line size
+	public static final int LINE_BOX_SIZE = 2;
+	
 	public static enum EMainFrame{
 		X(100),
 		Y(100),
-		W(600),
-		H(700);
+		W(400),
+		H(600);
 		
 		// 클래스의 형태
 		private int value;
