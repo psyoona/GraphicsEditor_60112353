@@ -4,8 +4,10 @@ import java.awt.Cursor;
 import java.awt.Graphics2D;
 import java.util.Vector;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import constants.GConstants;
 import constants.GConstants.EDrawingType;
 
 public class GCross extends GShape {
@@ -13,11 +15,14 @@ public class GCross extends GShape {
 	Cursor hourglassCursor;
 	Cursor normalCursor;
 	JPanel panel;
+	public GCursorList cursorList;
 
 	public GCross() {
 		super(EDrawingType.CHOICE);
 		hourglassCursor = new Cursor(Cursor.MOVE_CURSOR);
 		normalCursor = new Cursor(Cursor.DEFAULT_CURSOR);
+		
+		cursorList = new GCursorList();
 		
 	}
 
@@ -27,13 +32,36 @@ public class GCross extends GShape {
 		this.panel = panel;
 	}
 
-	public void changePointShape(int x, int y, Graphics2D g2D) {
-		for (GShape shape : this.shapeVector) {
-			if (shape.contains(x, y)) {
-				panel.setCursor(hourglassCursor);
-				break;
-			} else {
-				panel.setCursor(normalCursor);
+//	public void changePointShape(int x, int y, Graphics2D g2D) {
+//		for (GShape shape : this.shapeVector) {
+//			if (shape.contains(x, y)) {
+//				panel.setCursor(cursorList.getRecursiveCursor()); 
+//				break;
+//			} else {
+//				panel.setCursor(normalCursor);
+//			}
+//		}
+//	}
+	
+	public void changeCursor(int x, int y, Graphics2D g2D){
+		for(GShape shape : this.shapeVector){
+			GConstants.EAnchors eAnchor = shape.contains(x, y, g2D);
+			if(eAnchor != null){
+				switch(eAnchor){
+				case NN: panel.setCursor(cursorList.getnResizeCursor()); break;
+				case NE: panel.setCursor(cursorList.getNeResizeCursor()); break;
+				case NW: panel.setCursor(cursorList.getNwResizeCursor()); break;
+				case SS: panel.setCursor(cursorList.getsResizeCursor()); break;
+				case SW: panel.setCursor(cursorList.getSwResizeCursor());break;
+				case SE: panel.setCursor(cursorList.getSeResizeCursor()); break;
+				case EE: panel.setCursor(cursorList.geteResizeCursor()); break;
+				case WW: panel.setCursor(cursorList.getwResizeCursor()); break;
+				case RR: panel.setCursor(cursorList.getRecursiveCursor()); break;
+				case MM: panel.setCursor(cursorList.getMoveCursor()); break;
+				default: break;
+				}
+			}else{
+				panel.setCursor(cursorList.getDefaultCursor());
 			}
 		}
 	}

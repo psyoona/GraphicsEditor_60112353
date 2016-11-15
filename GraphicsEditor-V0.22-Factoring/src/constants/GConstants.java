@@ -19,6 +19,8 @@ public class GConstants {
 	public final static String EDIT_DEL = "Delete";
 	public final static String EDIT_UNDO = "UnDo";
 	
+	public enum EAnchors {NN, NE, NW, SS, SW, SE, EE, WW, RR, MM};
+	
 	// Line size
 	public static final int LINE_BOX_SIZE = 2;
 	

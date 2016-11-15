@@ -7,6 +7,8 @@ import java.util.Vector;
 
 import javax.swing.JPanel;
 
+import constants.GConstants;
+import constants.GConstants.EAnchors;
 import constants.GConstants.EDrawingType;
 
 abstract public class GShape {
@@ -42,6 +44,20 @@ abstract public class GShape {
 		return null;
 	}
 	
+	public EAnchors contains(int x, int y, Graphics2D g2D) {
+		if(shape.contains(x, y)){
+			for (int i=0; i<EAnchors.values().length-1; i++) {
+				if(anchors.get(i).x-10 <= x && anchors.get(i).x+10 >= x &&
+						anchors.get(i).y-10 <= y && anchors.get(i).y+10 >= y){
+					GConstants.EAnchors eAnchor = EAnchors.values()[i];
+					return eAnchor; 
+				}
+				
+			}
+		}
+		return null;
+	}
+	
 	public boolean contains(int x, int y) {
 		return shape.contains(x, y);
 	}
@@ -55,6 +71,6 @@ abstract public class GShape {
 	abstract public void finishDrawing(int x, int y, Graphics2D g2D);	
 	abstract public void draw(Graphics2D g2d);	
 	abstract public void init(Vector<GShape> shapeVector, JPanel panel);
-	abstract public void changePointShape(int x, int y, Graphics2D g2D);
+	abstract public void changeCursor(int x, int y, Graphics2D g2D);
 	abstract public void clickShape(int x, int y, Graphics2D g2D);
 }
