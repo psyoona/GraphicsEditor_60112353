@@ -13,14 +13,14 @@ public class GAnchors extends Vector<Ellipse2D.Double>{
 	public final static int ANCHORHEIGHT = 8;
 	
 	public GAnchors() {
-		for (int i=0; i< EAnchors.values().length; i++) {			
-			this.add(new Ellipse2D.Double(10, 10, ANCHORWIDTH, ANCHORHEIGHT));
+		for (int i=0; i< EAnchors.values().length-1; i++) {			
+			this.add(new Ellipse2D.Double(0, 0, ANCHORWIDTH, ANCHORHEIGHT));
 		}
 	}
 	
 	private void computeCoordinates(Rectangle r) {
 		try{
-			for (int i=0; i<EAnchors.values().length; i++) {			
+			for (int i=0; i<EAnchors.values().length-1; i++) {			
 				switch (EAnchors.values()[i]) {
 				case NN:
 					this.get(i).x = r.x+r.width/2-ANCHORWIDTH/2;
@@ -56,7 +56,7 @@ public class GAnchors extends Vector<Ellipse2D.Double>{
 					break;
 				case RR:
 					this.get(i).x = r.x+r.width/2-ANCHORWIDTH/2;
-					this.get(i).y = r.y-r.height/2-ANCHORHEIGHT/2;
+					this.get(i).y = r.y-r.height/4-ANCHORHEIGHT/2;
 					break;
 					
 				default:
@@ -70,7 +70,7 @@ public class GAnchors extends Vector<Ellipse2D.Double>{
 	
 	public void draw(Graphics2D g2D, Rectangle boundRectangle) {
 		this.computeCoordinates(boundRectangle);
-		for (int i=0; i<EAnchors.values().length; i++) {
+		for (int i=0; i<EAnchors.values().length-1; i++) {
 			g2D.draw(this.get(i));
 		}
 	}

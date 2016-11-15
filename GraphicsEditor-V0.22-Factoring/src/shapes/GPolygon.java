@@ -60,6 +60,8 @@ public class GPolygon extends GShape implements Serializable{
 	public void finishDrawing(int x, int y, Graphics2D g2D) {
 		// TODO Auto-generated method stub
 		this.draw(g2D);
+		this.getAnchors().draw(g2D, getShape().getBounds());
+		this.bSelected = true;
 	}
 
 	@Override

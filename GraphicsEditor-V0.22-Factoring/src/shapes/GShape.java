@@ -14,6 +14,9 @@ import constants.GConstants.EDrawingType;
 abstract public class GShape {
 	// attributes
 	protected boolean bSelected;
+	private Vector<GShape> shapeVector;
+	public Vector<GShape> getShapeVector() { return shapeVector; }
+	public void setShapeVector(Vector<GShape> shapeVector) { this.shapeVector = shapeVector; }
 	
 	private EDrawingType eDrawingType;
 	public EDrawingType geteDrawingType() {	return eDrawingType; }
@@ -44,6 +47,15 @@ abstract public class GShape {
 		return null;
 	}
 	
+	public void delPoint(int x, int y, Graphics2D g2D){
+		// bSelected가 true이면 모두 false로 바꾼다.
+		for(GShape shape : this.shapeVector){
+			if(shape.bSelected == true){
+				shape.clickShape(x, y, g2D);
+				shape.bSelected = false;
+			}
+		}
+	}
 	
 	public EAnchors contains(int x, int y, Graphics2D g2D) {
 		for (int i=0; i<EAnchors.values().length-1; i++) {
@@ -51,6 +63,8 @@ abstract public class GShape {
 					anchors.get(i).y-10 <= y && anchors.get(i).y+10 >= y){
 				GConstants.EAnchors eAnchor = EAnchors.values()[i];
 				return eAnchor; 
+			} else if(shape.contains(x, y)){
+				return GConstants.EAnchors.MM;
 			} // if end
 		} // for end
 		return null;

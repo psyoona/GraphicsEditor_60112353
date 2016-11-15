@@ -1,6 +1,5 @@
 package shapes;
 
-import java.awt.Cursor;
 import java.awt.Graphics2D;
 import java.util.Vector;
 
@@ -11,15 +10,11 @@ import constants.GConstants.EDrawingType;
 
 public class GCross extends GShape {
 	private Vector<GShape> shapeVector;
-	Cursor hourglassCursor;
-	Cursor normalCursor;
 	JPanel panel;
 	public GCursorList cursorList;
 
 	public GCross() {
 		super(EDrawingType.CHOICE);
-		hourglassCursor = new Cursor(Cursor.MOVE_CURSOR);
-		normalCursor = new Cursor(Cursor.DEFAULT_CURSOR);
 		cursorList = new GCursorList();
 	}
 
@@ -33,9 +28,7 @@ public class GCross extends GShape {
 		for(GShape shape : this.shapeVector){
 			GConstants.EAnchors eAnchor = shape.contains(x, y, g2D);
 			if(eAnchor != null){
-				System.out.println("??");
 				switch(eAnchor){
-				
 				case NN: panel.setCursor(cursorList.getnResizeCursor()); break;
 				case NE: panel.setCursor(cursorList.getNeResizeCursor()); break;
 				case NW: panel.setCursor(cursorList.getNwResizeCursor()); break;
@@ -47,6 +40,12 @@ public class GCross extends GShape {
 				case RR: panel.setCursor(cursorList.getRecursiveCursor()); break;
 				case MM: panel.setCursor(cursorList.getMoveCursor()); break;
 				default: break;
+				}
+				
+				if(shape.bSelected == true){
+					// 도형이 겹치는 경우에
+					// 선택된 도형에 대해서 아이콘 변경이 실행될 수 있도록 해준다.
+					return ;
 				}
 			}else{
 				panel.setCursor(cursorList.getDefaultCursor());

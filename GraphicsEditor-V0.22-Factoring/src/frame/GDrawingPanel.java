@@ -1,7 +1,6 @@
 package frame;
 
 import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -38,17 +37,8 @@ public class GDrawingPanel extends JPanel {
 	public GSwap swap;
 	Graphics2D g2D;
 	JPanel panel;
-	
-
-	
-	Cursor hourglassCursor;
-	Cursor normalCursor;
 
 	public GDrawingPanel() {
-		//shapeVector = new Vector<GShape>();
-		hourglassCursor = new Cursor(Cursor.MOVE_CURSOR);
-		normalCursor = new Cursor(Cursor.DEFAULT_CURSOR);
- 
 		swap = new GSwap();
 
 		panel = new JPanel();
@@ -90,6 +80,9 @@ public class GDrawingPanel extends JPanel {
 		this.currentShape = this.selectedShape.clone();
 		g2D = (Graphics2D) getGraphics();
 		g2D.setXORMode(getBackground());
+		
+		this.currentShape.setShapeVector(shapeVector);
+		this.currentShape.delPoint(x, y, g2D);
 		this.currentShape.initDrawing(x, y, g2D);
 	}
 
@@ -106,6 +99,7 @@ public class GDrawingPanel extends JPanel {
 		}
 		this.currentShape.finishDrawing(x, y, g2D);
 		this.shapeVector.add(this.currentShape);
+		
 	}
 
 	private void changePointShape(int x, int y) {
