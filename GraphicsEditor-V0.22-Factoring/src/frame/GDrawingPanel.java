@@ -95,7 +95,7 @@ public class GDrawingPanel extends JPanel {
 		}
 		this.currentShape.finishDrawing(x, y, g2D);
 		this.shapeVector.add(this.currentShape);
-		
+		this.initTransforming(x, y);
 	}
 
 	private void changePointShape(int x, int y) {
@@ -134,13 +134,22 @@ public class GDrawingPanel extends JPanel {
 	private void keepTransforming(int x, int y) {
 		g2D = (Graphics2D) getGraphics();
 		g2D.setXORMode(getBackground());
-		this.workingShape.keepTransforming(x, y, g2D);
+		try{
+			this.workingShape.keepTransforming(x, y, g2D);
+		}catch(NullPointerException ne){
+			
+		}
 	}
 	
 	private void finishTransforming(int x, int y) {
 		g2D = (Graphics2D) getGraphics();
 		g2D.setXORMode(getBackground());
-		this.selectedShape.finishTransforming(x, y, g2D);		
+		try{
+			this.workingShape.finishTransforming(x, y, g2D);		
+			
+		}catch(NullPointerException ne){
+			
+		}
 	}
 
 	class MouseEventHandler implements MouseInputListener, MouseMotionListener {

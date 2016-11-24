@@ -29,10 +29,7 @@ public class GCross extends GShape {
 			GConstants.EAnchors eAnchor = shape.contains(x, y, g2D);
 			if(eAnchor != null){
 				switch(eAnchor){
-				case NN: 
-					panel.setCursor(cursorList.getnResizeCursor());
-					
-					break;
+				case NN: panel.setCursor(cursorList.getnResizeCursor()); break;
 				case NE: panel.setCursor(cursorList.getNeResizeCursor()); break;
 				case NW: panel.setCursor(cursorList.getNwResizeCursor()); break;
 				case SS: panel.setCursor(cursorList.getsResizeCursor()); break;

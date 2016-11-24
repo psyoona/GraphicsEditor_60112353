@@ -79,7 +79,7 @@ abstract public class GShape {
 			if(anchors.get(i).x-10 <= x && anchors.get(i).x+10 >= x &&
 					anchors.get(i).y-10 <= y && anchors.get(i).y+10 >= y){
 				this.currentEAnchor = EAnchors.values()[i];
-				return this.currentEAnchor; 
+				return this.currentEAnchor;
 			} else if(shape.contains(x, y)){
 				this.currentEAnchor = EAnchors.MM;
 				return this.currentEAnchor;

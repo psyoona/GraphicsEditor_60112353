@@ -11,22 +11,22 @@ import constants.GConstants;
 import constants.GConstants.EDrawingType;
 import sycom.GSwap;
 
-public class GLine extends GShape implements Serializable{
+public class GLine extends GShape implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	Line2D line;
-	
+
 	GSwap swap;
-	
+
 	private int x2, y2;
 
-	public GLine(){
+	public GLine() {
 		super(EDrawingType.TP);
 		line = new Line2D.Double();
 		setShape(this.line);
 		swap = new GSwap();
 	}
-		
+
 	public int getY2() {
 		return y2;
 	}
@@ -42,9 +42,12 @@ public class GLine extends GShape implements Serializable{
 	public void setX2(int x2) {
 		this.x2 = x2;
 	}
-	
-	public void draw(Graphics2D g2D){
+
+	public void draw(Graphics2D g2D) {
 		g2D.draw(this.line);
+		if (this.bSelected == true) {
+			clickShape(0, 0, g2D);
+		}
 	}
 
 	@Override
@@ -62,16 +65,15 @@ public class GLine extends GShape implements Serializable{
 		this.line.setLine(swap.x1, swap.y1, x, y);
 		this.draw(g2D);
 	}
-	
-	public boolean contains(int x, int y){
+
+	public boolean contains(int x, int y) {
 		int boxX = x - GConstants.LINE_BOX_SIZE / 2;
 		int boxY = y - GConstants.LINE_BOX_SIZE / 2;
-		
-		
+
 		int width = GConstants.LINE_BOX_SIZE;
 		int height = GConstants.LINE_BOX_SIZE;
-		
-		if(line.intersects(boxX, boxY, width, height)){
+
+		if (line.intersects(boxX, boxY, width, height)) {
 			return true;
 		}
 		return false;
@@ -87,13 +89,13 @@ public class GLine extends GShape implements Serializable{
 	@Override
 	public void init(Vector<GShape> shapeVector, JPanel panel) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void changeCursor(int x, int y, Graphics2D g2D) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -105,36 +107,68 @@ public class GLine extends GShape implements Serializable{
 	@Override
 	public void initResizing(int x, int y, Graphics2D g2d) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void keepResizing(int x, int y, Graphics2D g2d) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void finishResizing(int x, int y, Graphics2D g2d) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void initTransforming(int x, int y, Graphics2D g2d) {
 		// TODO Auto-generated method stub
-		
+		setP1(x, y);
 	}
 
 	@Override
-	public void keepTransforming(int x, int y, Graphics2D g2d) {
-		// TODO Auto-generated method stub
-		
+	public void keepTransforming(int x, int y, Graphics2D g2D) {
+		// erase shape
+//		this.draw(g2D);
+//
+//		switch (this.getCurrentEAnchor()) {
+//		case NN:
+//			//swap.y1 = this.line.getY1();
+//			this.line.setLine(line.getX1(), y, line.getX2(), line.getY2());
+//			break;
+//		case NE:
+//			break;
+//		case NW:
+//			break;
+//		case SS:
+//			this.line.setLine(line.getX1(), line.getY1(), line.getX2(), y);
+//			break;
+//		case SE:
+//			break;
+//		case SW:
+//			break;
+//		case EE:
+//			break;
+//		case WW:
+//			break;
+//		case RR:
+//			break;
+//		case MM:
+//			this.line.setLine(line.getX1()+x-this.getP1().x, 
+//					line.getY1()+y - this.getP1().y, 
+//					line.getX2()+x - this.getP1().x, 
+//					line.getY2()+y - this.getP1().y);
+//			break;
+//		}
+//		this.draw(g2D);
+//		this.setP1(x, y);
 	}
 
 	@Override
 	public void finishTransforming(int x, int y, Graphics2D g2d) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
