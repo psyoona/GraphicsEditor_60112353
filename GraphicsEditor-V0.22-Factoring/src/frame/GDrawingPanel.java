@@ -17,30 +17,36 @@ import shapes.GShape;
 import sycom.GSwap;
 
 public class GDrawingPanel extends JPanel {
-	private enum EState {
-		idleTP, idleNP, drawingTP, drawingNP, move
-	};
-
 	// attributes
-	private static final long serialVersionUID = 1L;
-
+	private static final long serialVersionUID = 1L;	
+	// object states
+	private enum EState { idleTP, idleNP, drawingTP, drawingNP, move };
+	private EState eState;
 	// working variables
 	private Vector<GShape> shapeVector = new Vector<GShape>();;
-
-	// working Objects;
-	private GShape currentShape;
-
 	// associative attributes
-	private GShape selectedShape;
-	private EState eState;
+	private GShape selectedShape;	
+	public void setSelectedShape(GShape selectedShape) {
+		this.selectedShape = selectedShape;
+		switch (this.selectedShape.geteDrawingType()) {
+		case TP: eState = EState.idleTP; break;
+		case NP: eState = EState.idleNP; break;
+		case CHOICE: eState = EState.move; 
+		break;
+		}
+	}
 
 	public GSwap swap;
 	Graphics2D g2D;
 	JPanel panel;
-
+	
+	// working Objects;
+	private GShape currentShape;
+	private GShape workingShape;
+	
 	public GDrawingPanel() {
+		super();
 		swap = new GSwap();
-
 		panel = new JPanel();
 		panel.setBackground(Color.WHITE);
 		panel.setPreferredSize(new Dimension(EMainFrame.W.getValue(), EMainFrame.H.getValue()));
@@ -57,20 +63,10 @@ public class GDrawingPanel extends JPanel {
 		this.addMouseMotionListener(mouseEventHandler);
 	}
 
-	public void setSelectedShape(GShape selectedShape) {
-		this.selectedShape = selectedShape;
-		switch (this.selectedShape.geteDrawingType()) {
-			case TP: eState = EState.idleTP;
-			break;
-			case NP: eState = EState.idleNP;
-			break;
-			case CHOICE: eState = EState.move; 
-			break;
-		}
-	}
-
 	// 최소화 이후 도형 복원
 	public void paint(Graphics g) {
+		super.paint(g);
+		//setBackground(Color.WHITE);
 		for (GShape shape : this.shapeVector) {
 			shape.draw((Graphics2D) g);
 		}
@@ -121,6 +117,31 @@ public class GDrawingPanel extends JPanel {
 			
 		}
 	}
+	
+	private void initTransforming(int x, int y){
+		g2D = (Graphics2D) getGraphics();
+		g2D.setXORMode(getBackground());
+		this.selectedShape.initTransforming(x, y, g2D);
+		for(GShape shape : this.shapeVector){
+			if(shape.getbSelected() == true){
+				workingShape = shape;
+				workingShape.initTransforming(x, y, g2D);
+				return ;
+			}
+		}
+	}
+	
+	private void keepTransforming(int x, int y) {
+		g2D = (Graphics2D) getGraphics();
+		g2D.setXORMode(getBackground());
+		this.workingShape.keepTransforming(x, y, g2D);
+	}
+	
+	private void finishTransforming(int x, int y) {
+		g2D = (Graphics2D) getGraphics();
+		g2D.setXORMode(getBackground());
+		this.selectedShape.finishTransforming(x, y, g2D);		
+	}
 
 	class MouseEventHandler implements MouseInputListener, MouseMotionListener {
 		@Override
@@ -155,6 +176,7 @@ public class GDrawingPanel extends JPanel {
 				eState = EState.drawingTP;
 			}else if(eState == EState.move){
 				clickShape(e.getX(), e.getY());
+				initTransforming(e.getX(), e.getY());
 			}
 		}
 
@@ -163,7 +185,10 @@ public class GDrawingPanel extends JPanel {
 			if (eState == EState.drawingTP) {
 				finishDrawing(e.getX(), e.getY());
 				eState = EState.idleTP;
-			}
+			}else if (eState == EState.move) {
+				finishTransforming(e.getX(), e.getY());
+				//eState = EState.idleTP;
+			} 
 		}
 
 		@Override
@@ -179,6 +204,8 @@ public class GDrawingPanel extends JPanel {
 		public void mouseDragged(MouseEvent e) {
 			if (eState == EState.drawingTP) {
 				keepDrawing(e.getX(), e.getY());
+			}else if(eState == EState.move){
+				keepTransforming(e.getX(), e.getY());
 			}
 		}
 

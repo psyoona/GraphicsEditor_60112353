@@ -83,24 +83,80 @@ public class GRectangle extends GShape implements Serializable{
 	public void finishDrawing(int x, int y, Graphics2D g2D) {
 		// TODO Auto-generated method stub
 		this.getAnchors().draw(g2D, getShape().getBounds());
-		this.bSelected = true;
+		this.setbSelected(true);
 	}
 
 	@Override
 	public void init(Vector<GShape> shapeVector, JPanel panel) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void changeCursor(int x, int y, Graphics2D g2D) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void clickShape(int x, int y, Graphics2D g2D) {
-		// TODO Auto-generated method stub
 		this.getAnchors().draw(g2D, this.getShape().getBounds());
+	}
+
+	@Override
+	public void initResizing(int x, int y, Graphics2D g2D) {
+		
+	}
+
+	@Override
+	public void keepResizing(int x, int y, Graphics2D g2D) {
+		System.out.println("??");
+		switch (this.getCurrentEAnchor()) {
+		case NN:
+			break;
+		case NE:
+			break;
+		case NW:
+			break;
+		case SS:
+			break;
+		case SE:
+			break;
+		case SW:
+			break;
+		case EE:
+			break;
+		case WW:
+			break;
+		case RR:
+			break;
+		case MM:
+			break;
+		}
+	}
+
+	@Override
+	public void finishResizing(int x, int y, Graphics2D g2D) {
+		
+	}
+
+	@Override
+	public void initTransforming(int x, int y, Graphics2D g2D) {
+		setP1(x, y);
+	}
+
+	@Override
+	public void keepTransforming(int x, int y, Graphics2D g2D) {
+		//erase shape
+		this.draw(g2D);
+		this.rectangle.x += x - this.getP1().x;
+		this.rectangle.y += y - this.getP1().y;
+		
+		//redraw Shape
+		this.draw(g2D);
+		this.setP1(x,y);
+	}
+
+	@Override
+	public void finishTransforming(int x, int y, Graphics2D g2D) {
+		
 	}
 }

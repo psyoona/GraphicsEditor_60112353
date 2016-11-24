@@ -29,7 +29,10 @@ public class GCross extends GShape {
 			GConstants.EAnchors eAnchor = shape.contains(x, y, g2D);
 			if(eAnchor != null){
 				switch(eAnchor){
-				case NN: panel.setCursor(cursorList.getnResizeCursor()); break;
+				case NN: 
+					panel.setCursor(cursorList.getnResizeCursor());
+					
+					break;
 				case NE: panel.setCursor(cursorList.getNeResizeCursor()); break;
 				case NW: panel.setCursor(cursorList.getNwResizeCursor()); break;
 				case SS: panel.setCursor(cursorList.getsResizeCursor()); break;
@@ -99,5 +102,41 @@ public class GCross extends GShape {
 	public void clickShape(int x, int y, Graphics2D g2D) {
 		delPoint(x, y, g2D);
 		activatePoint(x, y, g2D);
+	}
+
+	@Override
+	public void initResizing(int x, int y, Graphics2D g2d) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keepResizing(int x, int y, Graphics2D g2d) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void finishResizing(int x, int y, Graphics2D g2d) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void initTransforming(int x, int y, Graphics2D g2d) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keepTransforming(int x, int y, Graphics2D g2d) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void finishTransforming(int x, int y, Graphics2D g2d) {
+		// TODO Auto-generated method stub
+		
 	}
 }
