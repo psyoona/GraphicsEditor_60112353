@@ -68,15 +68,17 @@ public class GLine extends GShape implements Serializable {
 	}
 	
 	public EAnchors contains(int x, int y, Graphics2D g2D) {
-		int boxX = x - GConstants.LINE_BOX_SIZE / 2;
-		int boxY = y - GConstants.LINE_BOX_SIZE / 2;
-
-		int width = GConstants.LINE_BOX_SIZE;
-		int height = GConstants.LINE_BOX_SIZE;
-
-		if (line.intersects(boxX, boxY, width, height)) {
-			return EAnchors.MM;
-		}
+		for (int i=0; i<EAnchors.values().length-1; i++) {
+			if(anchors.get(i).x-10 <= x && anchors.get(i).x+10 >= x &&
+					anchors.get(i).y-10 <= y && anchors.get(i).y+10 >= y){
+				this.currentEAnchor = EAnchors.values()[i];
+				return this.currentEAnchor;
+			} else if(contains(x, y)){
+				this.currentEAnchor = EAnchors.MM;
+				return this.currentEAnchor;
+			} // if end
+		} // for end
+	
 		return null;
 	}
 
@@ -145,39 +147,45 @@ public class GLine extends GShape implements Serializable {
 	@Override
 	public void keepTransforming(int x, int y, Graphics2D g2D) {
 		// erase shape
-//		this.draw(g2D);
-//
-//		switch (this.getCurrentEAnchor()) {
-//		case NN:
-//			//swap.y1 = this.line.getY1();
-//			this.line.setLine(line.getX1(), y, line.getX2(), line.getY2());
-//			break;
-//		case NE:
-//			break;
-//		case NW:
-//			break;
-//		case SS:
-//			this.line.setLine(line.getX1(), line.getY1(), line.getX2(), y);
-//			break;
-//		case SE:
-//			break;
-//		case SW:
-//			break;
-//		case EE:
-//			break;
-//		case WW:
-//			break;
-//		case RR:
-//			break;
-//		case MM:
-//			this.line.setLine(line.getX1()+x-this.getP1().x, 
-//					line.getY1()+y - this.getP1().y, 
-//					line.getX2()+x - this.getP1().x, 
-//					line.getY2()+y - this.getP1().y);
-//			break;
-//		}
-//		this.draw(g2D);
-//		this.setP1(x, y);
+		this.draw(g2D);
+
+		switch (this.getCurrentEAnchor()) {
+		case NN:
+			//swap.y1 = this.line.getY1();
+			this.line.setLine(line.getX1(), y, line.getX2(), line.getY2());
+			break;
+		case NE:
+			this.line.setLine(line.getX1(), y, x, line.getY2());
+			break;
+		case NW:
+			this.line.setLine(x, y, line.getX2(), line.getY2());
+			break;
+		case SS:
+			this.line.setLine(line.getX1(), line.getY1(), line.getX2(), y);
+			break;
+		case SE:
+			this.line.setLine(line.getX1(), line.getY1(), x, y);
+			break;
+		case SW:
+			this.line.setLine(x, line.getY1(), line.getX2(), y);
+			break;
+		case EE:
+			this.line.setLine(line.getX1(), line.getY1(), x, line.getY2());
+			break;
+		case WW:
+			this.line.setLine(x, line.getY1(), line.getX2(), line.getY2());
+			break;
+		case RR:
+			break;
+		case MM:
+			this.line.setLine(line.getX1()+x-this.getP1().x, 
+					line.getY1()+y - this.getP1().y, 
+					line.getX2()+x - this.getP1().x, 
+					line.getY2()+y - this.getP1().y);
+			break;
+		}
+		this.draw(g2D);
+		this.setP1(x, y);
 	}
 
 	@Override

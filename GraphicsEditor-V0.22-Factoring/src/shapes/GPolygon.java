@@ -113,8 +113,35 @@ public class GPolygon extends GShape implements Serializable{
 	}
 
 	@Override
-	public void keepTransforming(int x, int y, Graphics2D g2d) {
+	public void keepTransforming(int x, int y, Graphics2D g2D) {
 		// TODO Auto-generated method stub
+		this.draw(g2D);
+
+		switch (this.getCurrentEAnchor()) {
+		case NN:
+			//swap.y1 = this.line.getY1();
+			break;
+		case NE:
+			break;
+		case NW:
+			break;
+		case SS:
+			break;
+		case SE:
+			break;
+		case SW:
+			break;
+		case EE:
+			break;
+		case WW:
+			break;
+		case RR:
+			break;
+		case MM:
+			break;
+		}
+		this.draw(g2D);
+		this.setP1(x, y);
 		
 	}
 

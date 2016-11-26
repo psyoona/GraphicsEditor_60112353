@@ -16,12 +16,12 @@ abstract public class GShape {
 	private Vector<GShape> shapeVector;
 	private EDrawingType eDrawingType;
 	protected boolean bSelected;
-	private EAnchors currentEAnchor;
+	protected EAnchors currentEAnchor;
 	protected int startX, startY;
 	
 	// components
-	private Shape shape;
-	private GAnchors anchors;
+	protected Shape shape;
+	protected GAnchors anchors;
 	
 	// working variables
 	private Point p0, p1;

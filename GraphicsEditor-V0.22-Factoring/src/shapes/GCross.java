@@ -27,8 +27,7 @@ public class GCross extends GShape {
 	public void changeCursor(int x, int y, Graphics2D g2D){
 		for(GShape shape : this.shapeVector){
 			EAnchors eAnchor = shape.contains(x, y, g2D);
-			
-			if(eAnchor != null ){
+			if(eAnchor != null){
 				switch(eAnchor){
 				case NN: panel.setCursor(cursorList.getnResizeCursor()); break;
 				case NE: panel.setCursor(cursorList.getNeResizeCursor()); break;
