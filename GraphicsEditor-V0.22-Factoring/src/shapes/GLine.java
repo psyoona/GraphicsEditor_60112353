@@ -8,6 +8,7 @@ import java.util.Vector;
 import javax.swing.JPanel;
 
 import constants.GConstants;
+import constants.GConstants.EAnchors;
 import constants.GConstants.EDrawingType;
 import sycom.GSwap;
 
@@ -65,9 +66,21 @@ public class GLine extends GShape implements Serializable {
 		this.line.setLine(swap.x1, swap.y1, x, y);
 		this.draw(g2D);
 	}
+	
+	public EAnchors contains(int x, int y, Graphics2D g2D) {
+		int boxX = x - GConstants.LINE_BOX_SIZE / 2;
+		int boxY = y - GConstants.LINE_BOX_SIZE / 2;
+
+		int width = GConstants.LINE_BOX_SIZE;
+		int height = GConstants.LINE_BOX_SIZE;
+
+		if (line.intersects(boxX, boxY, width, height)) {
+			return EAnchors.MM;
+		}
+		return null;
+	}
 
 	public boolean contains(int x, int y) {
-		System.out.println("zz?");
 		int boxX = x - GConstants.LINE_BOX_SIZE / 2;
 		int boxY = y - GConstants.LINE_BOX_SIZE / 2;
 
