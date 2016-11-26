@@ -67,6 +67,7 @@ public class GLine extends GShape implements Serializable {
 	}
 
 	public boolean contains(int x, int y) {
+		System.out.println("zz?");
 		int boxX = x - GConstants.LINE_BOX_SIZE / 2;
 		int boxY = y - GConstants.LINE_BOX_SIZE / 2;
 

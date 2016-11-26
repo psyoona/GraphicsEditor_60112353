@@ -5,7 +5,7 @@ import java.util.Vector;
 
 import javax.swing.JPanel;
 
-import constants.GConstants;
+import constants.GConstants.EAnchors;
 import constants.GConstants.EDrawingType;
 
 public class GCross extends GShape {
@@ -26,8 +26,8 @@ public class GCross extends GShape {
 	
 	public void changeCursor(int x, int y, Graphics2D g2D){
 		for(GShape shape : this.shapeVector){
-			GConstants.EAnchors eAnchor = shape.contains(x, y, g2D);
-			if(eAnchor != null){
+			EAnchors eAnchor = shape.contains(x, y, g2D);
+			if(eAnchor != null ){
 				switch(eAnchor){
 				case NN: panel.setCursor(cursorList.getnResizeCursor()); break;
 				case NE: panel.setCursor(cursorList.getNeResizeCursor()); break;
@@ -41,8 +41,8 @@ public class GCross extends GShape {
 				case MM: panel.setCursor(cursorList.getMoveCursor()); break;
 				default: break;
 				}
-				
-				if(shape.bSelected == true){
+								
+				if(shape.bSelected == true || eAnchor == EAnchors.MM){
 					// 도형이 겹치는 경우에
 					// 선택된 도형에 대해서 아이콘 변경이 실행될 수 있도록 해준다.
 					return ;
@@ -88,7 +88,7 @@ public class GCross extends GShape {
 	public void activatePoint(int x, int y, Graphics2D g2D){
 		for(GShape shape : this.shapeVector){
 			if(shape.contains(x, y)){
-				shape.clickShape(x, y, g2D);
+				shape.clickShape(x, y, g2D);				
 				shape.bSelected = true;
 				break;
 			}
@@ -99,6 +99,7 @@ public class GCross extends GShape {
 	public void clickShape(int x, int y, Graphics2D g2D) {
 		delPoint(x, y, g2D);
 		activatePoint(x, y, g2D);
+		panel.setCursor(cursorList.getMoveCursor());
 	}
 
 	@Override
