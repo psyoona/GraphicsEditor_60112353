@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
+import java.awt.geom.AffineTransform;
 import java.util.Vector;
 
 import javax.swing.JPanel;
@@ -22,6 +23,7 @@ abstract public class GShape {
 	// components
 	protected Shape shape;
 	protected GAnchors anchors;
+	protected AffineTransform affineTransform;
 	
 	// working variables
 	private Point p0, p1;
@@ -43,6 +45,8 @@ abstract public class GShape {
 
 	// Constructor
 	public GShape(EDrawingType eDrawingType){
+		affineTransform = new AffineTransform();
+		
 		this.bSelected = false;
 		this.eDrawingType = eDrawingType;
 		this.anchors = new GAnchors();

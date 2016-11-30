@@ -23,7 +23,7 @@ public class GDrawingPanel extends JPanel {
 	private enum EState { idleTP, idleNP, drawingTP, drawingNP, move };
 	private EState eState;
 	// working variables
-	private Vector<GShape> shapeVector = new Vector<GShape>();;
+	private Vector<GShape> shapeVector = new Vector<GShape>();
 	// associative attributes
 	private GShape selectedShape;	
 	public void setSelectedShape(GShape selectedShape) {
@@ -96,9 +96,10 @@ public class GDrawingPanel extends JPanel {
 		this.currentShape.finishDrawing(x, y, g2D);
 		this.shapeVector.add(this.currentShape);
 		this.initTransforming(x, y);
+		//this.repaint();
 	}
 
-	private void changePointShape(int x, int y) {
+	private void changeCursor(int x, int y) {
 		try{
 			g2D = (Graphics2D) getGraphics();
 			this.selectedShape.init(shapeVector, panel);
@@ -151,6 +152,17 @@ public class GDrawingPanel extends JPanel {
 			
 		}
 	}
+	
+//	private GShape onShape(int x, int y){
+//		g2D = (Graphics2D) getGraphics();
+//		g2D.setXORMode(getBackground());
+//		for (GShape shape: this.shapeVector) {
+//			EAnchors eAnchor = shape.contains(x, y, g2D);
+//			if (eAnchor != null)
+//				return shape;
+//		}
+//		return null;
+//	}
 
 	class MouseEventHandler implements MouseInputListener, MouseMotionListener {
 		@Override
@@ -196,7 +208,7 @@ public class GDrawingPanel extends JPanel {
 				eState = EState.idleTP;
 			}else if (eState == EState.move) {
 				finishTransforming(e.getX(), e.getY());
-				//eState = EState.idleTP;
+//				eState = EState.idleTP;
 			} 
 		}
 
@@ -205,7 +217,7 @@ public class GDrawingPanel extends JPanel {
 			if (eState == EState.drawingNP) {
 				//keepDrawing(e.getX(), e.getY());
 			} else if (eState == EState.move) {
-				changePointShape(e.getX(), e.getY());
+				changeCursor(e.getX(), e.getY());
 			}
 		}
 

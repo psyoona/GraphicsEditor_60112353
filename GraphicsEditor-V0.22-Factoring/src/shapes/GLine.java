@@ -14,9 +14,7 @@ import sycom.GSwap;
 
 public class GLine extends GShape implements Serializable {
 	private static final long serialVersionUID = 1L;
-
 	Line2D line;
-
 	GSwap swap;
 
 	private int x2, y2;
@@ -24,7 +22,7 @@ public class GLine extends GShape implements Serializable {
 	public GLine() {
 		super(EDrawingType.TP);
 		line = new Line2D.Double();
-		setShape(this.line);
+		this.setShape(this.line);
 		swap = new GSwap();
 	}
 
@@ -97,50 +95,42 @@ public class GLine extends GShape implements Serializable {
 
 	@Override
 	public void finishDrawing(int x, int y, Graphics2D g2D) {
-		// TODO Auto-generated method stub
 		this.getAnchors().draw(g2D, getShape().getBounds());
 		this.bSelected = true;
 	}
 
 	@Override
 	public void init(Vector<GShape> shapeVector, JPanel panel) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void changeCursor(int x, int y, Graphics2D g2D) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void clickShape(int x, int y, Graphics2D g2D) {
-		// TODO Auto-generated method stub
 		this.getAnchors().draw(g2D, getShape().getBounds());
 	}
 
 	@Override
 	public void initResizing(int x, int y, Graphics2D g2d) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void keepResizing(int x, int y, Graphics2D g2d) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void finishResizing(int x, int y, Graphics2D g2d) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void initTransforming(int x, int y, Graphics2D g2d) {
-		// TODO Auto-generated method stub
 		setP1(x, y);
 	}
 

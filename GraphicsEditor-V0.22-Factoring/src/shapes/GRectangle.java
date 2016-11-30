@@ -52,7 +52,7 @@ public class GRectangle extends GShape implements Serializable{
 		 * startX : Ω√¿€ x¡¬«•, startY : Ω√¿€ y¡¬«•
 		 */
 		changeDraw(g2D);
-		if(this.bSelected == true){
+		if(getbSelected() == true){
 			clickShape(0, 0, g2D);
 		}
 	}
@@ -82,7 +82,7 @@ public class GRectangle extends GShape implements Serializable{
 	@Override
 	public void finishDrawing(int x, int y, Graphics2D g2D) {
 		// TODO Auto-generated method stub
-		this.getAnchors().draw(g2D, getShape().getBounds());
+		clickShape(x, y, g2D);
 		this.setbSelected(true);
 	}
 
