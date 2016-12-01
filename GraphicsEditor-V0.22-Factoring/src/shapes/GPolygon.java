@@ -285,7 +285,6 @@ public class GPolygon extends GShape implements Serializable{
 				if(i == maxIndexX){
 					
 				}else{
-				
 					polygon.xpoints[i] += x- temp;
 				}
 			}
@@ -299,24 +298,11 @@ public class GPolygon extends GShape implements Serializable{
 			}
 			break;
 		}
-		
-		//this.draw(g2D);
-		makePolygon(g2D);
+		this.draw(g2D);
 		this.setP1(x, y);
-		
 	}
-	
-	public void makePolygon(Graphics2D g2D){
-		resizePolygon = new Polygon();
-		for(int i=0; i<polygon.npoints; i++){
-			resizePolygon.addPoint(polygon.xpoints[i], polygon.ypoints[i]);
-		}
-		reDraw(g2D);
-	}
-
 	@Override
 	public void finishTransforming(int x, int y, Graphics2D g2D) {
-		this.draw(g2D);
-		makePolygon(g2D);
+		this.polygon.invalidate();
 	}
 }
