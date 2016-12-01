@@ -14,7 +14,7 @@ import sycom.GQuick;
 public class GPolygon extends GShape implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	private Polygon polygon;
+	private Polygon polygon, resizePolygon;
 	
 	private int prevX, prevY, nextX, nextY;
 	private GQuick quick;
@@ -24,6 +24,7 @@ public class GPolygon extends GShape implements Serializable{
 	public GPolygon(){
 		super(EDrawingType.NP);
 		this.polygon = new Polygon();
+		
 		this.setShape(this.polygon);
 		
 		quick = new GQuick();
@@ -83,7 +84,7 @@ public class GPolygon extends GShape implements Serializable{
 		// TODO Auto-generated method stub
 		this.draw(g2D);
 		
-		this.getAnchors().draw(g2D, polygon.getBounds());
+		this.getAnchors().draw(g2D, getShape().getBounds());
 		this.setbSelected(true);
 		
 		// 최종 그리기를 하면 정렬을 한다.
@@ -99,11 +100,17 @@ public class GPolygon extends GShape implements Serializable{
 
 	@Override
 	public void draw(Graphics2D g2D) {
-		this.anchors = new GAnchors();
 		g2D.drawPolygon(polygon);
 		if (getbSelected() == true) {
-			this.getAnchors().draw(g2D, polygon.getBounds());
-			//clickShape(0, 0, g2D);
+			this.getAnchors().draw(g2D, getShape().getBounds());
+		}
+	}
+	
+	public void reDraw(Graphics2D g2D){
+		this.setShape(resizePolygon);
+		g2D.drawPolygon(resizePolygon);
+		if (getbSelected() == true) {
+			this.getAnchors().draw(g2D, getShape().getBounds());
 		}
 	}
 
@@ -139,10 +146,8 @@ public class GPolygon extends GShape implements Serializable{
 	}
 
 	@Override
-	public void initTransforming(int x, int y, Graphics2D g2d) {
+	public void initTransforming(int x, int y, Graphics2D g2D) {
 		setP1(x, y);
-//		affineTransform.setToTranslation(x, y);
-//		shape = (affineTransform.createTransformedShape(shape));
 	}
 	
 	@Override
@@ -295,21 +300,23 @@ public class GPolygon extends GShape implements Serializable{
 			break;
 		}
 		
-		this.draw(g2D);
+		//this.draw(g2D);
+		makePolygon(g2D);
 		this.setP1(x, y);
 		
+	}
+	
+	public void makePolygon(Graphics2D g2D){
+		resizePolygon = new Polygon();
+		for(int i=0; i<polygon.npoints; i++){
+			resizePolygon.addPoint(polygon.xpoints[i], polygon.ypoints[i]);
+		}
+		reDraw(g2D);
 	}
 
 	@Override
 	public void finishTransforming(int x, int y, Graphics2D g2D) {
-//		xArray = new int[polygon.npoints];
-//		yArray = new int[polygon.npoints];
-//		for(int i=0; i<polygon.npoints; i++){
-//			xArray[i] = polygon.xpoints[i];
-//			yArray[i] = polygon.ypoints[i];
-//		}
-//		
-//		for(int i=0; i<polygon.npoints; i++){
-//		}
+		this.draw(g2D);
+		makePolygon(g2D);
 	}
 }
