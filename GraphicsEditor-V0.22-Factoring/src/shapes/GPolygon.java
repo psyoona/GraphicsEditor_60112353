@@ -7,14 +7,13 @@ import java.util.Vector;
 
 import javax.swing.JPanel;
 
-import constants.GConstants.EAnchors;
 import constants.GConstants.EDrawingType;
 import sycom.GQuick;
 
 public class GPolygon extends GShape implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	private Polygon polygon, resizePolygon;
+	private Polygon polygon;
 	
 	private int prevX, prevY, nextX, nextY;
 	private GQuick quick;
@@ -57,21 +56,6 @@ public class GPolygon extends GShape implements Serializable{
 		checkFinish(x, y, g2D);
 	}
 	
-	public EAnchors contains(int x, int y, Graphics2D g2D) {
-		for (int i=0; i<EAnchors.values().length-1; i++) {
-			if(anchors.get(i).x-10 <= x && anchors.get(i).x+10 >= x &&
-					anchors.get(i).y-10 <= y && anchors.get(i).y+10 >= y){
-				this.currentEAnchor = EAnchors.values()[i];
-				return this.currentEAnchor;
-			} else if(contains(x, y)){
-				this.currentEAnchor = EAnchors.MM;
-				return this.currentEAnchor;
-			} // if end
-		} // for end
-	
-		return null;
-	}
-	
 	private void checkFinish(int x, int y, Graphics2D g2D){
 		// 초기좌표와 같은 점이 클릭되었는지 체크
 		if(x == startX && y == startY){
@@ -105,14 +89,6 @@ public class GPolygon extends GShape implements Serializable{
 			this.getAnchors().draw(g2D, getShape().getBounds());
 		}
 	}
-	
-	public void reDraw(Graphics2D g2D){
-		this.setShape(resizePolygon);
-		g2D.drawPolygon(resizePolygon);
-		if (getbSelected() == true) {
-			this.getAnchors().draw(g2D, getShape().getBounds());
-		}
-	}
 
 	@Override
 	public void init(Vector<GShape> shapeVector, JPanel panel) {
@@ -127,6 +103,7 @@ public class GPolygon extends GShape implements Serializable{
 	@Override
 	public void clickShape(int x, int y, Graphics2D g2D) {
 		this.getAnchors().draw(g2D, getShape().getBounds());
+		this.setbSelected(true);
 	}
 
 	@Override
@@ -153,7 +130,7 @@ public class GPolygon extends GShape implements Serializable{
 	@Override
 	public void keepTransforming(int x, int y, Graphics2D g2D) {
 		int temp, temp2;
-		
+		clickShape(x, y, g2D);
 		this.draw(g2D);
 		
 		int minX, minY, maxX, maxY;
@@ -300,6 +277,8 @@ public class GPolygon extends GShape implements Serializable{
 		}
 		this.draw(g2D);
 		this.setP1(x, y);
+		this.polygon.invalidate();
+		clickShape(x, y, g2D);
 	}
 	@Override
 	public void finishTransforming(int x, int y, Graphics2D g2D) {

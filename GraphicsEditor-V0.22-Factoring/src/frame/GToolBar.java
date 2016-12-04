@@ -35,7 +35,8 @@ public class GToolBar extends JToolBar {
 		}
 	}
 	
-	public void initialize() {
+	public void initialize(GDrawingPanel drawingPanel) {
+		this.drawingPanel = drawingPanel;
 		JRadioButton button = (JRadioButton) this.getComponentAtIndex(EToolBarButton.rectangle.ordinal());
 		button.doClick();
 	}
@@ -43,9 +44,6 @@ public class GToolBar extends JToolBar {
 	public class ActionHandler implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-//			drawingPanel.setESelectedTool(
-//			EToolBarButton.valueOf(e.getActionCommand()));
-			
 			drawingPanel.setSelectedShape(
 					EToolBarButton.valueOf(e.getActionCommand()).getShape());
 			

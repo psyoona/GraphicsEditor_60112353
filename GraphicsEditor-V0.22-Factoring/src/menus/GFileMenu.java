@@ -2,6 +2,11 @@ package menus;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
@@ -14,18 +19,38 @@ import frame.GDrawingPanel;
 
 public class GFileMenu extends JMenu{
 	private static final long serialVersionUID = 1L;
-	GDrawingPanel drawingPanel;
+
+	// association
+	private GDrawingPanel drawingPanel;
+	
+	// components
 	ActionHandler actionHandler;
 
 	public GFileMenu(){
 		super(GConstants.FILEMENU_TITLE);
-		
+		actionHandler = new ActionHandler();
 		for (EFileMenuItem eMenuItem : EFileMenuItem.values()) {
 			JMenuItem menuItem = new JMenuItem(eMenuItem.getText());
-			this.add(menuItem);
-			actionHandler = new ActionHandler();
 			menuItem.addActionListener(actionHandler);
+			menuItem.setActionCommand(eMenuItem.name());
+			this.add(menuItem);
 		}
+	}
+	
+	public void initialize(GDrawingPanel drawingPanel){
+		this.drawingPanel = drawingPanel;
+	}
+	
+	public String showDialog(){
+		JFileChooser chooser = new JFileChooser();
+	    FileNameExtensionFilter filter = new FileNameExtensionFilter(
+	        "Graphics Editor", "gps");
+	    chooser.setFileFilter(filter);
+	    int returnVal = chooser.showSaveDialog(this);
+	    if(returnVal == JFileChooser.APPROVE_OPTION) {
+	    	return chooser.getSelectedFile().getName();
+	    }
+	    return null;	
 	}
 	
 	private void open(){
@@ -35,34 +60,41 @@ public class GFileMenu extends JMenu{
 		    chooser.setFileFilter(filter);
 		    int returnVal = chooser.showOpenDialog(this);
 		    if(returnVal == JFileChooser.APPROVE_OPTION) {
+		    	
 		       System.out.println("You chose to open this file: " +
 		            chooser.getSelectedFile().getName());
 		    }
 	}
 	
 	private void save(){
-		  JFileChooser chooser = new JFileChooser();
-		    FileNameExtensionFilter filter = new FileNameExtensionFilter(
-		        "JPG & GIF Images", "jpg", "gif");
-		    chooser.setFileFilter(filter);
-		    int returnVal = chooser.showSaveDialog(this);
-		    if(returnVal == JFileChooser.APPROVE_OPTION) {
-		       System.out.println("You chose to save this file: " +
-		            chooser.getSelectedFile().getName());
-		    }
+		String fileName = showDialog();
+		ObjectOutputStream outputStream;
+		if (fileName == null) {
+			return;
+		}
+		try {
+			File file = new File(fileName);
+			outputStream = new ObjectOutputStream(
+					new BufferedOutputStream(new FileOutputStream(file)));
+			outputStream.writeObject(drawingPanel.getShapeVector());
+			outputStream.close();
+		} catch( NullPointerException ne){
+			System.out.println("File Save Null Pointer Exception!");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	private class ActionHandler implements ActionListener{
 
 		@Override
 		public void actionPerformed(ActionEvent event) {
-			if(event.getActionCommand().equals("open")){
+			if (event.getActionCommand().equals(EFileMenuItem.open.name())) {
 				open();
-			}else if(event.getActionCommand().equals("save")){
+			} else if (event.getActionCommand().equals(EFileMenuItem.save.name())) {
 				save();
 			}
-			
 		}
-		
 	}
 }

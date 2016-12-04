@@ -18,12 +18,17 @@ import sycom.GSwap;
 
 public class GDrawingPanel extends JPanel {
 	// attributes
-	private static final long serialVersionUID = 1L;	
+	private static final long serialVersionUID = 1L;
+	
 	// object states
 	private enum EState { idleTP, idleNP, drawingTP, drawingNP, move };
 	private EState eState;
-	// working variables
+	
+	// components
 	private Vector<GShape> shapeVector = new Vector<GShape>();
+	public Vector<GShape> getShapeVector() { return this.shapeVector; }
+	private MouseEventHandler mouseEventHandler;
+	
 	// associative attributes
 	private GShape selectedShape;	
 	public void setSelectedShape(GShape selectedShape) {
@@ -46,22 +51,26 @@ public class GDrawingPanel extends JPanel {
 	
 	public GDrawingPanel() {
 		super();
+		
+		// components
 		swap = new GSwap();
 		panel = new JPanel();
 		panel.setBackground(Color.WHITE);
 		panel.setPreferredSize(new Dimension(EMainFrame.W.getValue(), EMainFrame.H.getValue()));
-		
 		this.add(panel);
-		// repaint error 방지
-		this.setOpaque(true);
-
-		MouseEventHandler mouseEventHandler = new MouseEventHandler();
-
-		// this.add(mouseEventHandler);
+		mouseEventHandler = new MouseEventHandler();
 		this.addMouseListener(mouseEventHandler);
-		// 마우스가 움직이는 것을 보여주기 위한 부분
 		this.addMouseMotionListener(mouseEventHandler);
+
+
+		
+		// working variables
+		this.selectedShape = null;
+		this.currentShape = null;
+		this.currentShape = null;
 	}
+	
+	public void initialize() { }
 
 	// 최소화 이후 도형 복원
 	public void paint(Graphics g) {
@@ -239,4 +248,6 @@ public class GDrawingPanel extends JPanel {
 		public void mouseExited(MouseEvent arg0) {
 		}
 	}
+
+	
 }

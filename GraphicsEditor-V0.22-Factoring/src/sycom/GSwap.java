@@ -1,6 +1,9 @@
 package sycom;
 
-public class GSwap {
+import java.io.Serializable;
+
+public class GSwap implements Serializable{
+	private static final long serialVersionUID = 1L;
 	public double x1, x2, y1, y2;
 	public static void swapX(GSwap obj){
 		double temp;

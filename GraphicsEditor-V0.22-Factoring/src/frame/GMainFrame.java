@@ -37,8 +37,8 @@ public class GMainFrame extends JFrame {
 		this.toolBar.setDrawingPanel(drawingPanel);
 
 		// Component Initialization
-		toolBar.initialize();
-		menuBar.initialize();
-//		drawingPanel.initialize();
+		toolBar.initialize(this.drawingPanel);
+		menuBar.initialize(this.drawingPanel);
+		drawingPanel.initialize();
 	}
 }
