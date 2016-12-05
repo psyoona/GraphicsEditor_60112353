@@ -24,21 +24,10 @@ public class GPolygon extends GShape implements Serializable{
 	}
 	
 	public void finishDrawing(int x, int y, Graphics2D g2D) {
-		// TODO Auto-generated method stub
 		this.draw(g2D);
 		
 		this.getAnchors().draw(g2D, getShape().getBounds());
 		this.setbSelected(true);
-		
-		// 최종 그리기를 하면 정렬을 한다.
-		xArray = new int[polygon.npoints];
-		yArray = new int[polygon.npoints];
-		for(int i=0; i<polygon.npoints; i++){
-			xArray[i] = polygon.xpoints[i];
-			yArray[i] = polygon.ypoints[i];
-		}
-		quick.sort(xArray, 0, xArray.length-1);
-		quick.sort(yArray, 0, yArray.length-1);
 	}
 
 	public void draw(Graphics2D g2D) {
@@ -56,6 +45,9 @@ public class GPolygon extends GShape implements Serializable{
 
 	public void finishTransforming(int x, int y, Graphics2D g2D) {
 		this.polygon.invalidate();
+		this.draw(g2D);
+		this.getAnchors().draw(g2D, getShape().getBounds());
+		this.setbSelected(true);
 	}
 
 	@Override
@@ -74,18 +66,12 @@ public class GPolygon extends GShape implements Serializable{
 
 	@Override
 	public void setPoint(int x, int y) {
-		// TODO Auto-generated method stub
-		
+		this.px = x;
+		this.py = y;
 	}
 
 	@Override
-	public void addPoint(int x, int y) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void resize(int x, int y, Graphics2D g2D) {
+	public void addPoint(int x, int y, Graphics2D g2D) {
 		if (this.getCurrentEAnchor() == null) {
 			nextX = x;
 			nextY = y;
@@ -96,7 +82,13 @@ public class GPolygon extends GShape implements Serializable{
 			
 			return;
 		}
-		
+	}
+
+	@Override
+	public void resize(int x, int y, Graphics2D g2D) {
+		if (this.getCurrentEAnchor() == null) {
+			return;
+		}
 		int temp, temp2;
 		
 		int minX, minY, maxX, maxY;
@@ -232,23 +224,21 @@ public class GPolygon extends GShape implements Serializable{
 				}
 			}
 			break;
-		case RR:
-			break;
-		case MM:
-			for(int i=0; i<polygon.npoints; i++){
-//				this.polygon.xpoints[i] += x - this.getP1().x;
-//				this.polygon.ypoints[i] += y - this.getP1().y;
-			}
-			break;
+		default:
+			System.out.println("nani?");
+			break;		
 		}
+		this.setPoint(x, y);
+		polygon.invalidate();
 	}
 
 	@Override
 	public void move(int x, int y) {
-		// TODO Auto-generated method stub
 		for(int i=0; i<polygon.npoints; i++){
 			this.polygon.xpoints[i] += x - this.px;
 			this.polygon.ypoints[i] += y - this.py;
 		}
+		this.setPoint(x, y);
+		polygon.invalidate();
 	}
 }

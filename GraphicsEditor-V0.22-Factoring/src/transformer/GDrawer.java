@@ -20,6 +20,6 @@ public class GDrawer extends GTransformer {
 	public void finishTransforming(int x, int y, Graphics2D g2D) {
 	}
 	public void continueTransforming(int x, int y, Graphics2D g2D) {
-		this.getShape().addPoint(x, y);
+		this.getShape().addPoint(x, y, g2D);
 	}
 }

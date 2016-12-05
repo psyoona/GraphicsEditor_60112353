@@ -94,7 +94,7 @@ abstract public class GShape implements Serializable {
 	}
 	abstract public void setOrigin(int x, int y);
 	abstract public void setPoint(int x, int y);
-	abstract public void addPoint(int x, int y); 
+	abstract public void addPoint(int x, int y, Graphics2D g2D); 
 	abstract public void resize(int x, int y, Graphics2D g2D);
 	abstract public void move(int x, int y);
 	

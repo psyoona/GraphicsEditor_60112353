@@ -71,7 +71,7 @@ public class GEllipse extends GShape implements Serializable {
 	}
 
 	@Override
-	public void addPoint(int x, int y) {
+	public void addPoint(int x, int y, Graphics2D g2D) {
 		// TODO Auto-generated method stub
 		
 	}
