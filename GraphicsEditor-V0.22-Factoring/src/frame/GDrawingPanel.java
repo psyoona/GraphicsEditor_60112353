@@ -33,6 +33,7 @@ public class GDrawingPanel extends JPanel {
 	
 	// components
 	private Vector<GShape> shapeVector;
+	public void setShapeVector(){ this.shapeVector = new Vector<GShape>(); }
 	public Vector<GShape> getShapeVector() { return this.shapeVector; }
 	private MouseEventHandler mouseEventHandler;
 	

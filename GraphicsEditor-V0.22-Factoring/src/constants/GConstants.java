@@ -21,6 +21,11 @@ public class GConstants {
 	public final static String EDIT_DEL = "Delete";
 	public final static String EDIT_UNDO = "UnDo";
 	
+	// newItem Alert Message
+	public final static String confirmMessage = "변경 내용을 제목 없음에 저장하시겠습니까?";
+	public final static String paintTitle = "Graphics Editor";
+	
+	
 	public enum EAnchors {
 		NN(new Cursor(Cursor.N_RESIZE_CURSOR)), 
 		NE(new Cursor(Cursor.NE_RESIZE_CURSOR)), 

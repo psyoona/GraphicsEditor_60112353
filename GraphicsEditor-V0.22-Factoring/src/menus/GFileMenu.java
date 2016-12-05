@@ -11,6 +11,7 @@ import java.io.ObjectOutputStream;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import constants.GConstants;
@@ -86,14 +87,46 @@ public class GFileMenu extends JMenu{
 		}
 	}
 	
+	private void newItem(){
+		int result;
+		result = JOptionPane.showConfirmDialog(null, GConstants.confirmMessage, GConstants.paintTitle, 
+				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null);
+		// 예 : 0 아니오 : 1 취소 : 2
+		if(result == 0){
+			save();
+		}else if(result == 1){
+			drawingPanel.setShapeVector();
+			drawingPanel.repaint();
+		}else{
+			
+		}
+	}
+	
+	private void exit(){
+		int result;
+		result = JOptionPane.showConfirmDialog(null, GConstants.confirmMessage, GConstants.paintTitle, 
+				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null);
+		// 예 : 0 아니오 : 1 취소 : 2
+		if(result == 0){
+			save();
+		}else if(result == 1){
+			System.exit(0);
+		}
+		
+	}
+	
 	private class ActionHandler implements ActionListener{
 
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			if (event.getActionCommand().equals(EFileMenuItem.open.name())) {
 				open();
-			} else if (event.getActionCommand().equals(EFileMenuItem.save.name())) {
+			}else if (event.getActionCommand().equals(EFileMenuItem.save.name())) {
 				save();
+			}else if (event.getActionCommand().equals(EFileMenuItem.newItem.name())) {
+				newItem();
+			}else if (event.getActionCommand().equals(EFileMenuItem.exit.name())) {
+				exit();
 			}
 		}
 	}
