@@ -3,9 +3,6 @@ package shapes;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 import java.io.Serializable;
-import java.util.Vector;
-
-import javax.swing.JPanel;
 
 import constants.GConstants;
 import constants.GConstants.EAnchors;
@@ -17,29 +14,10 @@ public class GLine extends GShape implements Serializable {
 	Line2D line;
 	GSwap swap;
 
-	private int x2, y2;
-
 	public GLine() {
-		super(EDrawingType.TP);
-		line = new Line2D.Double();
-		this.setShape(this.line);
+		super(EDrawingType.TP, new Line2D.Double(0, 0, 0, 0));
+		this.line = (Line2D.Double)this.getShape();
 		swap = new GSwap();
-	}
-
-	public int getY2() {
-		return y2;
-	}
-
-	public void setY2(int y2) {
-		this.y2 = y2;
-	}
-
-	public int getX2() {
-		return x2;
-	}
-
-	public void setX2(int x2) {
-		this.x2 = x2;
 	}
 
 	public void draw(Graphics2D g2D) {
@@ -49,22 +27,6 @@ public class GLine extends GShape implements Serializable {
 		}
 	}
 
-	@Override
-	public void initDrawing(int x, int y, Graphics2D g2D) {
-		// TODO Auto-generated method stub
-		this.line.setLine(x, y, x, y);
-		swap.x1 = x;
-		swap.y1 = y;
-	}
-
-	@Override
-	public void keepDrawing(int x, int y, Graphics2D g2D) {
-		// TODO Auto-generated method stub
-		this.draw(g2D);
-		this.line.setLine(swap.x1, swap.y1, x, y);
-		this.draw(g2D);
-	}
-	
 	public EAnchors contains(int x, int y, Graphics2D g2D) {
 		for (int i=0; i<EAnchors.values().length-1; i++) {
 			if(anchors.get(i).x-10 <= x && anchors.get(i).x+10 >= x &&
@@ -94,47 +56,10 @@ public class GLine extends GShape implements Serializable {
 	}
 
 	@Override
-	public void finishDrawing(int x, int y, Graphics2D g2D) {
-		this.getAnchors().draw(g2D, getShape().getBounds());
-		this.bSelected = true;
-	}
-
-	@Override
-	public void init(Vector<GShape> shapeVector, JPanel panel) {
-
-	}
-
-	@Override
-	public void changeCursor(int x, int y, Graphics2D g2D) {
-
-	}
-
-	@Override
 	public void clickShape(int x, int y, Graphics2D g2D) {
 		this.getAnchors().draw(g2D, getShape().getBounds());
 	}
 
-	@Override
-	public void initResizing(int x, int y, Graphics2D g2d) {
-
-	}
-
-	@Override
-	public void keepResizing(int x, int y, Graphics2D g2d) {
-
-	}
-
-	@Override
-	public void finishResizing(int x, int y, Graphics2D g2d) {
-
-	}
-
-	@Override
-	public void initTransforming(int x, int y, Graphics2D g2d) {
-		setP1(x, y);
-	}
-
-	@Override
 	public void keepTransforming(int x, int y, Graphics2D g2D) {
 		// erase shape
 		this.draw(g2D);
@@ -168,19 +93,78 @@ public class GLine extends GShape implements Serializable {
 		case RR:
 			break;
 		case MM:
-			this.line.setLine(line.getX1()+x-this.getP1().x, 
-					line.getY1()+y - this.getP1().y, 
-					line.getX2()+x - this.getP1().x, 
-					line.getY2()+y - this.getP1().y);
+//			this.line.setLine(line.getX1()+x-this.getP1().x, 
+//					line.getY1()+y - this.getP1().y, 
+//					line.getX2()+x - this.getP1().x, 
+//					line.getY2()+y - this.getP1().y);
 			break;
 		}
 		this.draw(g2D);
-		this.setP1(x, y);
+		//this.setP1(x, y);
 	}
 
 	@Override
-	public void finishTransforming(int x, int y, Graphics2D g2d) {
-		// TODO Auto-generated method stub
+	public void setOrigin(int x, int y) {
+		line.setLine(x, y, x, y);
+		swap.x1 = x;
+		swap.y1 = y;
+	}
 
+	@Override
+	public void setPoint(int x, int y) {
+		this.px = x;
+		this.py = y;
+	}
+
+	@Override
+	public void addPoint(int x, int y) {
+		
+	}
+
+	@Override
+	public void resize(int x, int y, Graphics2D g2D) {
+		if (this.getCurrentEAnchor() == null) {
+			this.line.setLine(swap.x1, swap.y1, x, y);
+//			this.line.getX2() = x - this.rectangle.x;
+//			this.rectangle.height = y - this.rectangle.y;
+			return;
+		}
+		switch (this.getCurrentEAnchor()) {
+		case NN:
+			//swap.y1 = this.line.getY1();
+			this.line.setLine(line.getX1(), y, line.getX2(), line.getY2());
+			break;
+		case NE:
+			this.line.setLine(line.getX1(), y, x, line.getY2());
+			break;
+		case NW:
+			this.line.setLine(x, y, line.getX2(), line.getY2());
+			break;
+		case SS:
+			this.line.setLine(line.getX1(), line.getY1(), line.getX2(), y);
+			break;
+		case SE:
+			this.line.setLine(line.getX1(), line.getY1(), x, y);
+			break;
+		case SW:
+			this.line.setLine(x, line.getY1(), line.getX2(), y);
+			break;
+		case EE:
+			this.line.setLine(line.getX1(), line.getY1(), x, line.getY2());
+			break;
+		case WW:
+			this.line.setLine(x, line.getY1(), line.getX2(), line.getY2());
+			break;
+		case RR:
+			break;
+		default:
+			break;
+		}
+	}
+
+	@Override
+	public void move(int x, int y) {
+		// TODO Auto-generated method stub
+		
 	}
 }

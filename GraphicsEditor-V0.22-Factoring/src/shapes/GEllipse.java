@@ -3,9 +3,6 @@ package shapes;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.io.Serializable;
-import java.util.Vector;
-
-import javax.swing.JPanel;
 
 import constants.GConstants.EDrawingType;
 import sycom.GSwap;
@@ -16,10 +13,9 @@ public class GEllipse extends GShape implements Serializable {
 	Ellipse2D.Double ellipse;
 
 	public GEllipse() {
-		super(EDrawingType.TP);
+		super(EDrawingType.TP, new Ellipse2D.Double(0,0,0,0));
 		swap = new GSwap();
-		ellipse = new Ellipse2D.Double(0, 0, 0, 0);
-		setShape(this.ellipse);
+		this.ellipse = (Ellipse2D.Double)this.getShape();
 	}
 
 	private void changeDraw(Graphics2D g2D) {
@@ -57,73 +53,43 @@ public class GEllipse extends GShape implements Serializable {
 	}
 
 	@Override
-	public void initDrawing(int x, int y, Graphics2D g2D) {
-		// TODO Auto-generated method stub
+	public void clickShape(int x, int y, Graphics2D g2D) {
+		this.getAnchors().draw(g2D, getShape().getBounds());
+	}
+
+	@Override
+	public void setOrigin(int x, int y) {
 		this.ellipse.setFrame(x, y, 0, 0);
 		swap.x1 = x;
 		swap.y1 = y;
 	}
 
 	@Override
-	public void keepDrawing(int x, int y, Graphics2D g2D) {
+	public void setPoint(int x, int y) {
+		this.px = x;
+		this.py = y;
+	}
+
+	@Override
+	public void addPoint(int x, int y) {
 		// TODO Auto-generated method stub
-		this.draw(g2D);
-		this.ellipse.width = x - this.swap.x1;
-		this.ellipse.height = y - this.swap.y1;
-		this.draw(g2D);
+		
+	}
+	
+	@Override
+	public void move(int x, int y) {
+		this.ellipse.x += x - this.px;
+		this.ellipse.y += y - this.py;
+		this.setPoint(x, y);
 	}
 
 	@Override
-	public void finishDrawing(int x, int y, Graphics2D g2D) {
-		// TODO Auto-generated method stub
-		this.getAnchors().draw(g2D, getShape().getBounds());
-		this.bSelected = true;
-	}
-
-	@Override
-	public void changeCursor(int x, int y, Graphics2D g2D) {
-
-	}
-
-	@Override
-	public void init(Vector<GShape> shapeVector, JPanel panel) {
-
-	}
-
-	@Override
-	public void clickShape(int x, int y, Graphics2D g2D) {
-		this.getAnchors().draw(g2D, getShape().getBounds());
-	}
-
-	@Override
-	public void initResizing(int x, int y, Graphics2D g2D) {
-		this.setP1(x, y);
-		draw(g2D);
-	}
-
-	@Override
-	public void keepResizing(int x, int y, Graphics2D g2d) {
-
-	}
-
-	@Override
-	public void finishResizing(int x, int y, Graphics2D g2d) {
-
-	}
-
-	@Override
-	public void initTransforming(int x, int y, Graphics2D g2D) {
-		setP1(x, y);
-	}
-
-	@Override
-	public void keepTransforming(int x, int y, Graphics2D g2D) {
-		// swap 변수들은 temp의 기능만을 함
-		// 그 외에 별도의 기능은 없음
-
-		// erase shape
-		this.draw(g2D);
-
+	public void resize(int x, int y, Graphics2D g2D) {
+		if (this.getCurrentEAnchor() == null) {
+			this.ellipse.width = x - this.swap.x1;
+			this.ellipse.height = y - this.swap.y1;
+			return;
+		}
 		switch (this.getCurrentEAnchor()) {
 		case NN:
 			swap.y1 = this.ellipse.getY();
@@ -165,21 +131,12 @@ public class GEllipse extends GShape implements Serializable {
 			this.ellipse.x = x;
 			this.ellipse.width += swap.x1 - x;
 			break;
-		case RR:
-			break;
-		case MM:
-			this.ellipse.x += x - this.getP1().x;
-			this.ellipse.y += y - this.getP1().y;
+		default:
 			break;
 		}
-		this.draw(g2D);
-		this.setP1(x, y);
-
+		
+		this.setPoint(x, y);
 	}
 
-	@Override
-	public void finishTransforming(int x, int y, Graphics2D g2d) {
-		// TODO Auto-generated method stub
-
-	}
+	
 }

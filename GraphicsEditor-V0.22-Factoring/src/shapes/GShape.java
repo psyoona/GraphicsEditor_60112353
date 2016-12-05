@@ -1,18 +1,16 @@
 package shapes;
 
 import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
+import java.io.Serializable;
 import java.util.Vector;
-
-import javax.swing.JPanel;
 
 import constants.GConstants.EAnchors;
 import constants.GConstants.EDrawingType;
 
-abstract public class GShape {
+abstract public class GShape implements Serializable {
+	private static final long serialVersionUID = 1L;
 	// attributes
 	private Vector<GShape> shapeVector;
 	private EDrawingType eDrawingType;
@@ -26,7 +24,7 @@ abstract public class GShape {
 	protected AffineTransform affineTransform;
 	
 	// working variables
-	private Point p0, p1;
+	protected int px, py;
 	
 	// getters & setters
 	public Vector<GShape> getShapeVector() { return shapeVector; }
@@ -38,22 +36,16 @@ abstract public class GShape {
 	public void setAnchors(GAnchors anchors) { this.anchors = anchors; }
 	public EAnchors getCurrentEAnchor() { return currentEAnchor; }
 	
-	public Point getP0() {return p0; }
-	public void setP0(int x, int y) { this.p0.x = x; this.p0.y = y;}
-	public Point getP1() { return p1; }
-	public void setP1(int x, int y) { this.p1.x = x; this.p1.y = y; }
-
 	// Constructor
-	public GShape(EDrawingType eDrawingType){
-		affineTransform = new AffineTransform();
-		
-		this.bSelected = false;
+	public GShape(EDrawingType eDrawingType, Shape shape){
 		this.eDrawingType = eDrawingType;
-		this.anchors = new GAnchors();
+		this.bSelected = false;
 		this.currentEAnchor = null;
 		
-		this.p0 = new Point(0, 0);
-		this.p1 = new Point(0, 0);
+		this.shape = shape;
+		this.anchors = new GAnchors();
+		
+		this.px = this.py = 0;
 	}
 	
 	public boolean getbSelected() { return bSelected; }
@@ -66,6 +58,15 @@ abstract public class GShape {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	
+	// methods
+	public void draw(Graphics2D g2d) {
+		g2d.draw(this.shape);
+		if (this.bSelected) {
+			this.anchors.draw(g2d, this.shape.getBounds());
+		}
 	}
 	
 	public void delPoint(int x, int y, Graphics2D g2D){
@@ -91,28 +92,18 @@ abstract public class GShape {
 		} // for end
 		return null;
 	}
+	abstract public void setOrigin(int x, int y);
+	abstract public void setPoint(int x, int y);
+	abstract public void addPoint(int x, int y); 
+	abstract public void resize(int x, int y, Graphics2D g2D);
+	abstract public void move(int x, int y);
 	
+	public void clickShape(int x, int y, Graphics2D g2d) {
+		// TODO Auto-generated method stub
+		
+	}
 	public boolean contains(int x, int y) {
-		return shape.contains(x, y);
-	}
-	
-	public Rectangle getBounds(){
-		return this.shape.getBounds();
-	}
-	
-	abstract public void initDrawing(int x, int y, Graphics2D g2D);
-	abstract public void keepDrawing(int x, int y, Graphics2D g2D);
-	abstract public void finishDrawing(int x, int y, Graphics2D g2D);	
-	abstract public void draw(Graphics2D g2d);	
-	abstract public void init(Vector<GShape> shapeVector, JPanel panel);
-	abstract public void changeCursor(int x, int y, Graphics2D g2D);
-	abstract public void clickShape(int x, int y, Graphics2D g2D);
-	
-	abstract public void initTransforming(int x, int y, Graphics2D g2d);
-	abstract public void keepTransforming(int x, int y, Graphics2D g2d);
-	abstract public void finishTransforming(int x, int y, Graphics2D g2d);
-	
-	abstract public void initResizing(int x, int y, Graphics2D g2d);
-	abstract public void keepResizing(int x, int y, Graphics2D g2d);
-	abstract public void finishResizing(int x, int y, Graphics2D g2d);
+		// TODO Auto-generated method stub
+		return false;
+	}	
 }

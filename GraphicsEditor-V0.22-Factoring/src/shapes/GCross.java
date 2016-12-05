@@ -1,6 +1,7 @@
 package shapes;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.util.Vector;
 
 import javax.swing.JPanel;
@@ -9,12 +10,13 @@ import constants.GConstants.EAnchors;
 import constants.GConstants.EDrawingType;
 
 public class GCross extends GShape {
+	private static final long serialVersionUID = 1L;
 	private Vector<GShape> shapeVector;
 	JPanel panel;
 	public GCursorList cursorList;
 
 	public GCross() {
-		super(EDrawingType.CHOICE);
+		super(EDrawingType.CHOICE, new Rectangle(0, 0, 0, 0));
 		cursorList = new GCursorList();
 	}
 
@@ -53,28 +55,7 @@ public class GCross extends GShape {
 		}
 	}
 
-	@Override
-	public void initDrawing(int x, int y, Graphics2D g2d) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void keepDrawing(int x, int y, Graphics2D g2d) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void finishDrawing(int x, int y, Graphics2D g2d) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void draw(Graphics2D g2d) {
-		// TODO Auto-generated method stub
-	}
-	
+		
 	public void delPoint(int x, int y, Graphics2D g2D){
 		// bSelected가 true이면 모두 false로 바꾼다.
 		for(GShape shape : this.shapeVector){
@@ -95,45 +76,69 @@ public class GCross extends GShape {
 		}
 	}
 
-	@Override
+	
 	public void clickShape(int x, int y, Graphics2D g2D) {
 		delPoint(x, y, g2D);
 		activatePoint(x, y, g2D);
 		panel.setCursor(cursorList.getMoveCursor());
 	}
 
-	@Override
 	public void initResizing(int x, int y, Graphics2D g2d) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void keepResizing(int x, int y, Graphics2D g2d) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void finishResizing(int x, int y, Graphics2D g2d) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void initTransforming(int x, int y, Graphics2D g2d) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void keepTransforming(int x, int y, Graphics2D g2d) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void finishTransforming(int x, int y, Graphics2D g2d) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setOrigin(int x, int y) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setPoint(int x, int y) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addPoint(int x, int y) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void resize(int x, int y,  Graphics2D g2D) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void move(int x, int y) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -3,9 +3,6 @@ package shapes;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.io.Serializable;
-import java.util.Vector;
-
-import javax.swing.JPanel;
 
 import constants.GConstants.EDrawingType;
 import sycom.GQuick;
@@ -21,49 +18,11 @@ public class GPolygon extends GShape implements Serializable{
 	private int[] yArray;
 
 	public GPolygon(){
-		super(EDrawingType.NP);
-		this.polygon = new Polygon();
-		
-		this.setShape(this.polygon);
-		
+		super(EDrawingType.NP, new Polygon());
+		this.polygon = (Polygon)this.getShape();
 		quick = new GQuick();
 	}
-
-	@Override
-	public void initDrawing(int x, int y, Graphics2D g2D) {
-		// TODO Auto-generated method stub
-		polygon.addPoint(x, y);
-		// 초기 좌표 2개
-		startX = x;
-		startY = y;
-		
-		// 폴리 라인을 그리기 위한 prev x, y 좌표
-		prevX = x;
-		prevY = y;
-	}
-
-	@Override
-	public void keepDrawing(int x, int y, Graphics2D g2D) {
-		// TODO Auto-generated method stub
-		nextX = x;
-		nextY = y;
-		g2D.drawLine(prevX, prevY, nextX, nextY);
-		polygon.addPoint(x, y);
-		prevX = nextX;
-		prevY = nextY;
-		
-		// 초기좌표와 같은 점이 클릭되었는지 체크
-		checkFinish(x, y, g2D);
-	}
 	
-	private void checkFinish(int x, int y, Graphics2D g2D){
-		// 초기좌표와 같은 점이 클릭되었는지 체크
-		if(x == startX && y == startY){
-			finishDrawing(x, y, g2D);
-		}
-	}
-
-	@Override
 	public void finishDrawing(int x, int y, Graphics2D g2D) {
 		// TODO Auto-generated method stub
 		this.draw(g2D);
@@ -82,7 +41,6 @@ public class GPolygon extends GShape implements Serializable{
 		quick.sort(yArray, 0, yArray.length-1);
 	}
 
-	@Override
 	public void draw(Graphics2D g2D) {
 		g2D.drawPolygon(polygon);
 		if (getbSelected() == true) {
@@ -91,47 +49,55 @@ public class GPolygon extends GShape implements Serializable{
 	}
 
 	@Override
-	public void init(Vector<GShape> shapeVector, JPanel panel) {
-		
-	}
-
-	@Override
-	public void changeCursor(int x, int y, Graphics2D g2D) {
-		
-	}
-
-	@Override
 	public void clickShape(int x, int y, Graphics2D g2D) {
 		this.getAnchors().draw(g2D, getShape().getBounds());
 		this.setbSelected(true);
 	}
 
-	@Override
-	public void initResizing(int x, int y, Graphics2D g2D) {
-		this.setP1(x, y);
-		draw(g2D);
+	public void finishTransforming(int x, int y, Graphics2D g2D) {
+		this.polygon.invalidate();
 	}
 
 	@Override
-	public void keepResizing(int x, int y, Graphics2D g2d) {
+	public void setOrigin(int x, int y) {
+		// TODO Auto-generated method stub
+		polygon.addPoint(x, y);
+
+		startX = x;
+		startY = y;
+		
+		// 폴리 라인을 그리기 위한 prev x, y 좌표
+		prevX = x;
+		prevY = y;
 		
 	}
 
 	@Override
-	public void finishResizing(int x, int y, Graphics2D g2d) {
+	public void setPoint(int x, int y) {
+		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void initTransforming(int x, int y, Graphics2D g2D) {
-		setP1(x, y);
+	public void addPoint(int x, int y) {
+		// TODO Auto-generated method stub
+		
 	}
-	
+
 	@Override
-	public void keepTransforming(int x, int y, Graphics2D g2D) {
+	public void resize(int x, int y, Graphics2D g2D) {
+		if (this.getCurrentEAnchor() == null) {
+			nextX = x;
+			nextY = y;
+			g2D.drawLine(prevX, prevY, nextX, nextY);
+			polygon.addPoint(x, y);
+			prevX = nextX;
+			prevY = nextY;
+			
+			return;
+		}
+		
 		int temp, temp2;
-		clickShape(x, y, g2D);
-		this.draw(g2D);
 		
 		int minX, minY, maxX, maxY;
 		int minIndexX, minIndexY, maxIndexX, maxIndexY;
@@ -270,18 +236,19 @@ public class GPolygon extends GShape implements Serializable{
 			break;
 		case MM:
 			for(int i=0; i<polygon.npoints; i++){
-				this.polygon.xpoints[i] += x - this.getP1().x;
-				this.polygon.ypoints[i] += y - this.getP1().y;
+//				this.polygon.xpoints[i] += x - this.getP1().x;
+//				this.polygon.ypoints[i] += y - this.getP1().y;
 			}
 			break;
 		}
-		this.draw(g2D);
-		this.setP1(x, y);
-		this.polygon.invalidate();
-		clickShape(x, y, g2D);
 	}
+
 	@Override
-	public void finishTransforming(int x, int y, Graphics2D g2D) {
-		this.polygon.invalidate();
+	public void move(int x, int y) {
+		// TODO Auto-generated method stub
+		for(int i=0; i<polygon.npoints; i++){
+			this.polygon.xpoints[i] += x - this.px;
+			this.polygon.ypoints[i] += y - this.py;
+		}
 	}
 }

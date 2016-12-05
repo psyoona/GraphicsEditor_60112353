@@ -1,5 +1,7 @@
 package constants;
 
+import java.awt.Cursor;
+
 import shapes.GCross;
 import shapes.GEllipse;
 import shapes.GLine;
@@ -19,26 +21,37 @@ public class GConstants {
 	public final static String EDIT_DEL = "Delete";
 	public final static String EDIT_UNDO = "UnDo";
 	
-	public enum EAnchors {NN, NE, NW, SS, SW, SE, EE, WW, RR, MM};
+	public enum EAnchors {
+		NN(new Cursor(Cursor.N_RESIZE_CURSOR)), 
+		NE(new Cursor(Cursor.NE_RESIZE_CURSOR)), 
+		NW(new Cursor(Cursor.NW_RESIZE_CURSOR)), 
+		SS(new Cursor(Cursor.S_RESIZE_CURSOR)), 
+		SE(new Cursor(Cursor.SE_RESIZE_CURSOR)), 
+		SW(new Cursor(Cursor.SW_RESIZE_CURSOR)), 
+		EE(new Cursor(Cursor.E_RESIZE_CURSOR)), 
+		WW(new Cursor(Cursor.W_RESIZE_CURSOR)), 
+		RR(new Cursor(Cursor.HAND_CURSOR)), 
+		MM(new Cursor(Cursor.MOVE_CURSOR));
+		
+		private Cursor cursor;
+		private EAnchors(Cursor cursor) {
+			this.cursor = cursor;
+		}
+		public Cursor getCursor() { return this.cursor; }
+	};
 	
 	// Line size
 	public static final int LINE_BOX_SIZE = 2;
 	
 	public static enum EMainFrame{
-		X(100),
-		Y(100),
-		W(400),
-		H(600);
+		X(100), Y(100),	W(400),	H(600);
 		
-		// 클래스의 형태
 		private int value;
 		private EMainFrame(int value){
 			this.value = value;
 		}
 		
 		public int getValue(){ return this.value; }
-		// 클래스의 형태 끝
-		
 	}
 	
 	public static enum EDrawingType {
@@ -55,9 +68,7 @@ public class GConstants {
 		exit("Exit");
 		
 		private String text;
-		private EFileMenuItem(String text){
-			this.text = text;
-		}
+		private EFileMenuItem(String text){	this.text = text; }
 		
 		public String getText(){ return this.text; }
 	}
@@ -73,9 +84,7 @@ public class GConstants {
 		ungroup("Ungroup");
 		
 		private String text;
-		private EEditMenuItem(String text){
-			this.text = text;
-		}
+		private EEditMenuItem(String text){	this.text = text; }
 		
 		public String getText(){ return this.text; }
 	}

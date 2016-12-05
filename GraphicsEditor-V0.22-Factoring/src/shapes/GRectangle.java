@@ -4,9 +4,6 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.io.Serializable;
-import java.util.Vector;
-
-import javax.swing.JPanel;
 
 import constants.GConstants.EDrawingType;
 import sycom.GSwap;
@@ -18,10 +15,27 @@ public class GRectangle extends GShape implements Serializable{
 	GSwap swap;
 
 	public GRectangle(){
-		super(EDrawingType.TP);
-		this.rectangle = new Rectangle(0, 0, 0, 0);
-		this.setShape(this.rectangle);
+		super(EDrawingType.TP, new Rectangle(0, 0, 0, 0));
+		this.rectangle = (Rectangle)this.getShape();
 		swap = new GSwap();
+	}
+	
+	public void setOrigin(int x, int y){
+		this.rectangle.setLocation(x, y);
+		swap.x1 = x;
+		swap.y1 = y;
+	}
+	
+	public void setPoint(int x, int y){
+		this.px = x;
+		this.py = y;
+	}
+	
+	@Override
+	public void move(int x, int y) {
+		this.rectangle.x += x - px;
+		this.rectangle.y += y - py;
+		this.setPoint(x, y);
 	}
 	
 	private void changeDraw(Graphics2D g2D){
@@ -48,52 +62,10 @@ public class GRectangle extends GShape implements Serializable{
 	}
 	
 	public void draw(Graphics2D g2D){
-		/*
-		 * startX : 시작 x좌표, startY : 시작 y좌표
-		 */
 		changeDraw(g2D);
 		if(getbSelected() == true){
 			clickShape(0, 0, g2D);
 		}
-	}
-
-	@Override
-	public void initDrawing(int x, int y, Graphics2D g2D) {
-		// TODO Auto-generated method stub
-		this.rectangle.setLocation(x, y);
-		swap.x1 = x;
-		swap.y1 = y;
-		this.draw(g2D);
-
-	}
-
-	@Override
-	public void keepDrawing(int x, int y, Graphics2D g2D) {
-		// erase Shape
-		this.draw(g2D);
-		this.rectangle.setSize(new Dimension
-				(x - (int)this.swap.x1, y - (int)this.swap.y1));
-		
-		// redraw Shape
-		this.draw(g2D);
-	}
-
-
-	@Override
-	public void finishDrawing(int x, int y, Graphics2D g2D) {
-		// TODO Auto-generated method stub
-		clickShape(x, y, g2D);
-		this.setbSelected(true);
-	}
-
-	@Override
-	public void init(Vector<GShape> shapeVector, JPanel panel) {
-		
-	}
-
-	@Override
-	public void changeCursor(int x, int y, Graphics2D g2D) {
-		
 	}
 
 	@Override
@@ -102,33 +74,17 @@ public class GRectangle extends GShape implements Serializable{
 	}
 
 	@Override
-	public void initResizing(int x, int y, Graphics2D g2D) {
-		this.setP1(x, y);
-		draw(g2D);
-	}
-
-	@Override
-	public void keepResizing(int x, int y, Graphics2D g2D) {
+	public void addPoint(int x, int y) {
 		
 	}
 
 	@Override
-	public void finishResizing(int x, int y, Graphics2D g2D) {
-		
-	}
-
-	@Override
-	public void initTransforming(int x, int y, Graphics2D g2D) {
-		setP1(x, y);
-	}
-
-	@Override
-	public void keepTransforming(int x, int y, Graphics2D g2D) {
-		//erase shape
-		this.draw(g2D);
-		// swap 변수들은 temp의 기능만을 함
-		// 그 외에 별도의 기능은 없음
-		
+	public void resize(int x, int y, Graphics2D g2D) {
+		if (this.getCurrentEAnchor() == null) {
+			this.rectangle.setSize(new Dimension
+					(x - (int)this.swap.x1, y - (int)this.swap.y1));
+			return;
+		}
 		switch (this.getCurrentEAnchor()) {
 		case NN:
 			swap.y1 = this.rectangle.y;
@@ -172,18 +128,10 @@ public class GRectangle extends GShape implements Serializable{
 			break;
 		case RR:
 			break;
-		case MM:
-			this.rectangle.x += x - this.getP1().x;
-			this.rectangle.y += y - this.getP1().y;
+		default:
 			break;
 		}
-		
-		this.draw(g2D);
-		this.setP1(x, y);
+		this.setPoint(x, y);
 	}
 
-	@Override
-	public void finishTransforming(int x, int y, Graphics2D g2D) {
-//		this.setbSelected(true);
-	}
 }

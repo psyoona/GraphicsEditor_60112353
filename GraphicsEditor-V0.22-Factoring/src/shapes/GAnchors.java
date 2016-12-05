@@ -74,4 +74,12 @@ public class GAnchors extends Vector<Ellipse2D.Double>{
 			g2D.draw(this.get(i));
 		}
 	}
+	
+	public EAnchors contains(int x, int y) {
+		for (int i=0; i<EAnchors.values().length-1; i++) {
+			if (this.get(i).contains(x, y))
+				return EAnchors.values()[i];
+		}
+		return null;
+	}
 }
