@@ -9,7 +9,7 @@ import java.util.Vector;
 import constants.GConstants.EAnchors;
 import constants.GConstants.EDrawingType;
 
-abstract public class GShape implements Serializable {
+abstract public class GShape implements Serializable, Cloneable{
 	private static final long serialVersionUID = 1L;
 	// attributes
 	private Vector<GShape> shapeVector;
@@ -58,6 +58,10 @@ abstract public class GShape implements Serializable {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public Object deepClone() throws CloneNotSupportedException{
+		return super.clone();
 	}
 	
 	

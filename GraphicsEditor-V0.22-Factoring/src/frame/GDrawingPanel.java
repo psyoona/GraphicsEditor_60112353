@@ -84,7 +84,7 @@ public class GDrawingPanel extends JPanel {
 		}
 	}
 	
-	private void resetSelected() {
+	public void resetSelected() {
 		for (GShape shape: this.shapeVector) {
 			shape.setbSelected(false);
 		}
