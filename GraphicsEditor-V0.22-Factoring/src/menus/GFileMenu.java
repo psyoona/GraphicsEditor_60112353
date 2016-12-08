@@ -127,6 +127,8 @@ public class GFileMenu extends JMenu{
 				newItem();
 			}else if (event.getActionCommand().equals(EFileMenuItem.exit.name())) {
 				exit();
+			}else if (event.getActionCommand().equals(EFileMenuItem.close.name())) {
+				exit();
 			}
 		}
 	}
