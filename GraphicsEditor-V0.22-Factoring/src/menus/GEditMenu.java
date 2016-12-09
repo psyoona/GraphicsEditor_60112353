@@ -98,6 +98,23 @@ public class GEditMenu extends JMenu {
 	    drawingPanel.repaint();
 	}
 	
+	private void redo(){
+		drawingPanel.redo();
+	}
+	
+	private void undo(){
+		drawingPanel.undo();
+	}
+	
+	private void group(){
+		
+	}
+	
+	private void ungroup(){
+		
+	}
+	
+	
 	private class ActionHandler implements ActionListener{
 
 		@Override
@@ -111,13 +128,13 @@ public class GEditMenu extends JMenu {
 			}else if (event.getActionCommand().equals(EEditMenuItem.delete.name())) {
 				delete();
 			}else if (event.getActionCommand().equals(EEditMenuItem.redo.name())) {
-				
+				redo();
 			}else if (event.getActionCommand().equals(EEditMenuItem.undo.name())) {
-				
+				undo();
 			}else if (event.getActionCommand().equals(EEditMenuItem.group.name())) {
-				
+				group();
 			}else if (event.getActionCommand().equals(EEditMenuItem.ungroup.name())) {
-				
+				ungroup();
 			}
 		}
 	}

@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.util.Stack;
 import java.util.Vector;
 
 import javax.swing.JPanel;
@@ -32,6 +33,8 @@ public class GDrawingPanel extends JPanel {
 	private EState eState;
 	
 	// components
+	private Stack<Vector<GShape>> redo;
+	private Stack<Vector<GShape>> undo;
 	private Vector<GShape> shapeVector;
 	public void setShapeVector(){ this.shapeVector = new Vector<GShape>(); }
 	public Vector<GShape> getShapeVector() { return this.shapeVector; }
@@ -51,6 +54,7 @@ public class GDrawingPanel extends JPanel {
 	private GShape currentShape;
 	private GTransformer currentTransformer;
 	
+	@SuppressWarnings("unchecked")
 	public GDrawingPanel() {
 		super();
 		// attributes
@@ -60,6 +64,9 @@ public class GDrawingPanel extends JPanel {
 		this.mouseEventHandler = new MouseEventHandler();
 		this.addMouseListener(mouseEventHandler);
 		this.addMouseMotionListener(mouseEventHandler);
+		redo = new Stack<Vector<GShape>>();
+		undo = new Stack<Vector<GShape>>();
+		undo.add((Vector<GShape>) shapeVector.clone());
 		
 		swap = new GSwap();
 		panel = new JPanel();
@@ -91,6 +98,23 @@ public class GDrawingPanel extends JPanel {
 		this.repaint();
 	}
 	
+	@SuppressWarnings("unchecked")
+	public void redo() {
+		if(redo.size() != 0) {
+			undo.add((Vector<GShape>)shapeVector.clone());
+			shapeVector = redo.pop();
+			repaint();
+		}
+	}
+	@SuppressWarnings("unchecked")
+	public void undo() {
+		if(undo.size() != 0) {
+			redo.add((Vector<GShape>)shapeVector.clone());
+			shapeVector = undo.pop();
+			repaint();
+		}
+	}
+	
 	private void initTransforming(int x, int y){
 		if (this.currentShape == null) {
 			this.currentShape= this.selectedShape.clone();
@@ -120,13 +144,20 @@ public class GDrawingPanel extends JPanel {
 		this.currentTransformer.continueTransforming(x, y, g2D);
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void finishTransforming(int x, int y) {
 		Graphics2D g2D = (Graphics2D)this.getGraphics();
 		g2D.setXORMode(this.getBackground());
 		this.currentTransformer.finishTransforming(x, y, g2D);
 		
 		if (this.currentTransformer.getClass().getSimpleName().equals("GDrawer")) {
+			undo.add((Vector<GShape>) shapeVector.clone());
+			redo.clear();
 			this.shapeVector.add(this.currentShape);
+		}else{
+			undo.add((Vector<GShape>) shapeVector.clone());
+			redo.clear();
+			repaint();
 		}
 		this.currentShape.setbSelected(true);
 		this.repaint();
