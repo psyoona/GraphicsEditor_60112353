@@ -163,11 +163,8 @@ public class GDrawingPanel extends JPanel {
 			undo.add((Vector<GShape>) shapeVector.clone());
 			redo.clear();
 			this.shapeVector.add(this.currentShape);
-		}else{
-			undo.add((Vector<GShape>) shapeVector.clone());
-			redo.clear();
-			repaint();
 		}
+		
 		this.currentShape.setbSelected(true);
 		this.repaint();
 		this.setDirty(true);
