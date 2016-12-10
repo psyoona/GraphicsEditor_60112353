@@ -27,21 +27,14 @@ public class GEllipse extends GShape implements Serializable {
 			ellipse.y = ellipse.height + swap.y1;
 			this.ellipse.width = Math.abs(this.ellipse.width);
 			this.ellipse.height = Math.abs(this.ellipse.height);
-			g2D.draw(this.ellipse);
-
 		} else if (this.ellipse.height < 0) {
 			ellipse.y = ellipse.height + swap.y1;
 			this.ellipse.height = Math.abs(this.ellipse.height);
-			g2D.draw(this.ellipse);
-
 		} else if (this.ellipse.width < 0) {
 			ellipse.x = ellipse.width + swap.x1;
 			this.ellipse.width = Math.abs(this.ellipse.width);
-			g2D.draw(this.ellipse);
-
-		} else {
-			g2D.draw(this.ellipse);
-		}
+		} 
+		g2D.draw(this.ellipse);
 	}
 
 	public void draw(Graphics2D g2D) {
@@ -134,9 +127,6 @@ public class GEllipse extends GShape implements Serializable {
 		default:
 			break;
 		}
-		
 		this.setPoint(x, y);
 	}
-
-	
 }

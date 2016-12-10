@@ -33,8 +33,8 @@ public class GRectangle extends GShape implements Serializable{
 	
 	@Override
 	public void move(int x, int y) {
-		this.rectangle.x += x - px;
-		this.rectangle.y += y - py;
+		this.rectangle.x += x - this.px;
+		this.rectangle.y += y - this.py;
 		this.setPoint(x, y);
 	}
 	
@@ -47,17 +47,13 @@ public class GRectangle extends GShape implements Serializable{
 			rectangle.y = rectangle.height + (int)swap.y1;
 			this.rectangle.width = Math.abs(this.rectangle.width);
 			this.rectangle.height = Math.abs(this.rectangle.height);
-
 		} else if (this.rectangle.height < 0) {
 			rectangle.y = rectangle.height + (int)swap.y1;
 			this.rectangle.height = Math.abs(this.rectangle.height);
-			
 		} else if (this.rectangle.width < 0) {			
 			rectangle.x = rectangle.width + (int)swap.x1;
 			this.rectangle.width = Math.abs(this.rectangle.width);
 		}
-		
-		// draw
 		g2D.draw(this.rectangle);
 	}
 	
@@ -84,6 +80,8 @@ public class GRectangle extends GShape implements Serializable{
 			this.rectangle.setSize(new Dimension
 					(x - (int)this.swap.x1, y - (int)this.swap.y1));
 			return;
+		}else {
+			
 		}
 		switch (this.getCurrentEAnchor()) {
 		case NN:
