@@ -125,6 +125,7 @@ public class GRectangle extends GShape implements Serializable{
 			this.rectangle.width += swap.x1-x;
 			break;
 		case RR:
+			//g2D.rotate();
 			break;
 		default:
 			break;

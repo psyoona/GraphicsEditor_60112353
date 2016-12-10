@@ -58,6 +58,5 @@ public class GCursorList{
 		
 		tk = Toolkit.getDefaultToolkit();
 		recursiveCursor = tk.createCustomCursor(tk.createImage("rsc/cursor.jpg"), new Point(), null);
-		
 	}
 }
