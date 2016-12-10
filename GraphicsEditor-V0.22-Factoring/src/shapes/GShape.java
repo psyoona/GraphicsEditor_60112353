@@ -37,6 +37,8 @@ abstract public class GShape implements Serializable, Cloneable{
 	public EAnchors getCurrentEAnchor() { return currentEAnchor; }
 	
 	// Constructor
+	public GShape(){}
+	
 	public GShape(EDrawingType eDrawingType, Shape shape){
 		this.eDrawingType = eDrawingType;
 		this.bSelected = false;
@@ -66,10 +68,10 @@ abstract public class GShape implements Serializable, Cloneable{
 	
 	
 	// methods
-	public void draw(Graphics2D g2d) {
-		g2d.draw(this.shape);
+	public void draw(Graphics2D g2D) {
+		g2D.draw(this.shape);
 		if (this.bSelected) {
-			this.anchors.draw(g2d, this.shape.getBounds());
+			this.anchors.draw(g2D, this.shape.getBounds());
 		}
 	}
 	
@@ -109,5 +111,6 @@ abstract public class GShape implements Serializable, Cloneable{
 	public boolean contains(int x, int y) {
 		// TODO Auto-generated method stub
 		return false;
-	}	
+	}
+	public Shape getBounds() { return shape.getBounds(); }	
 }

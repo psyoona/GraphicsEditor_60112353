@@ -16,6 +16,7 @@ import javax.swing.event.MouseInputListener;
 import constants.GConstants.EAnchors;
 import constants.GConstants.EDrawingType;
 import constants.GConstants.EMainFrame;
+import shapes.GGroup;
 import shapes.GShape;
 import sycom.GSwap;
 import transformer.GDrawer;
@@ -35,10 +36,15 @@ public class GDrawingPanel extends JPanel {
 	// components
 	private Stack<Vector<GShape>> redo;
 	private Stack<Vector<GShape>> undo;
+	private Vector<GShape> groupList;
 	private Vector<GShape> shapeVector;
 	public void setShapeVector(){ this.shapeVector = new Vector<GShape>(); }
+	public void setShapeVector(Vector<GShape> shapeVector){ this.shapeVector = shapeVector; }
 	public Vector<GShape> getShapeVector() { return this.shapeVector; }
 	private MouseEventHandler mouseEventHandler;
+	private boolean bDirty;
+	public boolean isDirty() { return bDirty; }
+	public void setDirty(boolean bDirty) { this.bDirty = bDirty; }
 	
 	// associative attributes
 	private GShape selectedShape;	
@@ -66,6 +72,7 @@ public class GDrawingPanel extends JPanel {
 		this.addMouseMotionListener(mouseEventHandler);
 		redo = new Stack<Vector<GShape>>();
 		undo = new Stack<Vector<GShape>>();
+		groupList = new Vector<GShape>();
 		undo.add((Vector<GShape>) shapeVector.clone());
 		
 		swap = new GSwap();
@@ -78,6 +85,7 @@ public class GDrawingPanel extends JPanel {
 		this.selectedShape = null;
 		this.currentShape = null;
 		this.currentTransformer = null;
+		this.bDirty = false;
 	}
 	
 	public void initialize() { }
@@ -129,6 +137,7 @@ public class GDrawingPanel extends JPanel {
 		this.resetSelected();
 		Graphics2D g2D = (Graphics2D)this.getGraphics();
 		g2D.setXORMode(this.getBackground());
+		//this.currentTransformer.setGroupList(groupList);
 		this.currentTransformer.initTransforming(x, y, g2D);
 	}
 	
@@ -161,6 +170,43 @@ public class GDrawingPanel extends JPanel {
 		}
 		this.currentShape.setbSelected(true);
 		this.repaint();
+		this.setDirty(true);
+	}
+	
+	public void group(GGroup group){
+//		boolean check = false;
+//		for(int i = shapeVector.size(); i > 0; i--){
+//			GShape shape = shapeVector.get(i-1);
+//			if(shape.getbSelected()){
+//				shape.setbSelected(false);
+//				group.add(shape);
+//				shapeVector.remove(shape);
+//				check = true;
+//			}
+//		}
+//		
+//		if(check){
+//			group.setbSelected(true);
+//			shapeVector.add(group);
+//		}
+//		groupList = group.getGroupList();
+//		repaint();
+	}
+	
+	public void ungroup(){
+//		Vector<GShape>ungroupList = new Vector<>();
+//		for(int i = shapeVector.size(); i > 0; i--){
+//			GShape shape = shapeVector.get(i-1);
+//			if(shape instanceof GGroup && shape.getbSelected()){
+//				for(GShape childShape : this.groupList){
+//					childShape.setbSelected(true);
+//					ungroupList.add(childShape);
+//				}
+//				shapeVector.remove(shape);
+//			}
+//		}
+//		shapeVector.addAll(ungroupList);
+		repaint();
 	}
 	
 	private GShape onShape(int x, int y){

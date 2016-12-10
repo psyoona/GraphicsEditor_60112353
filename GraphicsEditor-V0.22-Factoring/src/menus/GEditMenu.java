@@ -10,6 +10,7 @@ import javax.swing.JMenuItem;
 import constants.GConstants;
 import constants.GConstants.EEditMenuItem;
 import frame.GDrawingPanel;
+import shapes.GGroup;
 import shapes.GShape;
 
 public class GEditMenu extends JMenu {
@@ -107,11 +108,11 @@ public class GEditMenu extends JMenu {
 	}
 	
 	private void group(){
-		
+		this.drawingPanel.group(new GGroup());
 	}
 	
 	private void ungroup(){
-		
+		this.drawingPanel.ungroup();
 	}
 	
 	
