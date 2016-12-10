@@ -31,14 +31,14 @@ public class GCross extends GShape {
 			EAnchors eAnchor = shape.contains(x, y, g2D);
 			if(eAnchor != null){
 				switch(eAnchor){
-				case NN: panel.setCursor(cursorList.getnResizeCursor()); break;
-				case NE: panel.setCursor(cursorList.getNeResizeCursor()); break;
-				case NW: panel.setCursor(cursorList.getNwResizeCursor()); break;
-				case SS: panel.setCursor(cursorList.getsResizeCursor()); break;
-				case SW: panel.setCursor(cursorList.getSwResizeCursor());break;
-				case SE: panel.setCursor(cursorList.getSeResizeCursor()); break;
-				case EE: panel.setCursor(cursorList.geteResizeCursor()); break;
-				case WW: panel.setCursor(cursorList.getwResizeCursor()); break;
+				case NN: panel.setCursor(cursorList.getNResize()); break;
+				case NE: panel.setCursor(cursorList.getNEResize()); break;
+				case NW: panel.setCursor(cursorList.getNWResize()); break;
+				case SS: panel.setCursor(cursorList.getSResize()); break;
+				case SW: panel.setCursor(cursorList.getSWResize());break;
+				case SE: panel.setCursor(cursorList.getSEResize()); break;
+				case EE: panel.setCursor(cursorList.getEResize()); break;
+				case WW: panel.setCursor(cursorList.getWResize()); break;
 				case RR: panel.setCursor(cursorList.getRecursiveCursor()); break;
 				case MM: panel.setCursor(cursorList.getMoveCursor()); break;
 				default: break;
