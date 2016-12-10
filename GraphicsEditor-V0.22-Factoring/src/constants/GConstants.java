@@ -3,6 +3,7 @@ package constants;
 import java.awt.Cursor;
 
 import shapes.GCross;
+import shapes.GCursorList;
 import shapes.GEllipse;
 import shapes.GLine;
 import shapes.GPolygon;
@@ -27,16 +28,16 @@ public class GConstants {
 	
 	
 	public enum EAnchors {
-		NN(new Cursor(Cursor.N_RESIZE_CURSOR)), 
-		NE(new Cursor(Cursor.NE_RESIZE_CURSOR)), 
-		NW(new Cursor(Cursor.NW_RESIZE_CURSOR)), 
-		SS(new Cursor(Cursor.S_RESIZE_CURSOR)), 
-		SE(new Cursor(Cursor.SE_RESIZE_CURSOR)), 
-		SW(new Cursor(Cursor.SW_RESIZE_CURSOR)), 
-		EE(new Cursor(Cursor.E_RESIZE_CURSOR)), 
-		WW(new Cursor(Cursor.W_RESIZE_CURSOR)), 
-		RR(new Cursor(Cursor.HAND_CURSOR)), 
-		MM(new Cursor(Cursor.MOVE_CURSOR));
+		NN(new GCursorList().getNResize()), 
+		NE(new GCursorList().getNEResize()), 
+		NW(new GCursorList().getNWResize()), 
+		SS(new GCursorList().getSResize()), 
+		SE(new GCursorList().getSEResize()), 
+		SW(new GCursorList().getSWResize()), 
+		EE(new GCursorList().getEResize()), 
+		WW(new GCursorList().getWResize()), 
+		RR(new GCursorList().getRecursiveCursor()), 
+		MM(new GCursorList().getMoveCursor());
 		
 		private Cursor cursor;
 		private EAnchors(Cursor cursor) {
