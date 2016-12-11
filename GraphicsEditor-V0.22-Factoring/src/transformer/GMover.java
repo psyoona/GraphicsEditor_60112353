@@ -27,13 +27,11 @@ public class GMover extends GTransformer {
 
 	@Override
 	public void finishTransforming(int x, int y, Graphics2D g2D) {
-		// TODO Auto-generated method stub
-
+		this.getShape().finish(x, y, g2D);
 	}
 
 	@Override
 	public void continueTransforming(int x, int y, Graphics2D g2D) {
-		// TODO Auto-generated method stub
 		this.getShape().draw(g2D);
 		this.getShape().move(x, y);
 		this.getShape().draw(g2D);

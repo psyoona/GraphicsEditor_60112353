@@ -164,7 +164,11 @@ public class GLine extends GShape implements Serializable {
 
 	@Override
 	public void move(int x, int y) {
-		// TODO Auto-generated method stub
+		this.line.setLine(line.getX1()+x-this.px, 
+				line.getY1()+y - this.py, 
+				line.getX2()+x - this.px, 
+				line.getY2()+y - this.py);
+		this.setPoint(x, y);
 		
 	}
 

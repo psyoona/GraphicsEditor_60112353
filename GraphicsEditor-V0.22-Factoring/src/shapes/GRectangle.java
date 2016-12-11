@@ -36,6 +36,8 @@ public class GRectangle extends GShape implements Serializable{
 		this.rectangle.x += x - this.px;
 		this.rectangle.y += y - this.py;
 		this.setPoint(x, y);
+		swap.setX1(rectangle.x);
+		swap.setY1(rectangle.y);
 	}
 	
 	private void changeDraw(Graphics2D g2D){

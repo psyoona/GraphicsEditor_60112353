@@ -74,6 +74,8 @@ public class GEllipse extends GShape implements Serializable {
 		this.ellipse.x += x - this.px;
 		this.ellipse.y += y - this.py;
 		this.setPoint(x, y);
+		swap.setX1(ellipse.x);
+		swap.setY1(ellipse.y);
 	}
 
 	@Override
@@ -85,17 +87,20 @@ public class GEllipse extends GShape implements Serializable {
 		}
 		switch (this.getCurrentEAnchor()) {
 		case NN:
+			if(y > swap.getTempHeight()-1){ return ; }
 			swap.setY1(this.ellipse.getY());
 			this.ellipse.y = y;
 			this.ellipse.height += swap.getY1() - y;
 			break;
 		case NE:
+			if(x < ellipse.x || y > swap.getTempHeight()-1){ return ; }
 			swap.setY1(this.ellipse.y);
 			this.ellipse.y = y;
 			this.ellipse.height += swap.getY1() - y;
 			this.ellipse.width = x - ellipse.x;
 			break;
 		case NW:
+			if(x > swap.getTempWidth() || y > swap.getTempHeight()){ return ; }
 			swap.setX1(this.ellipse.x);
 			swap.setY1(this.ellipse.y);
 			this.ellipse.x = x;
@@ -104,22 +109,27 @@ public class GEllipse extends GShape implements Serializable {
 			this.ellipse.width += swap.getX1() - x;
 			break;
 		case SS:
+			if(y < ellipse.getY()) { return ; }
 			this.ellipse.height = y - ellipse.y;
 			break;
 		case SE:
+			if(x < ellipse.x || y < ellipse.y){ return ; }
 			this.ellipse.width = x - this.swap.getX1();
 			this.ellipse.height = y - this.swap.getY1();
 			break;
 		case SW:
+			if(x > swap.getTempWidth() || y < ellipse.getY()){ return ; }
 			swap.setX1(this.ellipse.x);
 			this.ellipse.x = x;
 			this.ellipse.width += swap.getX1() - x;
 			this.ellipse.height = y - ellipse.y;
 			break;
 		case EE:
+			if( x < ellipse.x ){ return ; }
 			this.ellipse.width = x - ellipse.x;
 			break;
 		case WW:
+			if( x > swap.getTempWidth() ){ return ; }
 			swap.setX1(this.ellipse.x);
 			this.ellipse.x = x;
 			this.ellipse.width += swap.getX1() - x;
@@ -132,7 +142,8 @@ public class GEllipse extends GShape implements Serializable {
 
 	@Override
 	public void finish(int x, int y, Graphics2D g2d) {
-		// TODO Auto-generated method stub
+		swap.setTempHeight(ellipse.getY() + ellipse.getHeight());
+		swap.setTempWidth(ellipse.getX() + ellipse.getWidth());
 		
 	}
 }
