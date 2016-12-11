@@ -80,5 +80,10 @@ public class GGroup extends GShape{
 		Rectangle rectangle = (Rectangle) this.shape;
 		rectangle.setSize(x - rectangle.x, y- rectangle.y);
 	}
+	@Override
+	public void finish(int x, int y, Graphics2D g2d) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

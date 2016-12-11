@@ -241,4 +241,10 @@ public class GPolygon extends GShape implements Serializable{
 		this.setPoint(x, y);
 		polygon.invalidate();
 	}
+
+	@Override
+	public void finish(int x, int y, Graphics2D g2d) {
+		// TODO Auto-generated method stub
+		
+	}
 }

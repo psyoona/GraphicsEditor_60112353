@@ -106,8 +106,8 @@ public class GLine extends GShape implements Serializable {
 	@Override
 	public void setOrigin(int x, int y) {
 		line.setLine(x, y, x, y);
-		swap.x1 = x;
-		swap.y1 = y;
+		swap.setX1(x);
+		swap.setY1(y);
 	}
 
 	@Override
@@ -124,7 +124,7 @@ public class GLine extends GShape implements Serializable {
 	@Override
 	public void resize(int x, int y, Graphics2D g2D) {
 		if (this.getCurrentEAnchor() == null) {
-			this.line.setLine(swap.x1, swap.y1, x, y);
+			this.line.setLine(swap.getX1(), swap.getY1(), x, y);
 //			this.line.getX2() = x - this.rectangle.x;
 //			this.rectangle.height = y - this.rectangle.y;
 			return;
@@ -164,6 +164,12 @@ public class GLine extends GShape implements Serializable {
 
 	@Override
 	public void move(int x, int y) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void finish(int x, int y, Graphics2D g2d) {
 		// TODO Auto-generated method stub
 		
 	}

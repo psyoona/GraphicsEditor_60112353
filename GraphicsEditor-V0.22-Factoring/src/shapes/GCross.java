@@ -142,4 +142,10 @@ public class GCross extends GShape {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void finish(int x, int y, Graphics2D g2d) {
+		// TODO Auto-generated method stub
+		
+	}
 }

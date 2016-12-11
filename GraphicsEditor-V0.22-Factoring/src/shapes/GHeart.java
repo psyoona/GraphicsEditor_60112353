@@ -41,4 +41,10 @@ public class GHeart extends GShape implements Serializable{
 		
 	}
 
+	@Override
+	public void finish(int x, int y, Graphics2D g2d) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

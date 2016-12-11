@@ -18,6 +18,7 @@ public class GDrawer extends GTransformer {
 		this.getShape().draw(g2D);
 	}
 	public void finishTransforming(int x, int y, Graphics2D g2D) {
+		this.getShape().finish(x, y, g2D);
 	}
 	public void continueTransforming(int x, int y, Graphics2D g2D) {
 		this.getShape().addPoint(x, y, g2D);

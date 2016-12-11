@@ -26,7 +26,7 @@ public class GResizer extends GTransformer {
 
 	@Override
 	public void finishTransforming(int x, int y, Graphics2D g2D) {
-
+		this.getShape().finish(x, y, g2D);
 	}
 
 	@Override

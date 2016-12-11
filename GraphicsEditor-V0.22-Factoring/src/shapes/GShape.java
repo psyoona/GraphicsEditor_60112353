@@ -103,6 +103,7 @@ abstract public class GShape implements Serializable, Cloneable{
 	abstract public void addPoint(int x, int y, Graphics2D g2D); 
 	abstract public void resize(int x, int y, Graphics2D g2D);
 	abstract public void move(int x, int y);
+	abstract public void finish(int x, int y, Graphics2D g2D);
 	
 	public void clickShape(int x, int y, Graphics2D g2d) {
 		// TODO Auto-generated method stub
