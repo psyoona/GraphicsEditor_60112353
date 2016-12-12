@@ -264,7 +264,6 @@ public class GDrawingPanel extends JPanel {
 				return ;
 			}
 		}
-		this.fillColor = fillColor;
 	}
 
 	class MouseEventHandler implements MouseInputListener, MouseMotionListener {

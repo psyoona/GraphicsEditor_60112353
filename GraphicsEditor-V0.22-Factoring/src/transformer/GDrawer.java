@@ -9,7 +9,7 @@ public class GDrawer extends GTransformer {
 		super(shape);
 	}
 	public void initTransforming(int x, int y, Graphics2D g2D) {
-		this.getShape().setOrigin(x, y);
+		this.getShape().setOrigin(x, y, g2D);
 		this.getShape().draw(g2D);
 	}
 	public void keepTransforming(int x, int y, Graphics2D g2D) {

@@ -106,7 +106,7 @@ public class GCross extends GShape {
 	}
 
 	@Override
-	public void setOrigin(int x, int y) {
+	public void setOrigin(int x, int y, Graphics2D g2D) {
 		
 	}
 

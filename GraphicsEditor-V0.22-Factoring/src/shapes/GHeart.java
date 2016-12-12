@@ -19,7 +19,7 @@ public class GHeart extends GShape implements Serializable{
 	}
 	
 	@Override
-	public void setOrigin(int x, int y) {
+	public void setOrigin(int x, int y, Graphics2D g2D) {
 		rectangle.setLocation(x, y);
 		rectangle.setSize(0, 0);
 		this.x = x;

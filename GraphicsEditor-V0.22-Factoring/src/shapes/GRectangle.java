@@ -17,89 +17,35 @@ public class GRectangle extends GShape implements Serializable{
 	
 	private Color lineColor;
 	private Color fillColor;
+	private boolean check;
+	private void setCheck(boolean check){ this.check = check; }
+	private boolean getCheck(){ return check; }
 
+	// Constructor
 	public GRectangle(){
 		super(EDrawingType.TP, new Rectangle(0, 0, 0, 0));
 		this.rectangle = (Rectangle)this.getShape();
 		swap = new GSwap();
 		this.lineColor = Color.BLACK;
 		this.fillColor = Color.WHITE;
+		setCheck(false);
 	}
 	
-	public void setOrigin(int x, int y){
-		this.rectangle.setLocation(x, y);
-		swap.setX1(x);
-		swap.setY1(y);
-	}
-	
+	@Override
 	public void setPoint(int x, int y){
 		this.px = x;
 		this.py = y;
 	}
 	
-	@Override
-	public void changeLineColor(Color lineColor, Graphics2D g2D) {
-		this.lineColor = lineColor;
-		draw(g2D);
-	}
-
-	@Override
-	public void changeFillColor(Color fillColor, Graphics2D g2D) {
-		this.fillColor = fillColor;
-		draw(g2D);
-		
+	public void setOrigin(int x, int y, Graphics2D g2D){
+		this.rectangle.setLocation(x, y);
+		swap.setX1(x);
+		swap.setY1(y);
 	}
 	
 	@Override
-	public void move(int x, int y) {
-		this.rectangle.x += x - this.px;
-		this.rectangle.y += y - this.py;
-		this.setPoint(x, y);
-		swap.setX1(rectangle.x);
-		swap.setY1(rectangle.y);
-	}
+	public void addPoint(int x, int y, Graphics2D g2D) { }
 	
-	private void changeDraw(Graphics2D g2D){
-		if(lineColor != Color.BLACK){ g2D.setColor(this.lineColor); }
-		if(fillColor != Color.white){
-			g2D.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
-		}
-		
-		swap.setX2(this.rectangle.width + this.rectangle.x);
-		swap.setY2(this.rectangle.height + this.rectangle.y);
-		if (this.rectangle.width < 0 && this.rectangle.height < 0) {
-			rectangle.x = rectangle.width + (int)swap.getX1();
-			rectangle.y = rectangle.height + (int)swap.getY1();
-			this.rectangle.width = Math.abs(this.rectangle.width);
-			this.rectangle.height = Math.abs(this.rectangle.height);
-		} else if (this.rectangle.height < 0) {
-			rectangle.y = rectangle.height + (int)swap.getY1();
-			this.rectangle.height = Math.abs(this.rectangle.height);
-		} else if (this.rectangle.width < 0) {			
-			rectangle.x = rectangle.width + (int)swap.getX1();
-			this.rectangle.width = Math.abs(this.rectangle.width);
-		}
-		g2D.draw(this.rectangle);
-				
-	}
-	
-	public void draw(Graphics2D g2D){
-		changeDraw(g2D);
-		if(getbSelected() == true){
-			clickShape(0, 0, g2D);
-		}
-	}
-
-	@Override
-	public void clickShape(int x, int y, Graphics2D g2D) {
-		this.getAnchors().draw(g2D, this.getShape().getBounds());
-	}
-
-	@Override
-	public void addPoint(int x, int y, Graphics2D g2D) {
-		
-	}
-
 	@Override
 	public void resize(int x, int y, Graphics2D g2D) {
 		if (this.getCurrentEAnchor() == null) {
@@ -171,5 +117,62 @@ public class GRectangle extends GShape implements Serializable{
 	public void finish(int x, int y, Graphics2D g2D) {
 		swap.setTempHeight(rectangle.getY() + rectangle.getHeight());
 		swap.setTempWidth(rectangle.getX() + rectangle.getWidth());
+	}
+	
+	public void draw(Graphics2D g2D){
+		changeDraw(g2D);
+		if(getbSelected() == true){
+			clickShape(0, 0, g2D);
+		}
+	}
+	
+	private void changeDraw(Graphics2D g2D){
+		swap.setX2(this.rectangle.width + this.rectangle.x);
+		swap.setY2(this.rectangle.height + this.rectangle.y);
+		if (this.rectangle.width < 0 && this.rectangle.height < 0) {
+			rectangle.x = rectangle.width + (int)swap.getX1();
+			rectangle.y = rectangle.height + (int)swap.getY1();
+			this.rectangle.width = Math.abs(this.rectangle.width);
+			this.rectangle.height = Math.abs(this.rectangle.height);
+		} else if (this.rectangle.height < 0) {
+			rectangle.y = rectangle.height + (int)swap.getY1();
+			this.rectangle.height = Math.abs(this.rectangle.height);
+		} else if (this.rectangle.width < 0) {			
+			rectangle.x = rectangle.width + (int)swap.getX1();
+			this.rectangle.width = Math.abs(this.rectangle.width);
+		}
+		if(getCheck()){
+			g2D.setColor(fillColor);
+			g2D.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+		}
+		g2D.setColor(lineColor);
+		g2D.drawRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+	}
+	
+	@Override
+	public void move(int x, int y) {
+		this.rectangle.x += x - this.px;
+		this.rectangle.y += y - this.py;
+		this.setPoint(x, y);
+		swap.setX1(rectangle.x);
+		swap.setY1(rectangle.y);
+	}
+	
+	@Override
+	public void changeLineColor(Color lineColor, Graphics2D g2D) {
+		this.lineColor = lineColor;
+		draw(g2D);
+	}
+
+	@Override
+	public void changeFillColor(Color fillColor, Graphics2D g2D) {
+		this.fillColor = fillColor;
+		setCheck(true);
+		draw(g2D);
+	}
+	
+	@Override
+	public void clickShape(int x, int y, Graphics2D g2D) {
+		this.getAnchors().draw(g2D, this.getShape().getBounds());
 	}
 }

@@ -31,7 +31,7 @@ public class GGroup extends GShape{
 	}
 
 	@Override
-	public void setOrigin(int x, int y) {
+	public void setOrigin(int x, int y, Graphics2D g2D) {
 		Rectangle rectangle = (Rectangle) this.shape;
 		rectangle.setLocation(x, y);
 		rectangle.setSize(0, 0);

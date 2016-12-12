@@ -3,7 +3,6 @@ package shapes;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
-import java.awt.geom.AffineTransform;
 import java.io.Serializable;
 
 import constants.GConstants.EDrawingType;
@@ -14,59 +13,38 @@ public class GPolygon extends GShape implements Serializable{
 	private Polygon polygon;
 	
 	private int prevX, prevY, nextX, nextY;
-
+	private Color lineColor;
+	private Color fillColor;
+	private boolean check;
+	private void setCheck(boolean check){ this.check = check; }
+	private boolean getCheck(){ return check; }
+	
+	// Constructor
 	public GPolygon(){
 		super(EDrawingType.NP, new Polygon());
 		this.polygon = (Polygon)this.getShape();
+		this.lineColor = Color.BLACK;
+		this.fillColor = Color.WHITE;
+		setCheck(false);
 	}
 	
-	public void finishDrawing(int x, int y, Graphics2D g2D) {
-		this.draw(g2D);
-		
-		this.getAnchors().draw(g2D, getShape().getBounds());
-		this.setbSelected(true);
-	}
-
-	public void draw(Graphics2D g2D) {
-		g2D.drawPolygon(polygon);
-		if (getbSelected() == true) {
-			this.getAnchors().draw(g2D, getShape().getBounds());
-		}
-	}
-
-	@Override
-	public void clickShape(int x, int y, Graphics2D g2D) {
-		this.getAnchors().draw(g2D, getShape().getBounds());
-		this.setbSelected(true);
-	}
-
-	public void finishTransforming(int x, int y, Graphics2D g2D) {
-		this.polygon.invalidate();
-		this.draw(g2D);
-		this.getAnchors().draw(g2D, getShape().getBounds());
-		this.setbSelected(true);
-	}
-
-	@Override
-	public void setOrigin(int x, int y) {
-		// TODO Auto-generated method stub
-		polygon.addPoint(x, y);
-
-		startX = x;
-		startY = y;
-		
-		// 폴리 라인을 그리기 위한 prev x, y 좌표
-		prevX = x;
-		prevY = y;
-		
-	}
-
 	@Override
 	public void setPoint(int x, int y) {
 		this.px = x;
 		this.py = y;
 	}
-
+	
+	@Override
+	public void setOrigin(int x, int y, Graphics2D g2D) {
+		// TODO Auto-generated method stub
+		polygon.addPoint(x, y);
+		startX = x;
+		startY = y;
+		// 폴리 라인을 그리기 위한 prev x, y 좌표
+		prevX = x;
+		prevY = y;
+	}
+	
 	@Override
 	public void addPoint(int x, int y, Graphics2D g2D) {
 		if (this.getCurrentEAnchor() == null) {
@@ -76,11 +54,10 @@ public class GPolygon extends GShape implements Serializable{
 			polygon.addPoint(x, y);
 			prevX = nextX;
 			prevY = nextY;
-			
 			return;
 		}
 	}
-
+	
 	@Override
 	public void resize(int x, int y, Graphics2D g2D) {
 		if (this.getCurrentEAnchor() == null) {
@@ -227,7 +204,22 @@ public class GPolygon extends GShape implements Serializable{
 		this.setPoint(x, y);
 		polygon.invalidate();
 	}
+	
+	@Override
+	public void finish(int x, int y, Graphics2D g2d) { }
 
+	public void draw(Graphics2D g2D) {
+		if(getCheck()){
+			g2D.setColor(fillColor);
+			g2D.fillPolygon(this.polygon);
+		}
+		g2D.setColor(lineColor);
+		g2D.drawPolygon(polygon);
+		if (getbSelected() == true) {
+			this.getAnchors().draw(g2D, getShape().getBounds());
+		}
+	}
+	
 	@Override
 	public void move(int x, int y) {
 		for(int i=0; i<polygon.npoints; i++){
@@ -237,22 +229,23 @@ public class GPolygon extends GShape implements Serializable{
 		this.setPoint(x, y);
 		polygon.invalidate();
 	}
-
+	
 	@Override
-	public void finish(int x, int y, Graphics2D g2d) {
-		// TODO Auto-generated method stub
-		
+	public void changeLineColor(Color lineColor, Graphics2D g2D) {
+		this.lineColor = lineColor;
+		draw(g2D);
 	}
 
 	@Override
-	public void changeLineColor(Color lineColor, Graphics2D g2d) {
-		// TODO Auto-generated method stub
-		
+	public void changeFillColor(Color fillColor, Graphics2D g2D) {
+		this.fillColor = fillColor;
+		setCheck(true);
+		draw(g2D);
 	}
 
 	@Override
-	public void changeFillColor(Color fillColor, Graphics2D g2d) {
-		// TODO Auto-generated method stub
-		
+	public void clickShape(int x, int y, Graphics2D g2D) {
+		this.getAnchors().draw(g2D, getShape().getBounds());
+		this.setbSelected(true);
 	}
 }

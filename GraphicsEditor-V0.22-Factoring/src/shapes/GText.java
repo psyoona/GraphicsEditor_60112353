@@ -8,7 +8,7 @@ public class GText extends GShape implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public void setOrigin(int x, int y) {
+	public void setOrigin(int x, int y, Graphics2D g2D) {
 		// TODO Auto-generated method stub
 		
 	}
