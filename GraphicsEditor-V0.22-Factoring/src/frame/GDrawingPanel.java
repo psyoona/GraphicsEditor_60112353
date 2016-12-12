@@ -92,7 +92,8 @@ public class GDrawingPanel extends JPanel {
 		swap = new GSwap();
 		panel = new JPanel();
 		panel.setBackground(Color.WHITE);
-		panel.setPreferredSize(new Dimension(EMainFrame.W.getValue(), EMainFrame.H.getValue()));
+		panel.setPreferredSize(new Dimension(
+				EMainFrame.W.getValue(), EMainFrame.H.getValue()));
 		this.add(panel);
 		
 		// working variables
@@ -247,17 +248,22 @@ public class GDrawingPanel extends JPanel {
 		g2D = (Graphics2D) getGraphics();
 		for(GShape shape : shapeVector){
 			if(shape.getbSelected()){
-				shape.changeColor(lineColor, g2D);
-				repaint();
+				shape.changeLineColor(lineColor, g2D);
+//				undo.add((Vector<GShape>) shapeVector.clone());
+//				redo.clear();
 				return ;
 			}
 		}
-		//this.lineColor = lineColor;
-		//this.currentShape.setLineColor(lineColor);
 	}
 	
 	public void setFillColor(Color fillColor) {
-	
+		g2D = (Graphics2D) getGraphics();
+		for(GShape shape : shapeVector){
+			if(shape.getbSelected()){
+				shape.changeFillColor(fillColor, g2D);
+				return ;
+			}
+		}
 		this.fillColor = fillColor;
 	}
 

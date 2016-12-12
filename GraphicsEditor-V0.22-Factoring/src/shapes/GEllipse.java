@@ -20,6 +20,7 @@ public class GEllipse extends GShape implements Serializable {
 	}
 
 	private void changeDraw(Graphics2D g2D) {
+		g2D.setColor(this.lineColor);
 		swap.setX2((int) (this.ellipse.width + this.ellipse.x));
 		swap.setY2((int) (this.ellipse.height + this.ellipse.y));
 
@@ -148,7 +149,14 @@ public class GEllipse extends GShape implements Serializable {
 	}
 
 	@Override
-	public void changeColor(Color lineColor, Graphics2D g2d) {
+	public void changeLineColor(Color lineColor, Graphics2D g2D) {
+		// TODO Auto-generated method stub
+		this.lineColor = lineColor;
+		draw(g2D);
+	}
+
+	@Override
+	public void changeFillColor(Color fillColor, Graphics2D g2D) {
 		// TODO Auto-generated method stub
 		
 	}

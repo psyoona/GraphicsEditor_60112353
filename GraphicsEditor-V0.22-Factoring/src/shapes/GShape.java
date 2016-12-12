@@ -111,7 +111,8 @@ abstract public class GShape implements Serializable, Cloneable{
 	abstract public void resize(int x, int y, Graphics2D g2D);
 	abstract public void move(int x, int y);
 	abstract public void finish(int x, int y, Graphics2D g2D);
-	abstract public void changeColor(Color lineColor, Graphics2D g2D);
+	abstract public void changeLineColor(Color lineColor, Graphics2D g2D);
+	abstract public void changeFillColor(Color fillColor, Graphics2D g2d);
 	
 	public void clickShape(int x, int y, Graphics2D g2d) {
 		// TODO Auto-generated method stub

@@ -73,7 +73,13 @@ public class GHeart extends GShape implements Serializable{
 	}
 
 	@Override
-	public void changeColor(Color lineColor, Graphics2D g2d) {
+	public void changeLineColor(Color lineColor, Graphics2D g2d) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void changeFillColor(Color fillColor, Graphics2D g2d) {
 		// TODO Auto-generated method stub
 		
 	}

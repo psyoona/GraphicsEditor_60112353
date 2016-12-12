@@ -22,6 +22,8 @@ public class GRectangle extends GShape implements Serializable{
 		super(EDrawingType.TP, new Rectangle(0, 0, 0, 0));
 		this.rectangle = (Rectangle)this.getShape();
 		swap = new GSwap();
+		this.lineColor = Color.BLACK;
+		this.fillColor = Color.WHITE;
 	}
 	
 	public void setOrigin(int x, int y){
@@ -35,9 +37,17 @@ public class GRectangle extends GShape implements Serializable{
 		this.py = y;
 	}
 	
-	public void changeColor(Color lineColor, Graphics2D g2D) {
+	@Override
+	public void changeLineColor(Color lineColor, Graphics2D g2D) {
 		this.lineColor = lineColor;
 		draw(g2D);
+	}
+
+	@Override
+	public void changeFillColor(Color fillColor, Graphics2D g2D) {
+		this.fillColor = fillColor;
+		draw(g2D);
+		
 	}
 	
 	@Override
@@ -50,7 +60,10 @@ public class GRectangle extends GShape implements Serializable{
 	}
 	
 	private void changeDraw(Graphics2D g2D){
-		g2D.setColor(this.lineColor);
+		if(lineColor != Color.BLACK){ g2D.setColor(this.lineColor); }
+		if(fillColor != Color.white){
+			g2D.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+		}
 		
 		swap.setX2(this.rectangle.width + this.rectangle.x);
 		swap.setY2(this.rectangle.height + this.rectangle.y);
@@ -67,6 +80,7 @@ public class GRectangle extends GShape implements Serializable{
 			this.rectangle.width = Math.abs(this.rectangle.width);
 		}
 		g2D.draw(this.rectangle);
+				
 	}
 	
 	public void draw(Graphics2D g2D){
