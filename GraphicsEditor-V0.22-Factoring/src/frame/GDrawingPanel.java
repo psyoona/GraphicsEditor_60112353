@@ -244,13 +244,14 @@ public class GDrawingPanel extends JPanel {
 		this.setCursor(shape.getCurrentEAnchor().getCursor());
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void setLineColor(Color lineColor) {
 		g2D = (Graphics2D) getGraphics();
 		for(GShape shape : shapeVector){
 			if(shape.getbSelected()){
+				undo.add((Vector<GShape>) shapeVector.clone());
 				shape.changeLineColor(lineColor, g2D);
-//				undo.add((Vector<GShape>) shapeVector.clone());
-//				redo.clear();
+				redo.clear();
 				return ;
 			}
 		}
