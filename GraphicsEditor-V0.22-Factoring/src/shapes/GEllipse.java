@@ -144,6 +144,5 @@ public class GEllipse extends GShape implements Serializable {
 	public void finish(int x, int y, Graphics2D g2d) {
 		swap.setTempHeight(ellipse.getY() + ellipse.getHeight());
 		swap.setTempWidth(ellipse.getX() + ellipse.getWidth());
-		
 	}
 }

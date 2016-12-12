@@ -10,6 +10,8 @@ public class GHeart extends GShape implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private Rectangle rectangle;
+	private int x, y, width, height;
+	
 	public GHeart(){
 		super(EDrawingType.TP, new Rectangle(0, 0, 0, 0));
 		this.rectangle = (Rectangle)this.getShape();
@@ -19,21 +21,26 @@ public class GHeart extends GShape implements Serializable{
 	public void setOrigin(int x, int y) {
 		rectangle.setLocation(x, y);
 		rectangle.setSize(0, 0);
+		this.x = x;
+		this.y = y;
+		System.out.println("setPoint : " + x + ", " + y);
 	}
 
 	@Override
 	public void setPoint(int x, int y) {
-		
+		this.px = x;
+		this.py = y;
 	}
 
 	@Override
-	public void addPoint(int x, int y, Graphics2D g2d) {
-		
+	public void addPoint(int x, int y, Graphics2D g2D) {
 	}
 
 	@Override
-	public void resize(int x, int y, Graphics2D g2d) {
-		
+	public void resize(int x, int y, Graphics2D g2D) {
+		width = x - this.x;
+		height = y - this.y;
+		System.out.println("resize : " + width + ", " + height);
 	}
 
 	@Override
@@ -42,9 +49,25 @@ public class GHeart extends GShape implements Serializable{
 	}
 
 	@Override
-	public void finish(int x, int y, Graphics2D g2d) {
-		// TODO Auto-generated method stub
-		
+	public void finish(int x, int y, Graphics2D g2D) {
+		int[] triangleX = {
+	            x - 2*width/18,
+	            x + width + 2*width/18,
+	            (x - 2*width/18 + x + width + 2*width/18)/2};
+	    int[] triangleY = { 
+	            y + height - 2*height/3, 
+	            y + height - 2*height/3, 
+	            y + height };
+	    g2D.fillOval(
+	            x - width/12,
+	            y, 
+	            width/2 + width/6, 
+	            height/2); 
+	    g2D.fillOval(
+	            x + width/2 - width/12,
+	            y,
+	            width/2 + width/6,
+	            height/2);
+	    g2D.fillPolygon(triangleX, triangleY, triangleX.length);
 	}
-
 }

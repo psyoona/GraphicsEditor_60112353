@@ -50,6 +50,7 @@ public class GDrawingPanel extends JPanel {
 	private GShape selectedShape;	
 	public void setSelectedShape(GShape selectedShape) {
 		this.selectedShape = selectedShape;
+		
 	}
 
 	public GSwap swap;

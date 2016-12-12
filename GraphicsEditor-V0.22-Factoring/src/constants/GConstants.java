@@ -5,6 +5,7 @@ import java.awt.Cursor;
 import shapes.GCross;
 import shapes.GCursorList;
 import shapes.GEllipse;
+import shapes.GHeart;
 import shapes.GLine;
 import shapes.GPolygon;
 import shapes.GRectangle;
@@ -112,6 +113,7 @@ public class GConstants {
 		ellipse("rsc/ellipse.jpg", "rsc/ellipseSLT.jpg", new GEllipse()),
 		line("rsc/line.jpg", "rsc/lineSLT.jpg", new GLine()),
 		polygon("rsc/polygon.jpg", "rsc/polygonSLT.jpg", new GPolygon()),
+		heart("rsc/heart.jpg", "rsc/heartSLT.jpg", new GHeart()),
 		cross("rsc/cross.jpg", "rsc/crossSLT.jpg", new GCross());
 		
 		private String iconName;
