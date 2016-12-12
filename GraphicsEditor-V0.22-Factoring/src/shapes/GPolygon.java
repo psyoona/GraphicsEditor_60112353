@@ -1,11 +1,12 @@
 package shapes;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+import java.awt.geom.AffineTransform;
 import java.io.Serializable;
 
 import constants.GConstants.EDrawingType;
-import sycom.GQuick;
 
 public class GPolygon extends GShape implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -13,14 +14,10 @@ public class GPolygon extends GShape implements Serializable{
 	private Polygon polygon;
 	
 	private int prevX, prevY, nextX, nextY;
-	private GQuick quick;
-	private int[] xArray;
-	private int[] yArray;
 
 	public GPolygon(){
 		super(EDrawingType.NP, new Polygon());
 		this.polygon = (Polygon)this.getShape();
-		quick = new GQuick();
 	}
 	
 	public void finishDrawing(int x, int y, Graphics2D g2D) {
@@ -225,7 +222,6 @@ public class GPolygon extends GShape implements Serializable{
 			}
 			break;
 		default:
-			System.out.println("nani?");
 			break;		
 		}
 		this.setPoint(x, y);
@@ -244,6 +240,12 @@ public class GPolygon extends GShape implements Serializable{
 
 	@Override
 	public void finish(int x, int y, Graphics2D g2d) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void changeColor(Color lineColor, Graphics2D g2d) {
 		// TODO Auto-generated method stub
 		
 	}

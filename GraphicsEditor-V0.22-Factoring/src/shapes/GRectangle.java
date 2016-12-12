@@ -1,5 +1,6 @@
 package shapes;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -13,6 +14,9 @@ public class GRectangle extends GShape implements Serializable{
 	
 	private Rectangle rectangle;
 	GSwap swap;
+	
+	private Color lineColor;
+	private Color fillColor;
 
 	public GRectangle(){
 		super(EDrawingType.TP, new Rectangle(0, 0, 0, 0));
@@ -31,6 +35,11 @@ public class GRectangle extends GShape implements Serializable{
 		this.py = y;
 	}
 	
+	public void changeColor(Color lineColor, Graphics2D g2D) {
+		this.lineColor = lineColor;
+		draw(g2D);
+	}
+	
 	@Override
 	public void move(int x, int y) {
 		this.rectangle.x += x - this.px;
@@ -41,9 +50,10 @@ public class GRectangle extends GShape implements Serializable{
 	}
 	
 	private void changeDraw(Graphics2D g2D){
+		g2D.setColor(this.lineColor);
+		
 		swap.setX2(this.rectangle.width + this.rectangle.x);
 		swap.setY2(this.rectangle.height + this.rectangle.y);
-		
 		if (this.rectangle.width < 0 && this.rectangle.height < 0) {
 			rectangle.x = rectangle.width + (int)swap.getX1();
 			rectangle.y = rectangle.height + (int)swap.getY1();

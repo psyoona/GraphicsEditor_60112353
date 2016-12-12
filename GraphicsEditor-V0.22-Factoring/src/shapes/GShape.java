@@ -1,5 +1,6 @@
 package shapes;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
@@ -17,6 +18,8 @@ abstract public class GShape implements Serializable, Cloneable{
 	protected boolean bSelected;
 	protected EAnchors currentEAnchor;
 	protected int startX, startY;
+	protected Color lineColor;
+	protected Color fillColor;
 	
 	// components
 	protected Shape shape;
@@ -35,6 +38,10 @@ abstract public class GShape implements Serializable, Cloneable{
 	public GAnchors getAnchors() { return anchors; }
 	public void setAnchors(GAnchors anchors) { this.anchors = anchors; }
 	public EAnchors getCurrentEAnchor() { return currentEAnchor; }
+	public Color getFillColor() {return fillColor;}
+	public void setFillColor(Color fillColor) {this.fillColor = fillColor;}
+	public Color getLineColor() {return lineColor;}
+	public void setLineColor(Color lineColor) {this.lineColor = lineColor;}
 	
 	// Constructor
 	public GShape(){}
@@ -104,6 +111,7 @@ abstract public class GShape implements Serializable, Cloneable{
 	abstract public void resize(int x, int y, Graphics2D g2D);
 	abstract public void move(int x, int y);
 	abstract public void finish(int x, int y, Graphics2D g2D);
+	abstract public void changeColor(Color lineColor, Graphics2D g2D);
 	
 	public void clickShape(int x, int y, Graphics2D g2d) {
 		// TODO Auto-generated method stub
@@ -113,5 +121,6 @@ abstract public class GShape implements Serializable, Cloneable{
 		// TODO Auto-generated method stub
 		return false;
 	}
-	public Shape getBounds() { return shape.getBounds(); }	
+	
+	public Shape getBounds() { return shape.getBounds(); }
 }

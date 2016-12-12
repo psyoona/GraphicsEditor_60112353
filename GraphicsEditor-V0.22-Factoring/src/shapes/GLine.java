@@ -1,5 +1,6 @@
 package shapes;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 import java.io.Serializable;
@@ -174,6 +175,12 @@ public class GLine extends GShape implements Serializable {
 
 	@Override
 	public void finish(int x, int y, Graphics2D g2d) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void changeColor(Color lineColor, Graphics2D g2d) {
 		// TODO Auto-generated method stub
 		
 	}

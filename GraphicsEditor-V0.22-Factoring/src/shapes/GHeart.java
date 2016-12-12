@@ -1,5 +1,6 @@
 package shapes;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.io.Serializable;
@@ -69,5 +70,11 @@ public class GHeart extends GShape implements Serializable{
 	            width/2 + width/6,
 	            height/2);
 	    g2D.fillPolygon(triangleX, triangleY, triangleX.length);
+	}
+
+	@Override
+	public void changeColor(Color lineColor, Graphics2D g2d) {
+		// TODO Auto-generated method stub
+		
 	}
 }

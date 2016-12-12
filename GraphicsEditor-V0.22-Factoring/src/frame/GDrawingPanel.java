@@ -42,7 +42,6 @@ public class GDrawingPanel extends JPanel {
 	public void setShapeVector(Vector<GShape> shapeVector){ this.shapeVector = shapeVector; }
 	public Vector<GShape> getShapeVector() { return this.shapeVector; }
 	private MouseEventHandler mouseEventHandler;
-	private boolean bDirty;
 	public boolean isDirty() { return bDirty; }
 	public void setDirty(boolean bDirty) { this.bDirty = bDirty; }
 	
@@ -50,8 +49,20 @@ public class GDrawingPanel extends JPanel {
 	private GShape selectedShape;	
 	public void setSelectedShape(GShape selectedShape) {
 		this.selectedShape = selectedShape;
-		
+		if(this.selectedShape.geteDrawingType() == EDrawingType.CHOICE){
+			eState = EState.transforming;
+		}
 	}
+	
+	public void initColor(){
+		lineColor = Color.black;
+		fillColor = getBackground();
+	}
+	
+	// working variables
+	private Color lineColor;
+	private Color fillColor;
+	private boolean bDirty;
 
 	public GSwap swap;
 	Graphics2D g2D;
@@ -60,6 +71,8 @@ public class GDrawingPanel extends JPanel {
 	// working Objects;
 	private GShape currentShape;
 	private GTransformer currentTransformer;
+	
+	public GShape getCurrentShape(){ return currentShape; }
 	
 	@SuppressWarnings("unchecked")
 	public GDrawingPanel() {
@@ -87,6 +100,7 @@ public class GDrawingPanel extends JPanel {
 		this.currentShape = null;
 		this.currentTransformer = null;
 		this.bDirty = false;
+		initColor();
 	}
 	
 	public void initialize() { }
@@ -94,7 +108,6 @@ public class GDrawingPanel extends JPanel {
 	// 최소화 이후 도형 복원
 	public void paint(Graphics g) {
 		super.paint(g);
-		//setBackground(Color.WHITE);
 		for (GShape shape : this.shapeVector) {
 			shape.draw((Graphics2D) g);
 		}
@@ -128,9 +141,13 @@ public class GDrawingPanel extends JPanel {
 		if (this.currentShape == null) {
 			this.currentShape= this.selectedShape.clone();
 			this.currentTransformer = new GDrawer(this.currentShape);
-		} else if (this.currentShape.getCurrentEAnchor() == EAnchors.MM) {
+			currentShape.setLineColor(lineColor);
+			currentShape.setFillColor(fillColor);
+			
+			
+		} else if (this.currentShape.getCurrentEAnchor() == EAnchors.MM ) {
 			this.currentTransformer = new GMover(this.currentShape);
-		} else if (this.currentShape.getCurrentEAnchor() == EAnchors.RR) {
+		} else if (this.currentShape.getCurrentEAnchor() == EAnchors.RR ) {
 			this.currentTransformer = new GRotator(this.currentShape);
 		} else {			
 			this.currentTransformer = new GResizer(this.currentShape);
@@ -224,6 +241,24 @@ public class GDrawingPanel extends JPanel {
 			return;
 		}
 		this.setCursor(shape.getCurrentEAnchor().getCursor());
+	}
+	
+	public void setLineColor(Color lineColor) {
+		g2D = (Graphics2D) getGraphics();
+		for(GShape shape : shapeVector){
+			if(shape.getbSelected()){
+				shape.changeColor(lineColor, g2D);
+				repaint();
+				return ;
+			}
+		}
+		//this.lineColor = lineColor;
+		//this.currentShape.setLineColor(lineColor);
+	}
+	
+	public void setFillColor(Color fillColor) {
+	
+		this.fillColor = fillColor;
 	}
 
 	class MouseEventHandler implements MouseInputListener, MouseMotionListener {

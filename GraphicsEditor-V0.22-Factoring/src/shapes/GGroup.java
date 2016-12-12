@@ -1,5 +1,6 @@
 package shapes;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -82,6 +83,11 @@ public class GGroup extends GShape{
 	}
 	@Override
 	public void finish(int x, int y, Graphics2D g2d) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void changeColor(Color lineColor, Graphics2D g2d) {
 		// TODO Auto-generated method stub
 		
 	}

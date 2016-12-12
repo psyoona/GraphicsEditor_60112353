@@ -1,5 +1,6 @@
 package constants;
 
+import java.awt.Color;
 import java.awt.Cursor;
 
 import shapes.GCross;
@@ -17,6 +18,7 @@ public class GConstants {
 	public final static String FILEMENU_TITLE = "File";
 	public final static String EDITMENU_TITLE = "Edit";
 	public final static String INFOMENU_TITLE = "Info";
+	public final static String COLORMENU_TITLE = "Color";
 	
 	// 메뉴의 스트링을 처리
 	public final static String FILE_SAVEAS = "Save as";
@@ -106,6 +108,18 @@ public class GConstants {
 		}
 		
 		public String getText(){ return this.text; }
+	}
+	
+	public static enum EColorMenuItem {
+		fillColor("fill Color"),
+		lineColor("line Color");
+		
+		private String color;
+		private EColorMenuItem(String color){
+			this.color = color;
+		}
+		
+		public String getColor(){ return this.color; }
 	}
 	
 	public static enum EToolBarButton{

@@ -2,6 +2,7 @@ package frame;
 
 import javax.swing.JMenuBar;
 
+import menus.GColorMenu;
 import menus.GEditMenu;
 import menus.GFileMenu;
 import menus.GInfoMenu;
@@ -13,6 +14,7 @@ public class GMyMenuBar extends JMenuBar{
 	private GFileMenu fileMenu;
 	private GEditMenu editMenu;
 	private GInfoMenu infoMenu;
+	private GColorMenu colorMenu;
 	
 	// association
 	private GDrawingPanel drawingPanel;
@@ -24,6 +26,9 @@ public class GMyMenuBar extends JMenuBar{
 		editMenu = new GEditMenu();
 		this.add(editMenu);
 		
+		colorMenu = new GColorMenu();
+		this.add(colorMenu);
+		
 		infoMenu = new GInfoMenu();
 		this.add(infoMenu);	
 	}
@@ -34,5 +39,6 @@ public class GMyMenuBar extends JMenuBar{
 		this.fileMenu.initialize(this.drawingPanel);
 		this.editMenu.initialize(this.drawingPanel);
 		this.infoMenu.initialize(this.drawingPanel);
+		this.colorMenu.initialize(this.drawingPanel);
 	}
 }

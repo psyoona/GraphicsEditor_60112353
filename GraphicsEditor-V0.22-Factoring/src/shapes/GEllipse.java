@@ -1,5 +1,6 @@
 package shapes;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.io.Serializable;
@@ -144,5 +145,11 @@ public class GEllipse extends GShape implements Serializable {
 	public void finish(int x, int y, Graphics2D g2d) {
 		swap.setTempHeight(ellipse.getY() + ellipse.getHeight());
 		swap.setTempWidth(ellipse.getX() + ellipse.getWidth());
+	}
+
+	@Override
+	public void changeColor(Color lineColor, Graphics2D g2d) {
+		// TODO Auto-generated method stub
+		
 	}
 }
