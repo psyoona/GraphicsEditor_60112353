@@ -144,8 +144,6 @@ public class GDrawingPanel extends JPanel {
 			this.currentTransformer = new GDrawer(this.currentShape);
 			currentShape.setLineColor(lineColor);
 			currentShape.setFillColor(fillColor);
-			
-			
 		} else if (this.currentShape.getCurrentEAnchor() == EAnchors.MM ) {
 			this.currentTransformer = new GMover(this.currentShape);
 		} else if (this.currentShape.getCurrentEAnchor() == EAnchors.RR ) {
@@ -185,6 +183,9 @@ public class GDrawingPanel extends JPanel {
 		}
 		
 		this.currentShape.setbSelected(true);
+		if(currentShape.geteDrawingType() == EDrawingType.TEXT){
+			System.out.println("!!!");
+		}
 		this.repaint();
 		this.setDirty(true);
 	}

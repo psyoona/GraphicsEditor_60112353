@@ -12,10 +12,12 @@ public class GCross extends GShape {
 	private static final long serialVersionUID = 1L;
 	JPanel panel;
 	public GCursorList cursorList;
-
+	
+	private Rectangle rectangle;
+	
 	public GCross() {
-		super(EDrawingType.CHOICE, new Rectangle(0, 0, 0, 0));
-		cursorList = new GCursorList();
+		super(EDrawingType.NP, new Rectangle(0, 0, 0, 0));
+		this.rectangle = (Rectangle)this.getShape();
 	}
 
 //	public void init(Vector<GShape> shapeVector, JPanel panel) {

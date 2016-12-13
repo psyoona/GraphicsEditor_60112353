@@ -11,6 +11,7 @@ import shapes.GLine;
 import shapes.GPolygon;
 import shapes.GRectangle;
 import shapes.GShape;
+import shapes.GText;
 
 public class GConstants {
 	//JFrame Attributes
@@ -64,7 +65,7 @@ public class GConstants {
 	}
 	
 	public static enum EDrawingType {
-		TP, NP, CHOICE;
+		TP, NP, CHOICE, TEXT;
 	}
 	
 	public static enum EFileMenuItem {
@@ -128,6 +129,7 @@ public class GConstants {
 		line("rsc/line.jpg", "rsc/lineSLT.jpg", new GLine()),
 		polygon("rsc/polygon.jpg", "rsc/polygonSLT.jpg", new GPolygon()),
 		heart("rsc/heart.jpg", "rsc/heartSLT.jpg", new GHeart()),
+		text("rsc/text.jpg", "rsc/textSLT.jpg", new GText()),
 		cross("rsc/cross.jpg", "rsc/crossSLT.jpg", new GCross());
 		
 		private String iconName;
