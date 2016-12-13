@@ -2,15 +2,18 @@ package shapes;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.io.Serializable;
 import java.util.Vector;
 
+import javax.swing.JPanel;
+
 import constants.GConstants.EAnchors;
 import constants.GConstants.EDrawingType;
 
-abstract public class GShape implements Serializable, Cloneable{
+abstract public class GShape extends JPanel implements Serializable, Cloneable{
 	private static final long serialVersionUID = 1L;
 	// attributes
 	private Vector<GShape> shapeVector;
@@ -123,5 +126,5 @@ abstract public class GShape implements Serializable, Cloneable{
 		return false;
 	}
 	
-	public Shape getBounds() { return shape.getBounds(); }
+	public Rectangle getBounds() { return shape.getBounds(); }
 }

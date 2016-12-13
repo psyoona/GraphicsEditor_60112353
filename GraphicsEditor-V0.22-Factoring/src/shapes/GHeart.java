@@ -41,7 +41,7 @@ public class GHeart extends GShape implements Serializable{
 	public void resize(int x, int y, Graphics2D g2D) {
 		width = x - this.x;
 		height = y - this.y;
-		System.out.println("resize : " + width + ", " + height);
+		//System.out.println("resize : " + width + ", " + height);
 	}
 
 	@Override
@@ -51,6 +51,7 @@ public class GHeart extends GShape implements Serializable{
 
 	@Override
 	public void finish(int x, int y, Graphics2D g2D) {
+		System.out.println("finish");
 		int[] triangleX = {
 	            x - 2*width/18,
 	            x + width + 2*width/18,
