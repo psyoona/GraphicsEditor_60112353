@@ -36,7 +36,7 @@ public class GDrawingPanel extends JPanel {
 	// components
 	private Stack<Vector<GShape>> redo;
 	private Stack<Vector<GShape>> undo;
-	private Vector<GShape> groupList;
+//	private Vector<GShape> groupList;
 	private Vector<GShape> shapeVector;
 	public void setShapeVector(){ this.shapeVector = new Vector<GShape>(); }
 	public void setShapeVector(Vector<GShape> shapeVector){ this.shapeVector = shapeVector; }
@@ -89,7 +89,7 @@ public class GDrawingPanel extends JPanel {
 		this.addMouseMotionListener(mouseEventHandler);
 		redo = new Stack<Vector<GShape>>();
 		undo = new Stack<Vector<GShape>>();
-		groupList = new Vector<GShape>();
+//		groupList = new Vector<GShape>();
 		undo.add((Vector<GShape>) shapeVector.clone());
 		
 		swap = new GSwap();
@@ -244,17 +244,17 @@ public class GDrawingPanel extends JPanel {
 		return null;
 	}
 	
-	private void activateAnchor(GShape shape){
-		g2D = (Graphics2D) getGraphics();
-		g2D.setXORMode(getBackground());
-		for(GShape tempShape : this.shapeVector){
-			if(tempShape == shape){
-				tempShape.activateAnchor(g2D);
-				return ;
-			}
-		}
-		repaint();
-	}
+//	private void activateAnchor(GShape shape){
+//		g2D = (Graphics2D) getGraphics();
+//		g2D.setXORMode(getBackground());
+//		for(GShape tempShape : this.shapeVector){
+//			if(tempShape == shape){
+//				tempShape.activateAnchor(g2D);
+//				return ;
+//			}
+//		}
+//		repaint();
+//	}
 	
 	private void deleteAnchor(GShape shape){
 		g2D = (Graphics2D) getGraphics();
@@ -367,8 +367,8 @@ public class GDrawingPanel extends JPanel {
 		public void mouseReleased(MouseEvent e) {
 			if (eState == EState.drawingTP || eState == EState.transforming) {		
 				finishTransforming(e.getX(), e.getY());
+				eState = EState.idle;
 			}
-			eState = EState.idle;
 		}
 
 		@Override
