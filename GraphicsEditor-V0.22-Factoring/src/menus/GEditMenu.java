@@ -6,6 +6,7 @@ import java.util.Vector;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 import constants.GConstants;
 import constants.GConstants.EEditMenuItem;
@@ -104,7 +105,16 @@ public class GEditMenu extends JMenu {
 	}
 	
 	private void undo(){
+		if(checkSize() == true){ return ; }
 		drawingPanel.undo();
+	}
+	
+	private void select(){
+		if(checkSize() == true){ return ; }
+		
+		for(int i = 0; i < drawingPanel.getShapeVector().size(); i++){
+			drawingPanel.getShapeVector().get(i).setbSelected(true);
+		}
 	}
 	
 	private void group(){
@@ -113,6 +123,14 @@ public class GEditMenu extends JMenu {
 	
 	private void ungroup(){
 		this.drawingPanel.ungroup();
+	}
+	
+	private boolean checkSize(){
+		if(drawingPanel.getShapeVector().size() == 0){
+			JOptionPane.showMessageDialog(drawingPanel, GConstants.notthingMessage, GConstants.notice, 0);
+			return true;
+		}
+		return false;
 	}
 	
 	
@@ -132,11 +150,14 @@ public class GEditMenu extends JMenu {
 				redo();
 			}else if (event.getActionCommand().equals(EEditMenuItem.undo.name())) {
 				undo();
+			}else if (event.getActionCommand().equals(EEditMenuItem.select.name())) {
+				select();
 			}else if (event.getActionCommand().equals(EEditMenuItem.group.name())) {
 				group();
 			}else if (event.getActionCommand().equals(EEditMenuItem.ungroup.name())) {
 				ungroup();
 			}
+			drawingPanel.repaint();
 		}
 	}
 }

@@ -49,8 +49,11 @@ public class GDrawingPanel extends JPanel {
 	private GShape selectedShape;	
 	public void setSelectedShape(GShape selectedShape) {
 		this.selectedShape = selectedShape;
-		if(this.selectedShape.geteDrawingType() == EDrawingType.CHOICE){
+		if(this.selectedShape.geteDrawingType() == EDrawingType.transforming){
+			System.out.println("??");
 			eState = EState.transforming;
+		}else{
+			eState = EState.idle;
 		}
 	}
 	
@@ -308,9 +311,13 @@ public class GDrawingPanel extends JPanel {
 						initTransforming(e.getX(), e.getY());
 						eState = EState.drawingTP;
 					}
-				} else {
-					initTransforming(e.getX(), e.getY());
-					eState = EState.transforming;
+				} else if(selectedShape.geteDrawingType()==EDrawingType.transforming){
+					if(selectedShape.getbSelected() == true){
+						selectedShape.setbSelected(false);
+					}else{
+						initTransforming(e.getX(), e.getY());
+						eState = EState.transforming;
+					}
 				}
 			}	
 		}
@@ -354,6 +361,4 @@ public class GDrawingPanel extends JPanel {
 		public void mouseExited(MouseEvent arg0) {
 		}
 	}
-
-	
 }

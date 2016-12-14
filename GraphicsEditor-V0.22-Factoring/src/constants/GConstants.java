@@ -27,7 +27,9 @@ public class GConstants {
 	public final static String EDIT_UNDO = "UnDo";
 	
 	// newItem Alert Message
-	public final static String confirmMessage = "변경 내용을 제목 없음에 저장하시겠습니까?";
+	public final static String notice = "알림창";
+	public final static String saveMessage = "변경 내용을 제목 없음에 저장하시겠습니까?";
+	public final static String notthingMessage = "그림판에 그려진 도형이 없습니다.";
 	public final static String paintTitle = "Graphics Editor";
 	
 	
@@ -65,7 +67,7 @@ public class GConstants {
 	}
 	
 	public static enum EDrawingType {
-		TP, NP, CHOICE, TEXT;
+		TP, NP, transforming, TEXT;
 	}
 	
 	public static enum EFileMenuItem {
@@ -90,6 +92,7 @@ public class GConstants {
 		delete("Delete"),
 		redo("ReDo"),
 		undo(EDIT_UNDO),
+		select("Select All"),
 		group("Group"),
 		ungroup("Ungroup");
 		

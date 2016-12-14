@@ -141,7 +141,7 @@ public class GFileMenu extends JMenu{
 	private void saveOrNot(){
 		int result = 0;
 		if(drawingPanel.isDirty()){
-			result = JOptionPane.showConfirmDialog(null, GConstants.confirmMessage);
+			result = JOptionPane.showConfirmDialog(null, GConstants.saveMessage);
 			if(result == JOptionPane.OK_OPTION){
 				this.showSaveDialog();
 				this.drawingPanel.setDirty(false);
@@ -152,7 +152,7 @@ public class GFileMenu extends JMenu{
 	
 	private void newItem(){
 		int result;
-		result = JOptionPane.showConfirmDialog(null, GConstants.confirmMessage, GConstants.paintTitle, 
+		result = JOptionPane.showConfirmDialog(null, GConstants.saveMessage, GConstants.paintTitle, 
 				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null);
 		// 예 : 0 아니오 : 1 취소 : 2
 		if(result == 0){
@@ -167,7 +167,7 @@ public class GFileMenu extends JMenu{
 	
 	private void exit(){
 		int result;
-		result = JOptionPane.showConfirmDialog(null, GConstants.confirmMessage, GConstants.paintTitle, 
+		result = JOptionPane.showConfirmDialog(null, GConstants.saveMessage, GConstants.paintTitle, 
 				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null);
 		// 예 : 0 아니오 : 1 취소 : 2
 		if(result == 0){

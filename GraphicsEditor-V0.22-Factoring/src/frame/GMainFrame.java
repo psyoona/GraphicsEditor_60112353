@@ -12,7 +12,7 @@ public class GMainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	// components
-	private GMyMenuBar menuBar;
+	private GMenuBar menuBar;
 	private GToolBar toolBar;
 	private GDrawingPanel drawingPanel;
 
@@ -25,7 +25,7 @@ public class GMainFrame extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// Component Creation & Registration
-		this.menuBar = new GMyMenuBar();
+		this.menuBar = new GMenuBar();
 		this.setJMenuBar(menuBar);
 		
 		this.getContentPane().setLayout(new BorderLayout());

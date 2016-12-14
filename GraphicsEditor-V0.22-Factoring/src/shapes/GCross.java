@@ -16,7 +16,7 @@ public class GCross extends GShape {
 	private Rectangle rectangle;
 	
 	public GCross() {
-		super(EDrawingType.NP, new Rectangle(0, 0, 0, 0));
+		super(EDrawingType.transforming, new Rectangle(0, 0, 0, 0));
 		this.rectangle = (Rectangle)this.getShape();
 	}
 

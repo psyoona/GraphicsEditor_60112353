@@ -7,7 +7,7 @@ import menus.GEditMenu;
 import menus.GFileMenu;
 import menus.GInfoMenu;
 
-public class GMyMenuBar extends JMenuBar{
+public class GMenuBar extends JMenuBar{
 	private static final long serialVersionUID = 1L;
 	
 	// components
@@ -19,7 +19,7 @@ public class GMyMenuBar extends JMenuBar{
 	// association
 	private GDrawingPanel drawingPanel;
 
-	public GMyMenuBar(){
+	public GMenuBar(){
 		fileMenu = new GFileMenu();
 		this.add(fileMenu);
 		
