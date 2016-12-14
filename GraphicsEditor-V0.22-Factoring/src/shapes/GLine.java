@@ -12,8 +12,8 @@ import sycom.GSwap;
 
 public class GLine extends GShape implements Serializable {
 	private static final long serialVersionUID = 1L;
-	Line2D line;
-	GSwap swap;
+	private Line2D line;
+	private GSwap swap;
 	
 	private Color lineColor;
 

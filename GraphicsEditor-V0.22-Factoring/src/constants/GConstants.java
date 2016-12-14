@@ -8,6 +8,7 @@ import shapes.GCursorList;
 import shapes.GEllipse;
 import shapes.GHeart;
 import shapes.GLine;
+import shapes.GPen;
 import shapes.GPolygon;
 import shapes.GRectangle;
 import shapes.GShape;
@@ -139,6 +140,7 @@ public class GConstants {
 		ellipse("rsc/ellipse.jpg", "rsc/ellipseSLT.jpg", new GEllipse()),
 		line("rsc/line.jpg", "rsc/lineSLT.jpg", new GLine()),
 		polygon("rsc/polygon.jpg", "rsc/polygonSLT.jpg", new GPolygon()),
+		pen("rsc/pen.jpg", "rsc/penSLT.jpg", new GPen()),
 		heart("rsc/heart.jpg", "rsc/heartSLT.jpg", new GHeart()),
 		text("rsc/text.jpg", "rsc/textSLT.jpg", new GText()),
 		cross("rsc/cross.jpg", "rsc/crossSLT.jpg", new GCross());
