@@ -2,13 +2,13 @@ package transformer;
 
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.util.Vector;
 
 import shapes.GShape;
 
 public class GRotator extends GTransformer {
 	public GRotator(GShape shape) {
 		super(shape);
-		// TODO Auto-generated constructor stub
 	}
 	
 	@SuppressWarnings("unused")
@@ -24,13 +24,15 @@ public class GRotator extends GTransformer {
 
 	@Override
 	public void initTransforming(int x, int y, Graphics2D g2D) {
+		Point temp = new Point(x, y);
+		this.setPrevPoint(temp);
+		
 	}
 
 	@Override
 	public void keepTransforming(int x, int y, Graphics2D g2D) {
 		// TODO Auto-generated method stub
 		this.getShape().draw(g2D);
-		this.getShape().rotate(x, y);
 		this.getShape().draw(g2D);
 	}
 
@@ -44,6 +46,12 @@ public class GRotator extends GTransformer {
 	public void continueTransforming(int x, int y, Graphics2D g2D) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void getAllShapes(Vector<GShape> shapes) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

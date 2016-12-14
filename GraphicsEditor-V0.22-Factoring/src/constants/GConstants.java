@@ -1,6 +1,5 @@
 package constants;
 
-import java.awt.Color;
 import java.awt.Cursor;
 
 import shapes.GCross;
@@ -8,7 +7,6 @@ import shapes.GCursorList;
 import shapes.GEllipse;
 import shapes.GHeart;
 import shapes.GLine;
-import shapes.GPen;
 import shapes.GPolygon;
 import shapes.GRectangle;
 import shapes.GShape;
@@ -40,7 +38,8 @@ public class GConstants {
 	public final static String PERIOD = "Operation Period : 2016-09-01 ~ 2016-12-15";
 	public final static String OKMSG = "»Æ¿Œ";
 	
-	
+	public int widthSize;
+	public int heightSize;
 	
 	public enum EAnchors {
 		NN(new GCursorList().getNResize()), 
@@ -140,7 +139,6 @@ public class GConstants {
 		ellipse("rsc/ellipse.jpg", "rsc/ellipseSLT.jpg", new GEllipse()),
 		line("rsc/line.jpg", "rsc/lineSLT.jpg", new GLine()),
 		polygon("rsc/polygon.jpg", "rsc/polygonSLT.jpg", new GPolygon()),
-		pen("rsc/pen.jpg", "rsc/penSLT.jpg", new GPen()),
 		heart("rsc/heart.jpg", "rsc/heartSLT.jpg", new GHeart()),
 		text("rsc/text.jpg", "rsc/textSLT.jpg", new GText()),
 		cross("rsc/cross.jpg", "rsc/crossSLT.jpg", new GCross());

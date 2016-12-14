@@ -184,13 +184,17 @@ public class GDrawingPanel extends JPanel {
 			redo.clear();
 			this.shapeVector.add(this.currentShape);
 		}
-		
-		this.currentShape.setbSelected(true);
-		if(this.currentShape.geteDrawingType() == EDrawingType.TEXT){
-			System.out.println("!!!");
+		try{
+			this.currentShape.setbSelected(true);
+			if(this.currentShape.geteDrawingType() == EDrawingType.TEXT){
+				System.out.println("!!!");
+			}
+			this.repaint();
+			this.setDirty(true);
+			
+		}catch(NullPointerException ne){
+			
 		}
-		this.repaint();
-		this.setDirty(true);
 	}
 	
 	public void group(GGroup group){
@@ -306,6 +310,7 @@ public class GDrawingPanel extends JPanel {
 		}
 
 		private void mouse1Clicked(MouseEvent e) {
+			
 			if (eState == EState.idle) {
 				currentShape = onShape(e.getX(), e.getY());
 				if (currentShape == null) {

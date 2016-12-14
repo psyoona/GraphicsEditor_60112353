@@ -82,7 +82,7 @@ public class GText extends GShape implements Serializable {
 		
 	}
 	@Override
-	public void rotate(int x, int y) {
+	public void rotate(int x, int y, Graphics2D g2D) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -95,6 +95,11 @@ public class GText extends GShape implements Serializable {
 	public void deleteAnchor(Graphics2D g2d) {
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public GShape newClone() {
+		// TODO Auto-generated method stub
+		return new GText();
 	}
 
 }

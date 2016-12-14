@@ -170,7 +170,7 @@ public class GEllipse extends GShape implements Serializable {
 		this.getAnchors().draw(g2D, getShape().getBounds());
 	}
 	@Override
-	public void rotate(int x, int y) {
+	public void rotate(int x, int y, Graphics2D g2D) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -178,5 +178,9 @@ public class GEllipse extends GShape implements Serializable {
 	public void deleteAnchor(Graphics2D g2d) {
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public GShape newClone() {
+		return new GEllipse();
 	}
 }

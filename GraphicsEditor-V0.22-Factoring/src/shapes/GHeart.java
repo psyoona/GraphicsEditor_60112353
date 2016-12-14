@@ -24,7 +24,6 @@ public class GHeart extends GShape implements Serializable{
 		rectangle.setSize(0, 0);
 		this.x = x;
 		this.y = y;
-		System.out.println("setPoint : " + x + ", " + y);
 	}
 
 	@Override
@@ -86,7 +85,7 @@ public class GHeart extends GShape implements Serializable{
 	}
 
 	@Override
-	public void rotate(int x, int y) {
+	public void rotate(int x, int y, Graphics2D g2D) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -101,5 +100,11 @@ public class GHeart extends GShape implements Serializable{
 	public void deleteAnchor(Graphics2D g2d) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public GShape newClone() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

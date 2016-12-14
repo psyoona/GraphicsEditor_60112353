@@ -97,7 +97,7 @@ public class GGroup extends GShape{
 		
 	}
 	@Override
-	public void rotate(int x, int y) {
+	public void rotate(int x, int y, Graphics2D g2D) {
 		// TODO Auto-generated method stub
 		
 	}

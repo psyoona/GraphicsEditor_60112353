@@ -1,10 +1,13 @@
 package transformer;
 
 import java.awt.Graphics2D;
+import java.util.Vector;
 
 import shapes.GShape;
 
 public class GDrawer extends GTransformer {
+	private Vector<GShape> shapeVector;
+	
 	public GDrawer(GShape shape) {
 		super(shape);
 	}
@@ -22,5 +25,9 @@ public class GDrawer extends GTransformer {
 	}
 	public void continueTransforming(int x, int y, Graphics2D g2D) {
 		this.getShape().addPoint(x, y, g2D);
+	}
+	@Override
+	public void getAllShapes(Vector<GShape> shapeVector) {
+		this.shapeVector = shapeVector;
 	}
 }

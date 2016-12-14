@@ -180,12 +180,18 @@ public class GRectangle extends GShape implements Serializable{
 		this.getAnchors().draw(g2D, this.getShape().getBounds());
 	}
 	@Override
-	public void rotate(int x, int y) {
-		
+	public void rotate(int x, int y, Graphics2D g2D) {
+		System.out.println("rotate");
+		g2D.rotate(Math.toRadians(35));
 	}
 	@Override
 	public void deleteAnchor(Graphics2D g2d) {
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public GShape newClone() {
+		// TODO Auto-generated method stub
+		return new GRectangle();
 	}
 }

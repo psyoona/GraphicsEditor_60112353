@@ -249,7 +249,7 @@ public class GPolygon extends GShape implements Serializable{
 		this.setbSelected(true);
 	}
 	@Override
-	public void rotate(int x, int y) {
+	public void rotate(int x, int y, Graphics2D g2D) {
 		System.out.println("rotate");
 		
 	}
@@ -257,5 +257,10 @@ public class GPolygon extends GShape implements Serializable{
 	public void deleteAnchor(Graphics2D g2d) {
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public GShape newClone() {
+		// TODO Auto-generated method stub
+		return new GPolygon();
 	}
 }

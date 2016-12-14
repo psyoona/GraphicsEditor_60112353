@@ -116,9 +116,10 @@ abstract public class GShape extends JPanel implements Serializable, Cloneable{
 	abstract public void finish(int x, int y, Graphics2D g2D);
 	abstract public void changeLineColor(Color lineColor, Graphics2D g2D);
 	abstract public void changeFillColor(Color fillColor, Graphics2D g2d);
-	abstract public void rotate(int x, int y);
+	abstract public void rotate(int x, int y, Graphics2D g2D);
 	abstract public void activateAnchor(Graphics2D g2D);
 	abstract public void deleteAnchor(Graphics2D g2D);
+	abstract public GShape newClone();
 	
 	public void init(Vector<GShape> shapeVector) {
 		this.shapeVector = new Vector<GShape>();

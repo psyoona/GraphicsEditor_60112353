@@ -1,6 +1,7 @@
 package transformer;
 
 import java.awt.Graphics2D;
+import java.util.Vector;
 
 import shapes.GShape;
 
@@ -35,6 +36,12 @@ public class GMover extends GTransformer {
 		this.getShape().draw(g2D);
 		this.getShape().move(x, y);
 		this.getShape().draw(g2D);
+	}
+
+	@Override
+	public void getAllShapes(Vector<GShape> shapes) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

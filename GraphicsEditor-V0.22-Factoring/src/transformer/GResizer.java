@@ -1,6 +1,7 @@
 package transformer;
 
 import java.awt.Graphics2D;
+import java.util.Vector;
 
 import shapes.GShape;
 
@@ -32,5 +33,11 @@ public class GResizer extends GTransformer {
 	@Override
 	public void continueTransforming(int x, int y, Graphics2D g2D) {
 
+	}
+
+	@Override
+	public void getAllShapes(Vector<GShape> shapes) {
+		// TODO Auto-generated method stub
+		
 	}
 }
