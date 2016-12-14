@@ -127,7 +127,7 @@ public class GEditMenu extends JMenu {
 	
 	private boolean checkSize(){
 		if(drawingPanel.getShapeVector().size() == 0){
-			JOptionPane.showMessageDialog(drawingPanel, GConstants.notthingMessage, GConstants.notice, 0);
+			JOptionPane.showMessageDialog(drawingPanel, GConstants.NOTTHING, GConstants.NOTICE, 0);
 			return true;
 		}
 		return false;

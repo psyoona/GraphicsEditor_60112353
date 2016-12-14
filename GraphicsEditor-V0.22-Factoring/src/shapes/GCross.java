@@ -3,6 +3,7 @@ package shapes;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.util.Vector;
 
 import javax.swing.JPanel;
 
@@ -13,18 +14,16 @@ public class GCross extends GShape {
 	JPanel panel;
 	public GCursorList cursorList;
 	
-	private Rectangle rectangle;
+	private Vector<GShape> shapeVector;
+	public void setShapeVector(){ this.shapeVector = new Vector<GShape>(); }
+	public void setShapeVector(Vector<GShape> shapeVector){ this.shapeVector = shapeVector; }
+	public Vector<GShape> getShapeVector() { return this.shapeVector; }
 	
 	public GCross() {
 		super(EDrawingType.transforming, new Rectangle(0, 0, 0, 0));
-		this.rectangle = (Rectangle)this.getShape();
 	}
 
-//	public void init(Vector<GShape> shapeVector, JPanel panel) {
-//		this.shapeVector = new Vector<GShape>();
-//		this.shapeVector = shapeVector;
-//		this.panel = panel;
-//	}
+
 //	
 //	public void changeCursor(int x, int y, Graphics2D g2D){
 //		for(GShape shape : this.shapeVector){
@@ -66,15 +65,15 @@ public class GCross extends GShape {
 //		}
 //	}
 //	
-//	public void activatePoint(int x, int y, Graphics2D g2D){
-//		for(GShape shape : this.shapeVector){
-//			if(shape.contains(x, y)){
-//				shape.clickShape(x, y, g2D);				
-//				shape.bSelected = true;
-//				break;
-//			}
-//		}
-//	}
+	public void activatePoint(int x, int y, Graphics2D g2D){
+		for(GShape shape : this.shapeVector){
+			if(shape.contains(x, y)){
+				shape.activateAnchor(g2D);				
+				shape.bSelected = true;
+				break;
+			}
+		}
+	}
 //
 //	
 //	public void clickShape(int x, int y, Graphics2D g2D) {
@@ -150,6 +149,22 @@ public class GCross extends GShape {
 
 	@Override
 	public void changeFillColor(Color fillColor, Graphics2D g2d) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void rotate(int x, int y) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void activateAnchor(Graphics2D g2d) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void deleteAnchor(Graphics2D g2d) {
 		// TODO Auto-generated method stub
 		
 	}

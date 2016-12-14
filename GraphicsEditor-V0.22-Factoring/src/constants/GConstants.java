@@ -27,10 +27,18 @@ public class GConstants {
 	public final static String EDIT_UNDO = "UnDo";
 	
 	// newItem Alert Message
-	public final static String notice = "알림창";
-	public final static String saveMessage = "변경 내용을 제목 없음에 저장하시겠습니까?";
-	public final static String notthingMessage = "그림판에 그려진 도형이 없습니다.";
-	public final static String paintTitle = "Graphics Editor";
+	public final static String NOTICE = "알림창";
+	public final static String SAVEMESSAGE = "변경 내용을 제목 없음에 저장하시겠습니까?";
+	public final static String NOTTHING = "그림판에 그려진 도형이 없습니다.";
+	public final static String PAINTTITLE = "Graphics Editor";
+	
+	// Info Class Message
+	public final static String MAKER = "만든이";
+	public final static String MADE = "Made by : Seyoon Park";
+	public final static String CLASSNAME = "Advanced objct-oriented programming";
+	public final static String PERIOD = "Operation Period : 2016-09-01 ~ 2016-12-15";
+	public final static String OKMSG = "확인";
+	
 	
 	
 	public enum EAnchors {

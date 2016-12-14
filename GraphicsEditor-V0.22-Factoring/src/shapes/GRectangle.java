@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.geom.AffineTransform;
 import java.io.Serializable;
 
 import constants.GConstants.EDrawingType;
@@ -20,6 +21,7 @@ public class GRectangle extends GShape implements Serializable{
 	private boolean check;
 	private void setCheck(boolean check){ this.check = check; }
 	private boolean getCheck(){ return check; }
+	
 
 	// Constructor
 	public GRectangle(){
@@ -29,6 +31,8 @@ public class GRectangle extends GShape implements Serializable{
 		this.lineColor = Color.BLACK;
 		this.fillColor = Color.WHITE;
 		setCheck(false);
+		
+		affineTransform = new AffineTransform();
 	}
 	
 	@Override
@@ -122,7 +126,7 @@ public class GRectangle extends GShape implements Serializable{
 	public void draw(Graphics2D g2D){
 		changeDraw(g2D);
 		if(getbSelected() == true){
-			clickShape(0, 0, g2D);
+			activateAnchor(g2D);
 		}
 	}
 	
@@ -172,7 +176,16 @@ public class GRectangle extends GShape implements Serializable{
 	}
 	
 	@Override
-	public void clickShape(int x, int y, Graphics2D g2D) {
+	public void activateAnchor(Graphics2D g2D) {
 		this.getAnchors().draw(g2D, this.getShape().getBounds());
+	}
+	@Override
+	public void rotate(int x, int y) {
+		
+	}
+	@Override
+	public void deleteAnchor(Graphics2D g2d) {
+		// TODO Auto-generated method stub
+		
 	}
 }

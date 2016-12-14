@@ -30,7 +30,7 @@ public class GRotator extends GTransformer {
 	public void keepTransforming(int x, int y, Graphics2D g2D) {
 		// TODO Auto-generated method stub
 		this.getShape().draw(g2D);
-		this.getShape().resize(x, y, g2D);
+		this.getShape().rotate(x, y);
 		this.getShape().draw(g2D);
 	}
 

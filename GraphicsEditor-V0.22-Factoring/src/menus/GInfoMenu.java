@@ -9,6 +9,7 @@ import javax.swing.JMenuItem;
 import constants.GConstants;
 import constants.GConstants.EInfoMenuItem;
 import frame.GDrawingPanel;
+import frame.GInformation;
 
 public class GInfoMenu extends JMenu {
 	private static final long serialVersionUID = 1L;
@@ -38,11 +39,14 @@ public class GInfoMenu extends JMenu {
 	}
 	
 	private void info(){
+		GInformation info = new GInformation(drawingPanel, GConstants.MAKER, true);
+		info.setLocation(150, 300);
+		info.setSize(300, 150);
+		info.setVisible(true);
 		
 	}
 	
 	private class ActionHandler implements ActionListener{
-
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			if (event.getActionCommand().equals(EInfoMenuItem.attribute.name())) {

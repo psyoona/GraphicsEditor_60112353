@@ -50,8 +50,8 @@ public class GDrawingPanel extends JPanel {
 	public void setSelectedShape(GShape selectedShape) {
 		this.selectedShape = selectedShape;
 		if(this.selectedShape.geteDrawingType() == EDrawingType.transforming){
-			System.out.println("??");
 			eState = EState.transforming;
+			this.selectedShape.init(shapeVector);
 		}else{
 			eState = EState.idle;
 		}
@@ -186,7 +186,7 @@ public class GDrawingPanel extends JPanel {
 		}
 		
 		this.currentShape.setbSelected(true);
-		if(currentShape.geteDrawingType() == EDrawingType.TEXT){
+		if(this.currentShape.geteDrawingType() == EDrawingType.TEXT){
 			System.out.println("!!!");
 		}
 		this.repaint();
@@ -238,6 +238,30 @@ public class GDrawingPanel extends JPanel {
 				return shape;
 		}
 		return null;
+	}
+	
+	private void activateAnchor(GShape shape){
+		g2D = (Graphics2D) getGraphics();
+		g2D.setXORMode(getBackground());
+		for(GShape tempShape : this.shapeVector){
+			if(tempShape == shape){
+				tempShape.activateAnchor(g2D);
+				return ;
+			}
+		}
+		repaint();
+	}
+	
+	private void deleteAnchor(GShape shape){
+		g2D = (Graphics2D) getGraphics();
+		g2D.setXORMode(getBackground());
+		for(GShape tempShape : this.shapeVector){
+			if(tempShape == shape){
+				tempShape.activateAnchor(g2D);
+				return ;
+			}
+		}
+		repaint();
 	}
 	
 	private void changeCursor(GShape shape) {
@@ -299,7 +323,7 @@ public class GDrawingPanel extends JPanel {
 			if (eState == EState.drawingNP) {		
 				finishTransforming(e.getX(), e.getY());
 				eState = EState.idle;
-			}	
+			}
 		}
 
 		@Override
@@ -307,30 +331,39 @@ public class GDrawingPanel extends JPanel {
 			if (eState == EState.idle) {
 				currentShape = onShape(e.getX(), e.getY());
 				if (currentShape == null) {
-					if (selectedShape.geteDrawingType()==EDrawingType.TP) {
+					if (selectedShape.geteDrawingType() == EDrawingType.TP) {
 						initTransforming(e.getX(), e.getY());
 						eState = EState.drawingTP;
-					}
-				} else if(selectedShape.geteDrawingType()==EDrawingType.transforming){
-					if(selectedShape.getbSelected() == true){
-						selectedShape.setbSelected(false);
 					}else{
+						resetSelected();
+					}
+				} else{
+					if(currentShape.getbSelected() == true){
+						currentShape.setbSelected(false);
 						initTransforming(e.getX(), e.getY());
-						eState = EState.transforming;
+						eState = EState.drawingTP;
+						deleteAnchor(currentShape);
+					}else{
+						resetSelected();
+						currentShape.setbSelected(true);
 					}
 				}
-			}	
+			}else if(eState == EState.transforming){
+				if(currentShape == null){
+					return ;
+				}
+				if(selectedShape.geteDrawingType() == EDrawingType.transforming){
+					
+				}
+			}
 		}
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			if (eState == EState.drawingTP) {		
+			if (eState == EState.drawingTP || eState == EState.transforming) {		
 				finishTransforming(e.getX(), e.getY());
-				eState = EState.idle;
-			} else if (eState == EState.transforming) {
-				finishTransforming(e.getX(), e.getY());
-				eState = EState.idle;
-			} 
+			}
+			eState = EState.idle;
 		}
 
 		@Override

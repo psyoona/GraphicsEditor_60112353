@@ -89,7 +89,7 @@ abstract public class GShape extends JPanel implements Serializable, Cloneable{
 		// bSelected가 true이면 모두 false로 바꾼다.
 		for(GShape shape : this.shapeVector){
 			if(shape.bSelected == true){
-				shape.clickShape(x, y, g2D);
+				shape.activateAnchor(g2D);
 				shape.bSelected = false;
 			}
 		}
@@ -116,11 +116,15 @@ abstract public class GShape extends JPanel implements Serializable, Cloneable{
 	abstract public void finish(int x, int y, Graphics2D g2D);
 	abstract public void changeLineColor(Color lineColor, Graphics2D g2D);
 	abstract public void changeFillColor(Color fillColor, Graphics2D g2d);
+	abstract public void rotate(int x, int y);
+	abstract public void activateAnchor(Graphics2D g2D);
+	abstract public void deleteAnchor(Graphics2D g2D);
 	
-	public void clickShape(int x, int y, Graphics2D g2d) {
-		// TODO Auto-generated method stub
-		
+	public void init(Vector<GShape> shapeVector) {
+		this.shapeVector = new Vector<GShape>();
+		this.shapeVector = shapeVector;
 	}
+	
 	public boolean contains(int x, int y) {
 		// TODO Auto-generated method stub
 		return false;

@@ -115,7 +115,7 @@ public class GEllipse extends GShape implements Serializable {
 	public void draw(Graphics2D g2D) {
 		changeDraw(g2D);
 		if(this.bSelected == true){
-			clickShape(0, 0, g2D);
+			activateAnchor(g2D);
 		}
 	}
 
@@ -166,7 +166,17 @@ public class GEllipse extends GShape implements Serializable {
 	}
 
 	@Override
-	public void clickShape(int x, int y, Graphics2D g2D) {
+	public void activateAnchor(Graphics2D g2D) {
 		this.getAnchors().draw(g2D, getShape().getBounds());
+	}
+	@Override
+	public void rotate(int x, int y) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void deleteAnchor(Graphics2D g2d) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -244,8 +244,18 @@ public class GPolygon extends GShape implements Serializable{
 	}
 
 	@Override
-	public void clickShape(int x, int y, Graphics2D g2D) {
+	public void activateAnchor(Graphics2D g2D) {
 		this.getAnchors().draw(g2D, getShape().getBounds());
 		this.setbSelected(true);
+	}
+	@Override
+	public void rotate(int x, int y) {
+		System.out.println("rotate");
+		
+	}
+	@Override
+	public void deleteAnchor(Graphics2D g2d) {
+		// TODO Auto-generated method stub
+		
 	}
 }

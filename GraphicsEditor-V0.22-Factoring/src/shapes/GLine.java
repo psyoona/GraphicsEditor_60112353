@@ -87,7 +87,7 @@ public class GLine extends GShape implements Serializable {
 		g2D.setColor(lineColor);
 		g2D.draw(this.line);
 		if (this.bSelected == true) {
-			clickShape(0, 0, g2D);
+			activateAnchor(g2D);
 		}
 	}
 	
@@ -111,7 +111,7 @@ public class GLine extends GShape implements Serializable {
 	public void changeFillColor(Color fillColor, Graphics2D g2D) { }
 
 	@Override
-	public void clickShape(int x, int y, Graphics2D g2D) {
+	public void activateAnchor(Graphics2D g2D) {
 		this.getAnchors().draw(g2D, getShape().getBounds());
 	}
 	
@@ -141,5 +141,17 @@ public class GLine extends GShape implements Serializable {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public void rotate(int x, int y) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteAnchor(Graphics2D g2d) {
+		// TODO Auto-generated method stub
+		
 	}
 }
